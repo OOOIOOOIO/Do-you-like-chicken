@@ -86,7 +86,7 @@
 									<section>
 										<div>
 											<h3 th:text="'현재 좋아요 : ' + ${chickenMenuStat.index} + 개"></h3>
-											<button type="button" onclick="#" style="text-align: right">좋아요!</button>
+											<button type="button" onclick="" style="text-align: right">좋아요!</button>
 										</div>
 										<a th:href="@{/chicken/menu/info(menuId=${chickenMenu.menuId})}" class="bordered-feature-image">
 											<img th:src="@{${chickenMenu.img}}" alt="" />
@@ -257,11 +257,11 @@
 		</div>
 
 		<!-- Scripts -->
-			<script th:src="@{/assets/js/jquery.min.js}"></script>
-			<script th:src="@{/assets/js/browser.min.js}"></script>
-			<script th:src="@{/assets/js/breakpoints.min.js}"></script>
-			<script th:src="@{/assets/js/util.js}"></script>
-			<script th:src="@{/assets/js/main.js}"></script>
+		<script th:src="@{/assets/js/jquery.min.js}"></script>
+		<script th:src="@{/assets/js/browser.min.js}"></script>
+		<script th:src="@{/assets/js/breakpoints.min.js}"></script>
+		<script th:src="@{/assets/js/util.js}"></script>
+		<script th:src="@{/assets/js/main.js}"></script>
 
 	</body>
 </html>

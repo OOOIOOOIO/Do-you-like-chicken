@@ -4,9 +4,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
-@NoArgsConstructor
 public class UsersSignUpReqDto {
     private String username;
     private String pw;
     private String nickname;
+
+    public UsersSignUpReqDto(String username, String pw, String nickname) {
+        this.username = username;
+        this.pw = pw;
+        this.nickname = nickname;
+    }
 }

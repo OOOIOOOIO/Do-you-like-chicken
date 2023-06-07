@@ -19,7 +19,7 @@ public class MainController {
     private final MainService mainService;
 
     /**
-     * Main Page
+     * Main Page, 가격순 정렬
      */
     @GetMapping("")
     public String mainPage(Model model){
@@ -37,7 +37,7 @@ public class MainController {
 //            log.info("==="+mainResDto.getPrice());
 //        }
 
-        return "main";
+        return "/main";
     }
 
 

@@ -4,8 +4,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
-@NoArgsConstructor
 public class UsersSignInReqDto {
     private String username;
     private String pw;
+
+    public UsersSignInReqDto(String username, String pw) {
+        this.username = username;
+        this.pw = pw;
+    }
 }

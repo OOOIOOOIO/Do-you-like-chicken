@@ -30,8 +30,8 @@ import org.springframework.web.bind.annotation.*;
 public class ChickenLikeApiController {
 
 
-    @GetMapping("sort")
-    public ResponseEntity<String> sort(){
+    @GetMapping("sort/price")
+    public ResponseEntity<String> sortByPrice(){
 
         return null;
     }

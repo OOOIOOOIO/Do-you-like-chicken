@@ -9,7 +9,7 @@
     </head>
     <body>
     <div style="padding: 100px 10px 10px 100px";>
-        <form name="loginForm" th:object="${loginForm}" th:action="@{/api/users/signin}" th:method="post">
+        <form name="loginForm" th:object="${loginForm}" th:action="@{/users/signin}" th:method="post">
             <div >
                 아이디
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" class="form-control login-input"  name="username" >
@@ -28,7 +28,6 @@
                     <button type="submit" class="btn btn-primary login-btn" >로그인</button>
                 </div>
             </div>
-
         </form>
     </div>
     </body>

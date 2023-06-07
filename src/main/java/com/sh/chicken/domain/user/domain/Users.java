@@ -1,5 +1,6 @@
 package com.sh.chicken.domain.user.domain;
 
+import com.sh.chicken.domain.common.BaseTimeEntity;
 import com.sh.chicken.domain.user.api.dto.request.UsersSignUpReqDto;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -14,7 +15,7 @@ import javax.persistence.Id;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-public class Users {
+public class Users extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long userId;
