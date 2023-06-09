@@ -21,15 +21,15 @@
 					<div class="row">
 						<div class="col-12">
 
-							<!-- Logo -->
-								<h1><a th:href="@{/chicken/main}" id="logo">치킨을 위하여!</a></h1>
+						<!-- Logo -->
+							<h1><a th:href="@{/chicken/main}" id="logo">치킨을 위하여!</a></h1>
 
-							<!-- Nav -->
-								<nav id="nav">
-									<a th:href="@{/chicken/main}">홈으로</a>
-									<a href="threecolumn.html">브랜드별</a>
-									<a th:href="@{/users/signin}">로그인하기</a> <!-- 로그인 후 사용자 정보 보여주기-->
-								</nav>
+						<!-- Nav -->
+							<nav id="nav">
+								<a th:href="@{/chicken/main}">홈으로</a>
+								<a href="threecolumn.html">브랜드별</a>
+								<a th:href="@{/users/signin}">로그인하기</a> <!-- 로그인 후 사용자 정보 보여주기-->
+							</nav>
 
 						</div>
 					</div>
@@ -84,9 +84,10 @@
 							<div class="col-3 col-6-medium col-12-small" >
 								<!-- Feature #1 -->
 									<section>
+										<div hidden id="menuId" th:text="${chickenMenu.menuId}"></div>
 										<div>
-											<h3 th:text="'현재 좋아요 : ' + ${chickenMenuStat.index} + 개"></h3>
-											<button type="button" onclick="" style="text-align: right">좋아요!</button>
+											<h3 id="likeNum" th:text="'현재 좋아요 : ' + ${chickenMenuStat.index} + 개"></h3>
+											<button id="likeBtn" type="button" onclick="" style="text-align: right">좋아요!</button>
 										</div>
 										<a th:href="@{/chicken/menu/info(menuId=${chickenMenu.menuId})}" class="bordered-feature-image">
 											<img th:src="@{${chickenMenu.img}}" alt="" />
@@ -101,7 +102,6 @@
 										<div th:text="${chickenMenu.contents}"style="text-align: left">
 											치킨 설명 ㅁ루먀ㅕㄹㅇ룽냘ㅇ늄ㄹㅁ유냐륭ㄴ류ㅑㄴㅇㅁ륭ㄴㅁ륜여ㅑㄹㅈ댜랜ㅁㄹㄴ먀ㅛㄹㄴㄴs
 										</div>
-
 									</section>
 
 							</div>
@@ -262,6 +262,35 @@
 		<script th:src="@{/assets/js/breakpoints.min.js}"></script>
 		<script th:src="@{/assets/js/util.js}"></script>
 		<script th:src="@{/assets/js/main.js}"></script>
+		<script type="text/javascript" th:inline="javascript">
+
+			<!--	좋아요 버튼 누르기	-->
+			function clickLike(){
+				let likeBtn = $("#likeBtn");
+				let likeNum = $("#likeNum");
+				let menuId = $("#menuId").val();
+
+				let chickenLikeReqDto = {
+					"menuId" : menuId
+				};
+
+				$.ajax({
+					type : "post",
+					url : "/api/chicken/like/change",
+					data : JSON.stringify(chickenLikeReqDto),
+					contentType : "application/json; charset=utf-8",
+					success:function (result, status, xhr) {
+						console.log("success")
+						console.log("result : " + result)
+						// likeNum.replace(result);
+					},
+					error:function (e, status, chr){
+						console.log("fail");
+					}
+				})
+			}
+
+		</script>
 
 	</body>
 </html>

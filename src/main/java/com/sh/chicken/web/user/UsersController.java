@@ -2,11 +2,9 @@ package com.sh.chicken.web.user;
 
 import com.sh.chicken.domain.user.api.dto.request.UsersSignInReqDto;
 import com.sh.chicken.domain.user.api.dto.request.UsersSignUpReqDto;
-import com.sh.chicken.domain.user.application.UsersService;
+import com.sh.chicken.domain.user.application.UsersApiService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -24,7 +22,7 @@ public class UsersController {
      * 로그인에 세션 설정해주기
      * 로그아웃 개발
      */
-    private final UsersService usersService;
+    private final UsersApiService usersService;
 
     // 회원가입
     @GetMapping("/signup")
