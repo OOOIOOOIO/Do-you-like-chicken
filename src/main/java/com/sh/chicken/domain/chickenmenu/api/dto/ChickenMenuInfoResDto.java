@@ -1,4 +1,4 @@
-package com.sh.chicken.web.main.controller.dto;
+package com.sh.chicken.domain.chickenmenu.api.dto;
 
 import com.sh.chicken.domain.chickenmenu.domain.ChickenMenu;
 import lombok.AccessLevel;
@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class MainResDto {
+public class ChickenMenuInfoResDto {
     private long menuId;
     private String menuName;
     private String brandName;
@@ -16,7 +16,7 @@ public class MainResDto {
     private String contents;
 
     // entity -> dto
-    public MainResDto(ChickenMenu chickenMenu) {
+    public ChickenMenuInfoResDto(ChickenMenu chickenMenu) {
         this.menuId = chickenMenu.getMenuId();
         this.menuName = chickenMenu.getMenuName();
         this.brandName = chickenMenu.getChickenBrand().getBrandName();

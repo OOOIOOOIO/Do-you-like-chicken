@@ -1,8 +1,8 @@
-package com.sh.chicken.web.chickenmenuinfo.service;
+package com.sh.chicken.domain.chickenmenu.application;
 
+import com.sh.chicken.domain.chickenmenu.api.dto.ChickenMenuInfoResDto;
 import com.sh.chicken.domain.chickenmenu.domain.ChickenMenu;
 import com.sh.chicken.domain.chickenmenu.domain.repository.ChickenMenuRepository;
-import com.sh.chicken.web.chickenmenuinfo.controller.dto.ChickenMenuInfoResDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class ChickenMenuInfoService {
+public class ChickenMenuService {
 
     private final ChickenMenuRepository chickenMenuRepository;
 

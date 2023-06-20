@@ -8,6 +8,6 @@ import java.util.Optional;
 
 public interface ChickenLikeRepository extends JpaRepository<ChickenLike, Long> {
 
-    public Optional<ChickenLike> findByMenuIdAndUserId(@Param("menuId") Long menuId, @Param("userId") Long userId);
-    public Optional<ChickenLike> findByChickenMenuAndUsers(@Param("menuId") Long menuId, @Param("userId") Long userId);
+//    public Optional<ChickenLike> findByMenuIdAndUserId(@Param("menuId") Long menuId, @Param("userId") Long userId);
+//    public Optional<ChickenLike> findByChickenMenuAndUsers(@Param("menuId") Long menuId, @Param("userId") Long userId);
 }

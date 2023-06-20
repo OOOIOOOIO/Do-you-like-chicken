@@ -1,4 +1,4 @@
-package com.sh.chicken.web.user;
+package com.sh.chicken.domain.user.api;
 
 import com.sh.chicken.domain.user.api.dto.request.UsersSignInReqDto;
 import com.sh.chicken.domain.user.api.dto.request.UsersSignUpReqDto;
@@ -11,10 +11,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 @Slf4j
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/users")
+@RequestMapping("/api/users")
 public class UsersController {
 
     /**
@@ -23,20 +26,6 @@ public class UsersController {
      * 로그아웃 개발
      */
     private final UsersApiService usersService;
-
-    // 회원가입
-    @GetMapping("/signup")
-    public String signUp() {
-
-        return "/users/sign-up";
-    }
-
-    // 로그인
-    @GetMapping("/signin")
-    public String signIn(){
-
-        return "/users/sign-in";
-    }
 
     @PostMapping("/signup")
     public String signUp(@ModelAttribute("userSignUpDto") UsersSignUpReqDto userSignUpDto){
@@ -57,12 +46,15 @@ public class UsersController {
 
     // 로그인
     @PostMapping("/signin")
-    public String signIn(@ModelAttribute("usersSignInDto") UsersSignInReqDto usersSignInDto){
+    public String signIn(@ModelAttribute("usersSignInDto") UsersSignInReqDto usersSignInDto, HttpServletRequest request){
+        HttpSession session = request.getSession(true);
+        session.setAttribute("userInfo", "ABCDEFG");
+
         log.info("====="+usersSignInDto.getUsername() + "==" + usersSignInDto.getPw());
 
         usersService.signIn(usersSignInDto);
 
-        return "/main";
+        return "redirect:/chicken/main";
 
     }
 

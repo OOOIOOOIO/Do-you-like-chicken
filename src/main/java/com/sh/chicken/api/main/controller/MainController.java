@@ -1,8 +1,7 @@
-package com.sh.chicken.web.main.controller;
+package com.sh.chicken.api.main.controller;
 
-import com.sh.chicken.web.main.controller.dto.MainResDto;
-import com.sh.chicken.web.main.controller.dto.MainResListDto;
-import com.sh.chicken.web.main.service.MainService;
+import com.sh.chicken.api.main.controller.dto.MainResListDto;
+import com.sh.chicken.api.main.service.MainService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -13,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Slf4j
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/chicken/main")
+@RequestMapping("/api/main")
 public class MainController {
 
     private final MainService mainService;
@@ -22,7 +21,7 @@ public class MainController {
      * Main Page, 가격순 정렬
      */
     @GetMapping("")
-    public String mainPage(Model model){
+    public String getChickenInfo(Model model) {
 
         MainResListDto chickenMenuList = mainService.getChickenMenus();
 
@@ -40,6 +39,8 @@ public class MainController {
         return "/main";
     }
 
+    @GetMapping("/sort")
+    public void sortByPrice(){
 
-
+    }
 }

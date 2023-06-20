@@ -68,9 +68,10 @@
 			<section id="features2">
 				<div class="container">
 					<div style="text-align: right">
+						<button class="sort-btn" id="sortLike">클릭순 정렬</button>
 						<button class="sort-btn" id="sortLike">좋아요순 정렬</button>
 <!--						<button class="sort-btn" id="sortClick">클릭순 정렬</button>-->
-						<button class="sort-btn" id="sortPrice">가격순 정렬</button>
+						<button class="sort-btn" id="sortPrice">격순 정렬</button>
 					</div>
 				</div>
 			</section>
@@ -91,7 +92,7 @@
 										</div>
 										<a th:href="@{/chicken/menu/info(menuId=${chickenMenu.menuId})}" class="bordered-feature-image">
 											<img th:src="@{${chickenMenu.img}}" alt="" />
-										</a>s
+										</a>
 										<div>
 											<h2 th:text="${chickenMenu.menuName}"></h2>
 											<h2 th:text="${chickenMenu.price} +'원 !!!'"></h2>

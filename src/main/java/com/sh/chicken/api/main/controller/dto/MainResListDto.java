@@ -1,4 +1,4 @@
-package com.sh.chicken.web.main.controller.dto;
+package com.sh.chicken.api.main.controller.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

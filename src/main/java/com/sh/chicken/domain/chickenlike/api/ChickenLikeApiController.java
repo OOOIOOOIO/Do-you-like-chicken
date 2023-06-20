@@ -36,8 +36,8 @@ public class ChickenLikeApiController {
     private final ChickenLikeApiService chickenLikeApiService;
 
 
-    @GetMapping("sort/price")
-    public ResponseEntity<String> sortByPrice(){
+    @GetMapping("/sort")
+    public ResponseEntity<String> sortByLike(){
 
         return null;
     }
@@ -58,16 +58,16 @@ public class ChickenLikeApiController {
 
         return null;
     }
-//    @PostMapping("/add")
-//    public ResponseEntity<String> add() {
-//
-//        return null;
-//    }
-//
-//    @DeleteMapping("/remove")
-//    public ResponseEntity<String> remove(){
-//
-//        return null;
-//    }
+    @PostMapping("/add")
+    public ResponseEntity<String> add() {
+
+        return null;
+    }
+
+    @DeleteMapping("/remove")
+    public ResponseEntity<String> remove(){
+
+        return null;
+    }
 
 }

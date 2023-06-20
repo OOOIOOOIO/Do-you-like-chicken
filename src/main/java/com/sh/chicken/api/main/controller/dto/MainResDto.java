@@ -1,4 +1,4 @@
-package com.sh.chicken.web.chickenmenuinfo.controller.dto;
+package com.sh.chicken.api.main.controller.dto;
 
 import com.sh.chicken.domain.chickenmenu.domain.ChickenMenu;
 import lombok.AccessLevel;
@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class ChickenMenuInfoResDto {
+public class MainResDto {
     private long menuId;
     private String menuName;
     private String brandName;
@@ -15,8 +15,10 @@ public class ChickenMenuInfoResDto {
     private int price;
     private String contents;
 
+//    like수 넣어야됨
+
     // entity -> dto
-    public ChickenMenuInfoResDto(ChickenMenu chickenMenu) {
+    public MainResDto(ChickenMenu chickenMenu) {
         this.menuId = chickenMenu.getMenuId();
         this.menuName = chickenMenu.getMenuName();
         this.brandName = chickenMenu.getChickenBrand().getBrandName();

@@ -1,9 +1,9 @@
-package com.sh.chicken.web.main.service;
+package com.sh.chicken.api.main.service;
 
 import com.sh.chicken.domain.chickenmenu.domain.ChickenMenu;
 import com.sh.chicken.domain.chickenmenu.domain.repository.ChickenMenuRepository;
-import com.sh.chicken.web.main.controller.dto.MainResDto;
-import com.sh.chicken.web.main.controller.dto.MainResListDto;
+import com.sh.chicken.api.main.controller.dto.MainResDto;
+import com.sh.chicken.api.main.controller.dto.MainResListDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
