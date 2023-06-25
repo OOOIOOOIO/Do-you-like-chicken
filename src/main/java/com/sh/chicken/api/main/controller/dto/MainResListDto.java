@@ -9,9 +9,9 @@ import java.util.List;
 @NoArgsConstructor
 public class MainResListDto {
 
-    private List<MainResDto> mainResDtoList;
+    private List<MainResDto> chicknMenuList;
 
     public MainResListDto(List<MainResDto> mainResDtoList) {
-        this.mainResDtoList = mainResDtoList;
+        this.chicknMenuList = mainResDtoList;
     }
 }

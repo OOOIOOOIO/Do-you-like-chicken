@@ -1,5 +1,6 @@
-package com.sh.chicken.admin.application;
+package com.sh.chicken.admin.chickenMenu.service;
 
+import com.sh.chicken.admin.application.ChickenMenuUploadService;
 import com.sh.chicken.admin.controller.dto.ChickenMenuUploadDto;
 import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.Assertions;

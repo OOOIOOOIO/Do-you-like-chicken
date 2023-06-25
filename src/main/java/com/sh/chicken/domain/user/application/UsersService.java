@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class UsersApiService {
+public class UsersService {
 
     private final UsersRepository usersRepository;
 

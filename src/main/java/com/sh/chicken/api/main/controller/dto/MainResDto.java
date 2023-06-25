@@ -15,6 +15,7 @@ public class MainResDto {
     private int price;
     private String contents;
 
+
 //    like수 넣어야됨
 
     // entity -> dto

@@ -23,12 +23,14 @@ public class Users extends BaseTimeEntity {
     private String username;
     private String pw;
     private String nickname;
+    private int sex;
 
     @Builder
-    private Users(String username, String pw, String nickname) {
+    private Users(String username, String pw, String nickname, int sex) {
         this.username = username;
         this.pw = pw;
         this.nickname = nickname;
+        this.sex = sex;
     }
 
     public static Users createUser(UsersSignUpReqDto userSignUpDto){
@@ -37,7 +39,10 @@ public class Users extends BaseTimeEntity {
                 .username(userSignUpDto.getUsername())
                 .pw(userSignUpDto.getPw())
                 .nickname(userSignUpDto.getNickname())
+                .sex(userSignUpDto.getSex())
                 .build();
 
     }
+
+
 }
