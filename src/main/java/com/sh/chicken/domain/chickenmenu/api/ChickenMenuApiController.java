@@ -1,6 +1,6 @@
 package com.sh.chicken.domain.chickenmenu.api;
 
-import com.sh.chicken.domain.chickenmenu.api.dto.ChickenMenuInfoResDto;
+import com.sh.chicken.domain.chickenmenu.api.dto.res.ChickenMenuInfoResDto;
 import com.sh.chicken.domain.chickenmenu.application.ChickenMenuService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.ui.Model;

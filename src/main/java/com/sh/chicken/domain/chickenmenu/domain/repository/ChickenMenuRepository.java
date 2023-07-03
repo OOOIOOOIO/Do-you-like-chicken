@@ -1,7 +1,7 @@
 package com.sh.chicken.domain.chickenmenu.domain.repository;
 
-import com.sh.chicken.domain.chickenmenu.api.dto.ChickenMenuAndLikesDto;
-import com.sh.chicken.domain.chickenmenu.api.dto.ChickenMenuAndLikesInterface;
+import com.sh.chicken.domain.chickenlike.domain.ChickenLike;
+import com.sh.chicken.domain.chickenmenu.api.dto.res.ChickenMenuAndLikesResInterface;
 import com.sh.chicken.domain.chickenmenu.domain.ChickenMenu;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -24,7 +24,7 @@ public interface ChickenMenuRepository extends JpaRepository<ChickenMenu, Long> 
 
     @Query(value = "SELECT cm.menu_id, cm.menu_name, cm.brand_name, cm.img, cm.price, cm.contents, (select count(*) from chicken_like cl where cl.menu_id = cm.menu_id) as likes" +
             " from chicken_menu cm;", nativeQuery = true)
-    List<ChickenMenuAndLikesInterface> findChickenMenuBySelectSubQuery();
+    List<ChickenMenuAndLikesResInterface> findChickenMenuBySelectSubQuery();
 
     @Query(value = " SELECT cm.*, cl.likes" +
             " from chicken_menu as cm left join" +
@@ -33,7 +33,9 @@ public interface ChickenMenuRepository extends JpaRepository<ChickenMenu, Long> 
             " group by menu_id" +
             " ) as cl" +
             " on cm.menu_id = cl.menu_id;", nativeQuery = true)
-    List<ChickenMenuAndLikesInterface> findChickenMenuByFromSubQuery();
+    List<ChickenMenuAndLikesResInterface> findChickenMenuByFromSubQuery();
+
+
 
 }
 

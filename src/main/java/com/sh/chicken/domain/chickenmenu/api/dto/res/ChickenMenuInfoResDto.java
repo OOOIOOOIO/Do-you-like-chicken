@@ -1,4 +1,4 @@
-package com.sh.chicken.domain.chickenmenu.api.dto;
+package com.sh.chicken.domain.chickenmenu.api.dto.res;
 
 import com.sh.chicken.domain.chickenmenu.domain.ChickenMenu;
 import lombok.AccessLevel;

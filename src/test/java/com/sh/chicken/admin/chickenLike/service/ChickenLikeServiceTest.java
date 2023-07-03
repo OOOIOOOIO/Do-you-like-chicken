@@ -27,12 +27,7 @@ public class ChickenLikeServiceTest {
     ChickenMenuService chickenMenuService;
 
 
-    @Test
-    public void menuAndLikeFetchJoinTest(){
-        // given
-        chickenMenuService.fetchJoinTest();
 
-    }
 
 
 

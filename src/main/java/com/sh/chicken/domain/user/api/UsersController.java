@@ -4,6 +4,8 @@ import com.sh.chicken.domain.user.api.dto.request.UsersSignInReqDto;
 import com.sh.chicken.domain.user.api.dto.request.UsersSignUpReqDto;
 import com.sh.chicken.domain.user.api.dto.response.UsersSingInResDto;
 import com.sh.chicken.domain.user.application.UsersService;
+import com.sh.chicken.global.SessionConst;
+import com.sh.chicken.global.aop.log.LogTrace;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -26,6 +28,7 @@ public class UsersController {
      */
     private final UsersService usersService;
 
+    @LogTrace
     @PostMapping("/signup")
     public ResponseEntity<String> signUp(@RequestBody UsersSignUpReqDto userSignUpDto) {
 
@@ -45,14 +48,14 @@ public class UsersController {
     }
 
     // 로그인
+    @LogTrace
     @PostMapping("/signin")
     public ResponseEntity<UsersSingInResDto> signIn(@RequestBody UsersSignInReqDto usersSignInDto, HttpServletRequest request){
         HttpSession session = request.getSession(true);
 
-        log.info("====="+usersSignInDto.getUsername() + "==" + usersSignInDto.getPw());
-
         UsersSingInResDto userInfo = usersService.signIn(usersSignInDto);
-        session.setAttribute("userInfo", userInfo);
+
+        session.setAttribute(SessionConst.COMMON_USER.getRule(), userInfo);
 
         return new ResponseEntity<>(userInfo, HttpStatus.OK);
 

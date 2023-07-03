@@ -1,9 +1,7 @@
-package com.sh.chicken.domain.chickenmenu.api.dto;
+package com.sh.chicken.domain.chickenmenu.api.dto.res;
 
 
-import lombok.Getter;
-
-public interface ChickenMenuAndLikesInterface {
+public interface ChickenMenuAndLikesResInterface {
 
     Long getMenu_id();
     String getMenu_name();

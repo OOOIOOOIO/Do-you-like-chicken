@@ -1,23 +1,17 @@
 package com.sh.chicken.admin.chickenMenu.repository;
 
-import com.fasterxml.jackson.core.JsonParser;
 import com.sh.chicken.domain.chickenlike.domain.ChickenLike;
 import com.sh.chicken.domain.chickenlike.domain.repository.ChickenLikeRepository;
 import com.sh.chicken.domain.chickenmenu.api.dto.ChickenMenuAndLikesDto;
-import com.sh.chicken.domain.chickenmenu.api.dto.ChickenMenuAndLikesInterface;
+import com.sh.chicken.domain.chickenmenu.api.dto.res.ChickenMenuAndLikesResInterface;
 import com.sh.chicken.domain.chickenmenu.domain.ChickenMenu;
 import com.sh.chicken.domain.chickenmenu.domain.repository.ChickenMenuRepository;
 import com.sh.chicken.domain.user.domain.Users;
 import com.sh.chicken.domain.user.domain.repository.UsersRepository;
-import com.sh.chicken.global.aop.log.LogTrace;
-import lombok.Builder;
-import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.tomcat.util.json.JSONParserConstants;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StopWatch;
 
 import java.util.ArrayList;
@@ -90,7 +84,7 @@ public class ChickenMenuRepositoryTest {
 
         // when
         stopWatch.start();
-        List<ChickenMenuAndLikesInterface> chickenMenuBySelectSubQuery = chickenMenuRepository.findChickenMenuBySelectSubQuery();
+        List<ChickenMenuAndLikesResInterface> chickenMenuBySelectSubQuery = chickenMenuRepository.findChickenMenuBySelectSubQuery();
         stopWatch.stop();
 
 
@@ -111,7 +105,7 @@ public class ChickenMenuRepositoryTest {
 
         // when
         stopWatch.start();
-        List<ChickenMenuAndLikesInterface> chickenMenuBySelectSubQuery = chickenMenuRepository.findChickenMenuByFromSubQuery();
+        List<ChickenMenuAndLikesResInterface> chickenMenuBySelectSubQuery = chickenMenuRepository.findChickenMenuByFromSubQuery();
         stopWatch.stop();
 
         // then
@@ -123,8 +117,8 @@ public class ChickenMenuRepositoryTest {
 //        printDto(chickenMenuBySelectSubQuery);
     }
 
-    private void printDto(List<ChickenMenuAndLikesInterface> chickenMenuBySelectSubQuery){
-        for (ChickenMenuAndLikesInterface chickenMenuAndLikesInterface : chickenMenuBySelectSubQuery) {
+    private void printDto(List<ChickenMenuAndLikesResInterface> chickenMenuBySelectSubQuery){
+        for (ChickenMenuAndLikesResInterface chickenMenuAndLikesInterface : chickenMenuBySelectSubQuery) {
             System.out.println(chickenMenuAndLikesInterface.getMenu_id());
             System.out.println(chickenMenuAndLikesInterface.getMenu_name());
             System.out.println(chickenMenuAndLikesInterface.getBrand_name());
