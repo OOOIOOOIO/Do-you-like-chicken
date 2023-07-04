@@ -78,13 +78,13 @@ public class ChickenMenuRepositoryTest {
     }
     
     @Test
-    public void selectSubQueryTest(){
+    public void getAllChickenMenusWithLike(){
         // given
         StopWatch stopWatch = new StopWatch();
 
         // when
         stopWatch.start();
-        List<ChickenMenuAndLikesResInterface> chickenMenuBySelectSubQuery = chickenMenuRepository.findChickenMenuBySelectSubQuery();
+        List<ChickenMenuAndLikesResInterface> chickenMenuBySelectSubQuery = chickenMenuRepository.getAllChickenMenusWithLike();
         stopWatch.stop();
 
 
@@ -94,7 +94,7 @@ public class ChickenMenuRepositoryTest {
         // 실행시간 : 139ms
         log.info("실행 메서드: {}, 실행시간 = {}ms", "selectSubQueryTest", totalTimeMillis);
 
-//        printDto(chickenMenuBySelectSubQuery);
+        printDto(chickenMenuBySelectSubQuery);
 
     }
     
@@ -117,11 +117,32 @@ public class ChickenMenuRepositoryTest {
 //        printDto(chickenMenuBySelectSubQuery);
     }
 
+    @Test
+    public void getAllChickenMenusWithLikeOrderByLikesDESC(){
+        // given
+        StopWatch stopWatch = new StopWatch();
+
+        // when
+        stopWatch.start();
+        List<ChickenMenuAndLikesResInterface> chickenMenuBySelectSubQuery = chickenMenuRepository.getAllChickenMenusWithLikeOrderByLikesDESC();
+        stopWatch.stop();
+
+
+        // then
+        long totalTimeMillis = stopWatch.getTotalTimeMillis();
+
+        // 실행시간 : 139ms
+        log.info("실행 메서드: {}, 실행시간 = {}ms", "selectSubQueryTest", totalTimeMillis);
+
+        printDto(chickenMenuBySelectSubQuery);
+
+    }
+
     private void printDto(List<ChickenMenuAndLikesResInterface> chickenMenuBySelectSubQuery){
         for (ChickenMenuAndLikesResInterface chickenMenuAndLikesInterface : chickenMenuBySelectSubQuery) {
-            System.out.println(chickenMenuAndLikesInterface.getMenu_id());
-            System.out.println(chickenMenuAndLikesInterface.getMenu_name());
-            System.out.println(chickenMenuAndLikesInterface.getBrand_name());
+            System.out.println(chickenMenuAndLikesInterface.getMenuId());
+            System.out.println(chickenMenuAndLikesInterface.getMenuName());
+            System.out.println(chickenMenuAndLikesInterface.getBrandName());
             System.out.println(chickenMenuAndLikesInterface.getPrice());
             System.out.println(chickenMenuAndLikesInterface.getImg());
             System.out.println(chickenMenuAndLikesInterface.getContents());

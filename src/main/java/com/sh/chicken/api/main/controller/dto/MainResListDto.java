@@ -1,5 +1,6 @@
 package com.sh.chicken.api.main.controller.dto;
 
+import com.sh.chicken.domain.chickenmenu.api.dto.res.ChickenMenuAndLikesResInterface;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -9,9 +10,9 @@ import java.util.List;
 @NoArgsConstructor
 public class MainResListDto {
 
-    private List<MainResDto> chicknMenuList;
+    private List<ChickenMenuAndLikesResInterface> chicknMenuList;
 
-    public MainResListDto(List<MainResDto> mainResDtoList) {
-        this.chicknMenuList = mainResDtoList;
+    public MainResListDto(List<ChickenMenuAndLikesResInterface> chicknMenuList) {
+        this.chicknMenuList = chicknMenuList;
     }
 }

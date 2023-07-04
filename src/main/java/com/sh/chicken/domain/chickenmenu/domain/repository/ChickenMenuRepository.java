@@ -1,6 +1,5 @@
 package com.sh.chicken.domain.chickenmenu.domain.repository;
 
-import com.sh.chicken.domain.chickenlike.domain.ChickenLike;
 import com.sh.chicken.domain.chickenmenu.api.dto.res.ChickenMenuAndLikesResInterface;
 import com.sh.chicken.domain.chickenmenu.domain.ChickenMenu;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,9 +11,19 @@ import java.util.Optional;
 
 public interface ChickenMenuRepository extends JpaRepository<ChickenMenu, Long> {
 
-    List<ChickenMenu> findAllByImgIsNotNullOrderByPriceDesc();
-
     Optional<ChickenMenu> findByMenuId(@Param("menuId") long menuId);
+
+    // 이거 쓸거임
+    @Query(value = "SELECT cm.menu_id as menuId, cm.menu_name as menuName, cm.brand_name as brandName, cm.img, cm.price, cm.contents, " +
+            "(select count(*) from chicken_like cl where cl.menu_id = cm.menu_id) as likes" +
+            " from chicken_menu cm", nativeQuery = true)
+    List<ChickenMenuAndLikesResInterface> getAllChickenMenusWithLike();
+
+    @Query(value = "SELECT cm.menu_id as menuId, cm.menu_name as menuName, cm.brand_name as brandName, cm.img, cm.price, cm.contents, " +
+            "(select count(*) from chicken_like cl where cl.menu_id = cm.menu_id) as likes" +
+            " from chicken_menu cm" +
+            " order by likes desc", nativeQuery = true)
+    List<ChickenMenuAndLikesResInterface> getAllChickenMenusWithLikeOrderByLikesDESC();
 
 
     @Query("select distinct cm from ChickenMenu cm " +
@@ -22,9 +31,7 @@ public interface ChickenMenuRepository extends JpaRepository<ChickenMenu, Long> 
             "join fetch cm.chickenLikeList")
     List<ChickenMenu> findChickenMenuByFetchJoin();
 
-    @Query(value = "SELECT cm.menu_id, cm.menu_name, cm.brand_name, cm.img, cm.price, cm.contents, (select count(*) from chicken_like cl where cl.menu_id = cm.menu_id) as likes" +
-            " from chicken_menu cm;", nativeQuery = true)
-    List<ChickenMenuAndLikesResInterface> findChickenMenuBySelectSubQuery();
+
 
     @Query(value = " SELECT cm.*, cl.likes" +
             " from chicken_menu as cm left join" +

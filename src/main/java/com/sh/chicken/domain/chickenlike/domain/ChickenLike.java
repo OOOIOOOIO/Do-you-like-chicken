@@ -41,5 +41,11 @@ public class ChickenLike {
                 .build();
     }
 
+    public void saveChickenLike(Users users, ChickenMenu chickenMenu){
+        this.users = users;
+        this.chickenMenu = chickenMenu;
+
+    }
+
 
 }

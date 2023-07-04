@@ -32,7 +32,7 @@ public class ChickenMenuService {
     // select 절 서브쿼리
     @LogTrace
     public List<ChickenMenuAndLikesResInterface> selectSubQueryTest(){
-        List<ChickenMenuAndLikesResInterface> chickenMenuBySelectSubQuery = chickenMenuRepository.findChickenMenuBySelectSubQuery();
+        List<ChickenMenuAndLikesResInterface> chickenMenuBySelectSubQuery = chickenMenuRepository.getAllChickenMenusWithLike();
 
         return chickenMenuBySelectSubQuery;
     }

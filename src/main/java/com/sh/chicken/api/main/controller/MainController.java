@@ -6,7 +6,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,27 +22,13 @@ public class MainController {
     /**
      * Main Page, 가격순 정렬
      */
-    @GetMapping("")
+    @GetMapping(value = {"", "/sort"})
     public ResponseEntity<MainResListDto> getChickenInfo(Model model) {
 
-        MainResListDto chickenMenuList = mainService.getChickenMenus();
-
-        model.addAttribute("chickenMenuList", chickenMenuList.getChicknMenuList());
-
-//        for (MainResDto mainResDto : chickenMenuList.getMainResDtoList()) {
-//            log.info("==="+mainResDto.getMenuId());
-//            log.info("==="+mainResDto.getBrandName());
-//            log.info("==="+mainResDto.getMenuName());
-//            log.info("==="+mainResDto.getContents());
-//            log.info("==="+mainResDto.getImg());
-//            log.info("==="+mainResDto.getPrice());
-//        }
+        MainResListDto chickenMenuList = mainService.getAllChickenMenus();
 
         return new ResponseEntity<>(chickenMenuList, HttpStatus.OK);
     }
 
-    @GetMapping("/sort")
-    public void sortByPrice(){
 
-    }
 }

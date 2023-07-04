@@ -2,7 +2,7 @@ package com.sh.chicken.admin.chickenLike.repository;
 
 import com.sh.chicken.domain.chickenlike.domain.ChickenLike;
 import com.sh.chicken.domain.chickenlike.domain.repository.ChickenLikeRepository;
-import com.sh.chicken.domain.chickenlike.domain.repository.ChickenLikeRepositorySupport;
+import com.sh.chicken.domain.chickenlike.domain.repository.ChickenLikeRepositoryCustom;
 import com.sh.chicken.domain.chickenmenu.domain.ChickenMenu;
 import com.sh.chicken.domain.chickenmenu.domain.repository.ChickenMenuRepository;
 import com.sh.chicken.domain.user.domain.Users;
@@ -28,7 +28,7 @@ public class ChickenLikeRepositoryTest {
     ChickenMenuRepository chickenMenuRepository;
 
     @Autowired
-    ChickenLikeRepositorySupport chickenLikeRepositorySupport;
+    ChickenLikeRepositoryCustom chickenLikeRepositorySupport;
 
 
 
