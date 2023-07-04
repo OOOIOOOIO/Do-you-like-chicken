@@ -26,6 +26,7 @@ public class ChickenLikeService {
     private final ChickenLikeRepository chickenLikeRepository;
     private final UsersRepository usersRepository;
     private final ChickenMenuRepository chickenMenuRepository;
+
     public void add(Long menuId, Long userId) {
         log.info("==================================");
         Users users = usersRepository.findById(userId).orElseThrow(() -> new ServerErrorException("유저 없음"));

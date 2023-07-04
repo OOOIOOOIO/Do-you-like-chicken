@@ -20,10 +20,10 @@ public class ChickenMenuService {
 
     private final ChickenMenuRepository chickenMenuRepository;
 
-    public ChickenMenuInfoResDto getMenuInfo(long menuId) {
+    public ChickenMenuAndLikesResInterface getMenuInfo(long menuId) {
 
-        ChickenMenu chickenMenu = chickenMenuRepository.findById(menuId).orElseThrow(() -> new RuntimeException("메뉴 없음"));
-        return new ChickenMenuInfoResDto(chickenMenu);
+        ChickenMenuAndLikesResInterface chickenMenu = chickenMenuRepository.findMenuAndLikesByMenuId(menuId).orElseThrow(() -> new RuntimeException("메뉴 없음"));
+        return chickenMenu;
 
     }
 
