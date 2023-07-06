@@ -1,7 +1,6 @@
 package com.sh.chicken.domain.chickenmenu.api;
 
 import com.sh.chicken.domain.chickenmenu.api.dto.res.ChickenMenuAndLikesResInterface;
-import com.sh.chicken.domain.chickenmenu.api.dto.res.ChickenMenuInfoResDto;
 import com.sh.chicken.domain.chickenmenu.application.ChickenMenuService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -16,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/menu")
-public class ChickenMenuApiController {
+public class ChickenMenuController {
 
     private final ChickenMenuService chickenMenuService;
 

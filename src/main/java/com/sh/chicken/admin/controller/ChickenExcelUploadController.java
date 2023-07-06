@@ -35,7 +35,7 @@ public class ChickenExcelUploadController {
 
     @GetMapping("/excel/upload")
     public String uploadExcel(){
-        return "/excel-upload";
+        return "/admin/excel-upload";
     }
 
     @PostMapping("/excel/brand/upload")
@@ -76,7 +76,7 @@ public class ChickenExcelUploadController {
         model.addAttribute("datas", dataList); // 이제 여기 db에 넣기
         chickenBrandUploadService.saveBrand(dataList);
 
-        return "/excel-list";
+        return "/admin/excel-list";
 
     }
 
@@ -123,7 +123,7 @@ public class ChickenExcelUploadController {
 
         chickenMenuUploadService.saveMenu(dataList);
 
-        return "/excel-list2";
+        return "/admin/excel-list2";
 
     }
 

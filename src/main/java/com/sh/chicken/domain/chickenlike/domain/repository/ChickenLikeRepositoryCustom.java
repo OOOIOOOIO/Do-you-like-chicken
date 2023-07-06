@@ -23,7 +23,6 @@ public class ChickenLikeRepositoryCustom {
 
 
 
-
         return Optional.ofNullable(queryFactory
                 .selectFrom(chickenLike)
                 .where(chickenLike.users.userId.eq(userId),

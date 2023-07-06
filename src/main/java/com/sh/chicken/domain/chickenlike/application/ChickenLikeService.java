@@ -1,6 +1,6 @@
 package com.sh.chicken.domain.chickenlike.application;
 
-import com.sh.chicken.api.main.controller.dto.MainResListDto;
+import com.sh.chicken.api.common.dto.ChickenMenusAndTotalLikeResListDto;
 import com.sh.chicken.domain.chickenlike.domain.ChickenLike;
 import com.sh.chicken.domain.chickenlike.domain.repository.ChickenLikeRepository;
 import com.sh.chicken.domain.chickenmenu.api.dto.res.ChickenMenuAndLikesResInterface;
@@ -61,10 +61,10 @@ public class ChickenLikeService {
 
     }
 
-    public MainResListDto getChickenMenusOrderByLikesDesc(){
+    public ChickenMenusAndTotalLikeResListDto getChickenMenusOrderByLikesDesc(){
         List<ChickenMenuAndLikesResInterface> chickenMenuBySelectSubQuery = chickenMenuRepository.getAllChickenMenusWithLikeOrderByLikesDESC();
 
-        return new MainResListDto(chickenMenuBySelectSubQuery);
+        return new ChickenMenusAndTotalLikeResListDto(chickenMenuBySelectSubQuery);
     }
 
     private boolean isPresent(Users users, ChickenMenu chickenMenu) {

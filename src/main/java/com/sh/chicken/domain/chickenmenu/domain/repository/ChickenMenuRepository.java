@@ -21,17 +21,21 @@ public interface ChickenMenuRepository extends JpaRepository<ChickenMenu, Long> 
             " where cm.menu_id = :menuId", nativeQuery = true)
     Optional<ChickenMenuAndLikesResInterface> findMenuAndLikesByMenuId(@Param("menuId") long menuId);
 
-    // 이거 쓸거임
+
     @Query(value = "SELECT cm.menu_id as menuId, cm.menu_name as menuName, cm.brand_name as brandName, cm.img, cm.price, cm.contents, " +
             "(select count(*) from chicken_like cl where cl.menu_id = cm.menu_id) as likes" +
             " from chicken_menu cm", nativeQuery = true)
     List<ChickenMenuAndLikesResInterface> getAllChickenMenusWithLike();
+
+
 
     @Query(value = "SELECT cm.menu_id as menuId, cm.menu_name as menuName, cm.brand_name as brandName, cm.img, cm.price, cm.contents, " +
             "(select count(*) from chicken_like cl where cl.menu_id = cm.menu_id) as likes" +
             " from chicken_menu cm" +
             " order by likes desc", nativeQuery = true)
     List<ChickenMenuAndLikesResInterface> getAllChickenMenusWithLikeOrderByLikesDESC();
+
+
 
     //====================================================
 
@@ -50,6 +54,8 @@ public interface ChickenMenuRepository extends JpaRepository<ChickenMenu, Long> 
             " ) as cl" +
             " on cm.menu_id = cl.menu_id;", nativeQuery = true)
     List<ChickenMenuAndLikesResInterface> findChickenMenuByFromSubQuery();
+
+
 
 
 

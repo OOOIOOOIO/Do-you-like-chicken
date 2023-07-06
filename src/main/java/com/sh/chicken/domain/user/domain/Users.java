@@ -31,7 +31,10 @@ public class Users extends BaseTimeEntity {
         this.pw = pw;
         this.nickname = nickname;
         this.sex = sex;
+
+
     }
+
 
     public static Users createUser(UsersSignUpReqDto userSignUpDto){
 
@@ -41,6 +44,11 @@ public class Users extends BaseTimeEntity {
                 .nickname(userSignUpDto.getNickname())
                 .sex(userSignUpDto.getSex())
                 .build();
+
+    }
+
+    public void changeNickname(String nickname){
+        this.nickname = nickname;
 
     }
 

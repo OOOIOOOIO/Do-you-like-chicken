@@ -1,12 +1,11 @@
 package com.sh.chicken.api.main.controller;
 
-import com.sh.chicken.api.main.controller.dto.MainResListDto;
+import com.sh.chicken.api.common.dto.ChickenMenusAndTotalLikeResListDto;
 import com.sh.chicken.api.main.service.MainService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,9 +22,9 @@ public class MainController {
      * Main Page, 가격순 정렬
      */
     @GetMapping(value = {"", "/sort"})
-    public ResponseEntity<MainResListDto> getChickenInfo(Model model) {
+    public ResponseEntity<ChickenMenusAndTotalLikeResListDto> getChickenInfo() {
 
-        MainResListDto chickenMenuList = mainService.getAllChickenMenus();
+        ChickenMenusAndTotalLikeResListDto chickenMenuList = mainService.getAllChickenMenus();
 
         return new ResponseEntity<>(chickenMenuList, HttpStatus.OK);
     }

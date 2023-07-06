@@ -35,9 +35,6 @@ public class ChickenMenu extends BaseTimeEntity {
     @OneToMany(mappedBy = "chickenMenu", cascade = CascadeType.REMOVE)
     private List<ChickenLike> chickenLikeList = new ArrayList<>();
 
-//    @OneToOne(mappedBy = "chickenMenu", cascade = CascadeType.REMOVE)
-//    private ChickenClick chickenClick;
-
 
     @Builder
     private ChickenMenu(String menuName, int price, String contents, ChickenBrand chickenBrand) {

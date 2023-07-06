@@ -1,6 +1,6 @@
 package com.sh.chicken.domain.chickenlike.api;
 
-import com.sh.chicken.api.main.controller.dto.MainResListDto;
+import com.sh.chicken.api.common.dto.ChickenMenusAndTotalLikeResListDto;
 import com.sh.chicken.domain.chickenlike.application.ChickenLikeService;
 import com.sh.chicken.domain.user.api.dto.response.UsersSingInResDto;
 import com.sh.chicken.global.SessionConst;
@@ -60,9 +60,9 @@ public class ChickenLikeController {
     }
 
     @GetMapping("/sort")
-    public ResponseEntity<MainResListDto> sortByLike(){
+    public ResponseEntity<ChickenMenusAndTotalLikeResListDto> sortByLike(){
 
-        MainResListDto chickenMenuList = chickenLikeApiService.getChickenMenusOrderByLikesDesc();
+        ChickenMenusAndTotalLikeResListDto chickenMenuList = chickenLikeApiService.getChickenMenusOrderByLikesDesc();
 
         return new ResponseEntity<>(chickenMenuList, HttpStatus.OK);
 
