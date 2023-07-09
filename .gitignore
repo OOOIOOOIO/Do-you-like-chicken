@@ -8,6 +8,7 @@ build/
 ## yml
 **/src/main/resources/application-real.yml
 **/src/test/resources/application.yml
+
 **/src/main/java/com/sh/chicken/domain/test/
 **/src/test/java/com/sh/chicken/cascadetest/
 
