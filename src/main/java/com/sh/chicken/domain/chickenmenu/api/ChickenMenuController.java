@@ -1,6 +1,6 @@
 package com.sh.chicken.domain.chickenmenu.api;
 
-import com.sh.chicken.domain.chickenmenu.api.dto.res.ChickenMenuAndLikesResInterface;
+import com.sh.chicken.domain.common.dto.ChickenMenuAndLikesResInterface;
 import com.sh.chicken.domain.chickenmenu.application.ChickenMenuService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

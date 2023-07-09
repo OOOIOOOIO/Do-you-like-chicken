@@ -47,5 +47,14 @@ public class ChickenLike {
 
     }
 
+    public ChickenLike(Users users) {
+        this.users = users;
+    }
+
+    public void setChickenMenu(ChickenMenu chickenMenu){
+        this.chickenMenu = chickenMenu;
+
+    }
+
 
 }

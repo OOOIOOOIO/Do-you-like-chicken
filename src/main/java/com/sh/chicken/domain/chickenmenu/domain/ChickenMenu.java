@@ -56,9 +56,16 @@ public class ChickenMenu extends BaseTimeEntity {
                 .build();
     }
 
+
+
     // 양방향 연관관계
     public void addChickenLike(ChickenLike chickenLike){
+
+        if (chickenLike.getChickenMenu() != null) {
+            chickenLike.getChickenMenu().getChickenLikeList().remove(chickenLike);
+        }
         this.chickenLikeList.add(chickenLike);
+        chickenLike.setChickenMenu(this);
 
     }
 

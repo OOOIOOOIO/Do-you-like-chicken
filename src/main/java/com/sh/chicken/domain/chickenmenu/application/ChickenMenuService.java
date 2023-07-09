@@ -1,8 +1,6 @@
 package com.sh.chicken.domain.chickenmenu.application;
 
-import com.sh.chicken.domain.chickenmenu.api.dto.res.ChickenMenuAndLikesResInterface;
-import com.sh.chicken.domain.chickenmenu.api.dto.res.ChickenMenuInfoResDto;
-import com.sh.chicken.domain.chickenmenu.domain.ChickenMenu;
+import com.sh.chicken.domain.common.dto.ChickenMenuAndLikesResInterface;
 import com.sh.chicken.domain.chickenmenu.domain.repository.ChickenMenuRepository;
 import com.sh.chicken.global.aop.log.LogTrace;
 import lombok.RequiredArgsConstructor;

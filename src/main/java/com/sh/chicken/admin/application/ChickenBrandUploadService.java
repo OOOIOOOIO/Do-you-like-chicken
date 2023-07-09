@@ -29,4 +29,12 @@ public class ChickenBrandUploadService {
         }
 
     }
+
+    public ChickenBrand findByBrandName(String brandName) {
+
+        ChickenBrand chickenBrand = chickenBrandUploadRepository.findByBrandName(brandName).orElseThrow(() -> new RuntimeException("해당 브랜드 없음"));
+
+        return chickenBrand;
+
+    }
 }

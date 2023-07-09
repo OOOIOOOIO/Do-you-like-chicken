@@ -1,6 +1,6 @@
 package com.sh.chicken.api.main.service;
 
-import com.sh.chicken.domain.chickenmenu.api.dto.res.ChickenMenuAndLikesResInterface;
+import com.sh.chicken.domain.common.dto.ChickenMenuAndLikesResInterface;
 import com.sh.chicken.domain.chickenmenu.domain.repository.ChickenMenuRepository;
 import com.sh.chicken.api.common.dto.ChickenMenusAndTotalLikeResListDto;
 import lombok.RequiredArgsConstructor;

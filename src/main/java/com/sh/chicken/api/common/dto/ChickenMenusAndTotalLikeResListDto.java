@@ -1,6 +1,6 @@
 package com.sh.chicken.api.common.dto;
 
-import com.sh.chicken.domain.chickenmenu.api.dto.res.ChickenMenuAndLikesResInterface;
+import com.sh.chicken.domain.common.dto.ChickenMenuAndLikesResInterface;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 

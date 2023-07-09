@@ -1,6 +1,6 @@
 package com.sh.chicken.domain.chickenmenu.domain.repository;
 
-import com.sh.chicken.domain.chickenmenu.api.dto.res.ChickenMenuAndLikesResInterface;
+import com.sh.chicken.domain.common.dto.ChickenMenuAndLikesResInterface;
 import com.sh.chicken.domain.chickenmenu.domain.ChickenMenu;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
