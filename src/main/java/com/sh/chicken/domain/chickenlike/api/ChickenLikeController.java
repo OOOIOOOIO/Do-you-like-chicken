@@ -3,7 +3,9 @@ package com.sh.chicken.domain.chickenlike.api;
 import com.sh.chicken.api.common.dto.ChickenMenusAndTotalLikeResListDto;
 import com.sh.chicken.domain.chickenlike.application.ChickenLikeService;
 import com.sh.chicken.domain.user.api.dto.response.UsersSingInResDto;
-import com.sh.chicken.global.SessionConst;
+import com.sh.chicken.global.common.SessionConst;
+import com.sh.chicken.global.resolver.usersession.UserInfoFromSession;
+import com.sh.chicken.global.resolver.usersession.UserInfoFromSessionDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -24,29 +26,22 @@ public class ChickenLikeController {
 
 
     @PostMapping("/{menuId}")
-    public ResponseEntity<String> add(@PathVariable("menuId") Long menuId, HttpServletRequest request) {
-        HttpSession session = request.getSession(false);
-        UsersSingInResDto userInfo = (UsersSingInResDto)session.getAttribute(SessionConst.COMMON_USER.getRule());
-
-        chickenLikeApiService.add(menuId, userInfo.getUserId());
+    public ResponseEntity<String> add(@PathVariable("menuId") Long menuId, @UserInfoFromSession UserInfoFromSessionDto userInfoFromSessionDto){
+        chickenLikeApiService.add(menuId, userInfoFromSessionDto.getUserId());
 
         return new ResponseEntity<>("success", HttpStatus.OK);
     }
 
 
     @DeleteMapping("/{menuId}")
-    public ResponseEntity<String> delete(@PathVariable("menuId") Long menuId, HttpServletRequest request) {
-        HttpSession session = request.getSession(false);
-        UsersSingInResDto userInfo = (UsersSingInResDto)session.getAttribute(SessionConst.COMMON_USER.getRule());
-
-        chickenLikeApiService.delete(menuId, userInfo.getUserId());
+    public ResponseEntity<String> delete(@PathVariable("menuId") Long menuId, @UserInfoFromSession UserInfoFromSessionDto userInfoFromSessionDto){
+        chickenLikeApiService.delete(menuId, userInfoFromSessionDto.getUserId());
 
         return new ResponseEntity<>("success", HttpStatus.OK);
     }
 
     @GetMapping("/sort")
     public ResponseEntity<ChickenMenusAndTotalLikeResListDto> sortByLike(){
-
         ChickenMenusAndTotalLikeResListDto chickenMenuList = chickenLikeApiService.getChickenMenusOrderByLikesDesc();
 
         return new ResponseEntity<>(chickenMenuList, HttpStatus.OK);

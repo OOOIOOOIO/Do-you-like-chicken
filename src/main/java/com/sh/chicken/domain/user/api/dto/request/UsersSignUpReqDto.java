@@ -1,9 +1,11 @@
 package com.sh.chicken.domain.user.api.dto.request;
 
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class UsersSignUpReqDto {
     private String username;
     private String pw;

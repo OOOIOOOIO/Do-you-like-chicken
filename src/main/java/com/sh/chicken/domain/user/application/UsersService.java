@@ -5,6 +5,7 @@ import com.sh.chicken.domain.user.api.dto.request.UsersSignUpReqDto;
 import com.sh.chicken.domain.user.api.dto.response.UsersSingInResDto;
 import com.sh.chicken.domain.user.domain.Users;
 import com.sh.chicken.domain.user.domain.repository.UsersRepository;
+import com.sh.chicken.global.resolver.usersession.UserInfoFromSessionDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -31,13 +32,14 @@ public class UsersService {
     /**
      * 로그인 - 조회
      */
-    public UsersSingInResDto signIn(UsersSignInReqDto usersSignInDto) {
+    public UserInfoFromSessionDto signIn(UsersSignInReqDto usersSignInDto) {
 
         Users user = usersRepository.findByUsernameAndPw(usersSignInDto.getUsername(), usersSignInDto.getPw())
                 .orElseThrow(() -> new RuntimeException("사용자 없음"));
 
+        UsersSingInResDto usersSingInResDto = new UsersSingInResDto(user);
 
-        return new UsersSingInResDto(user);
+        return new UserInfoFromSessionDto(usersSingInResDto);
     }
 
     /**

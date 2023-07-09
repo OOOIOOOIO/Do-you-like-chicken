@@ -3,12 +3,13 @@ package com.sh.chicken.domain.chickenlike.domain.repository;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.sh.chicken.domain.chickenlike.domain.ChickenLike;
 
-import static com.sh.chicken.domain.chickenlike.domain.QChickenLike.chickenLike;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
+
+import static com.sh.chicken.domain.chickenlike.domain.QChickenLike.chickenLike;
 
 @Repository
 @RequiredArgsConstructor

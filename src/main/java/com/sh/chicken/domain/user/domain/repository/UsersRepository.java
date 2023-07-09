@@ -7,9 +7,6 @@ import org.springframework.data.repository.query.Param;
 import java.util.Optional;
 
 public interface UsersRepository extends JpaRepository<Users, Long> {
-
-
     public Optional<Users> findByUsername(@Param("username") String username);
-    public Optional<Users> findByUsernameAndPw(@Param("username") String username,
-                                               @Param("pw") String pw);
+    public Optional<Users> findByUsernameAndPw(@Param("username") String username, @Param("pw") String pw);
 }

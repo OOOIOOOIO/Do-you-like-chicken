@@ -1,6 +1,7 @@
-package com.sh.chicken.global;
+package com.sh.chicken.global.common;
 
 public enum SessionConst {
+    ADMIN_USER("admin"),
     COMMON_USER("user");
     private String rule;
 
