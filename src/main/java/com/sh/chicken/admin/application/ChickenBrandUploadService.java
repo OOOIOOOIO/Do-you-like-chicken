@@ -1,7 +1,7 @@
 package com.sh.chicken.admin.application;
 
 import com.sh.chicken.admin.controller.dto.ChickenBrandUploadDto;
-import com.sh.chicken.admin.repository.ChickenBrandUploadRepository;
+import com.sh.chicken.domain.chickenbrand.domain.repository.ChickenBrandRepository;
 import com.sh.chicken.domain.chickenbrand.domain.ChickenBrand;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,7 +16,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ChickenBrandUploadService {
 
-    private final ChickenBrandUploadRepository chickenBrandUploadRepository;
+    private final ChickenBrandRepository chickenBrandUploadRepository;
 
     /**
      * 치킨 브랜드 업로드

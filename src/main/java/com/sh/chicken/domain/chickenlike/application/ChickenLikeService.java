@@ -28,7 +28,6 @@ public class ChickenLikeService {
     private final ChickenMenuRepository chickenMenuRepository;
 
     public void add(Long menuId, Long userId) {
-        log.info("==================================");
         Users users = usersRepository.findById(userId).orElseThrow(() -> new ServerErrorException("유저 없음"));
         ChickenMenu chickenMenu = chickenMenuRepository.findByMenuId(menuId).orElseThrow(() -> new ServerErrorException("메뉴 없음"));
 
@@ -41,24 +40,15 @@ public class ChickenLikeService {
             throw new RuntimeException("이미 좋아요 누름");
         }
 
-
-
-//        chickenLike.saveChickenLike(users, chickenMenu);
-
     }
 
     public void delete(Long menuId, Long userId){
-        log.info("================delete==================");
-        // 이거 left join 2번 나옴
-        // querydsl로 바꾸기 / 흠 엔티티 때문에... 흠
-//        ChickenLike chickenLike = chickenLikeRepository.findByUsers_UserIdAndChickenMenu_MenuId(menuId, userId).orElseThrow(() -> new ServerErrorException("메뉴 없음"));
         Users users = usersRepository.findById(userId).orElseThrow(() -> new ServerErrorException("유저 없음"));
         ChickenMenu chickenMenu = chickenMenuRepository.findByMenuId(menuId).orElseThrow(() -> new ServerErrorException("메뉴 없음"));
 
         ChickenLike chickenLike = chickenLikeRepository.findByUsersAndChickenMenu(users, chickenMenu).orElseThrow(() -> new ServerErrorException("유저 없음"));
 
         chickenLikeRepository.delete(chickenLike);
-
     }
 
     public ChickenMenusAndTotalLikeResListDto getChickenMenusOrderByLikesDesc(){
@@ -74,7 +64,6 @@ public class ChickenLikeService {
         if(byUsersAndChickenMenu.isPresent()) return true;
 
         return false;
-
     }
 
 }

@@ -1,5 +1,6 @@
 package com.sh.chicken.domain.chickenmenu.domain.repository;
 
+import com.sh.chicken.domain.chickenbrand.domain.ChickenBrand;
 import com.sh.chicken.domain.common.dto.ChickenMenuAndLikesResInterface;
 import com.sh.chicken.domain.chickenmenu.domain.ChickenMenu;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -11,8 +12,9 @@ import java.util.Optional;
 
 public interface ChickenMenuRepository extends JpaRepository<ChickenMenu, Long> {
 
-
     Optional<ChickenMenu> findByMenuId(@Param("menuId") long menuId);
+
+    public Optional<ChickenMenu> findByMenuNameAndChickenBrand(@Param("menuName") String menuName, @Param("chickenBrand") ChickenBrand brandName);
 
 
     @Query(value = "SELECT cm.menu_id as menuId, cm.menu_name as menuName, cm.brand_name as brandName, cm.img, cm.price, cm.contents, " +
@@ -37,23 +39,6 @@ public interface ChickenMenuRepository extends JpaRepository<ChickenMenu, Long> 
 
 
 
-    //====================================================
-
-    @Query("select distinct cm from ChickenMenu cm " +
-            "join fetch cm.chickenBrand " +
-            "join fetch cm.chickenLikeList")
-    List<ChickenMenu> findChickenMenuByFetchJoin();
-
-
-
-    @Query(value = " SELECT cm.*, cl.likes" +
-            " from chicken_menu as cm left join" +
-            " (select menu_id, count(*) as likes" +
-            " from chicken_like" +
-            " group by menu_id" +
-            " ) as cl" +
-            " on cm.menu_id = cl.menu_id;", nativeQuery = true)
-    List<ChickenMenuAndLikesResInterface> findChickenMenuByFromSubQuery();
 
 
 

@@ -2,7 +2,6 @@ package com.sh.chicken.admin.chickenMenu.repository;
 
 import com.sh.chicken.domain.chickenlike.domain.ChickenLike;
 import com.sh.chicken.domain.chickenlike.domain.repository.ChickenLikeRepository;
-import com.sh.chicken.domain.chickenmenu.api.dto.ChickenMenuAndLikesDto;
 import com.sh.chicken.domain.common.dto.ChickenMenuAndLikesResInterface;
 import com.sh.chicken.domain.chickenmenu.domain.ChickenMenu;
 import com.sh.chicken.domain.chickenmenu.domain.repository.ChickenMenuRepository;
@@ -14,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.util.StopWatch;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @SpringBootTest
@@ -47,35 +45,7 @@ public class ChickenMenuRepositoryTest {
 
     }
 
-    @Test
-    public void menuAndLikeFetchJoinTest(){
-        // given
-        StopWatch stopWatch = new StopWatch();
 
-        stopWatch.start();
-        List<ChickenMenu> chickenMenuByFetchJoin = chickenMenuRepository.findChickenMenuByFetchJoin();
-        List<ChickenMenuAndLikesDto> chickenMenuAndLikesDtoList = new ArrayList<>();
-
-        for (ChickenMenu chickenMenu : chickenMenuByFetchJoin) {
-            ChickenMenuAndLikesDto chickenMenuAndLikesDto = new ChickenMenuAndLikesDto(
-                    chickenMenu.getMenuId(),
-                    chickenMenu.getMenuName(),
-                    chickenMenu.getChickenBrand().getBrandName(),
-                    chickenMenu.getImg(),
-                    chickenMenu.getPrice(),
-                    chickenMenu.getContents(),
-                    chickenMenu.getChickenLikeList().size()
-            );
-
-            chickenMenuAndLikesDtoList.add(chickenMenuAndLikesDto);
-        }
-        stopWatch.stop();
-        long totalTimeMillis = stopWatch.getTotalTimeMillis();
-
-        // 실행시간 281ms
-        log.info("실행 메서드: {}, 실행시간 = {}ms", "menuAndLikeFetchJoinTest", totalTimeMillis);
-
-    }
     
     @Test
     public void getAllChickenMenusWithLike(){
@@ -97,25 +67,7 @@ public class ChickenMenuRepositoryTest {
         printDto(chickenMenuBySelectSubQuery);
 
     }
-    
-    @Test
-    public void joinGroupByQueryTest(){
-        // given
-        StopWatch stopWatch = new StopWatch();
 
-        // when
-        stopWatch.start();
-        List<ChickenMenuAndLikesResInterface> chickenMenuBySelectSubQuery = chickenMenuRepository.findChickenMenuByFromSubQuery();
-        stopWatch.stop();
-
-        // then
-        long totalTimeMillis = stopWatch.getTotalTimeMillis();
-
-        // 173ms
-        log.info("실행 메서드: {}, 실행시간 = {}ms", "joinGroupByQueryTest", totalTimeMillis);
-
-//        printDto(chickenMenuBySelectSubQuery);
-    }
 
     @Test
     public void getAllChickenMenusWithLikeOrderByLikesDESC(){
@@ -140,14 +92,14 @@ public class ChickenMenuRepositoryTest {
 
     private void printDto(List<ChickenMenuAndLikesResInterface> chickenMenuBySelectSubQuery){
         for (ChickenMenuAndLikesResInterface chickenMenuAndLikesInterface : chickenMenuBySelectSubQuery) {
-            System.out.println(chickenMenuAndLikesInterface.getMenuId());
-            System.out.println(chickenMenuAndLikesInterface.getMenuName());
-            System.out.println(chickenMenuAndLikesInterface.getBrandName());
-            System.out.println(chickenMenuAndLikesInterface.getPrice());
-            System.out.println(chickenMenuAndLikesInterface.getImg());
-            System.out.println(chickenMenuAndLikesInterface.getContents());
-            System.out.println(chickenMenuAndLikesInterface.getLikes());
-            System.out.println("========================================================");
+            log.info(chickenMenuAndLikesInterface.getMenuId()+"");
+            log.info(chickenMenuAndLikesInterface.getMenuName());
+            log.info(chickenMenuAndLikesInterface.getBrandName());
+            log.info(chickenMenuAndLikesInterface.getPrice()+"");
+            log.info(chickenMenuAndLikesInterface.getImg());
+            log.info(chickenMenuAndLikesInterface.getContents());
+            log.info(chickenMenuAndLikesInterface.getLikes()+"");
+            log.info("========================================================");
         }
     }
     

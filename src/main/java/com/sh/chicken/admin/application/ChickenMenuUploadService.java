@@ -1,10 +1,10 @@
 package com.sh.chicken.admin.application;
 
 import com.sh.chicken.admin.controller.dto.ChickenMenuUploadDto;
-import com.sh.chicken.admin.repository.ChickenBrandUploadRepository;
-import com.sh.chicken.admin.repository.ChickenMenuUploadRepository;
+import com.sh.chicken.domain.chickenbrand.domain.repository.ChickenBrandRepository;
 import com.sh.chicken.domain.chickenbrand.domain.ChickenBrand;
 import com.sh.chicken.domain.chickenmenu.domain.ChickenMenu;
+import com.sh.chicken.domain.chickenmenu.domain.repository.ChickenMenuRepository;
 import com.sh.chicken.global.util.aws.s3.service.AmazonS3Service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,8 +20,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ChickenMenuUploadService {
 
-    private final ChickenMenuUploadRepository chickenMenuUploadRepository;
-    private final ChickenBrandUploadRepository chickenBrandUploadRepository;
+    private final ChickenMenuRepository chickenMenuRepository;
+    private final ChickenBrandRepository chickenBrandRepository;
     private final AmazonS3Service amazonS3Service;
 
     /**
@@ -30,11 +30,11 @@ public class ChickenMenuUploadService {
     public String saveMenu(List<ChickenMenuUploadDto> dataList) {
 
         for (ChickenMenuUploadDto chickenMenuUploadDto : dataList) {
-            ChickenBrand chickenBrand = chickenBrandUploadRepository.findByBrandName(chickenMenuUploadDto.getBrandName()).get();
+            ChickenBrand chickenBrand = chickenBrandRepository.findByBrandName(chickenMenuUploadDto.getBrandName()).get();
 
             ChickenMenu chickenMenu = ChickenMenu.createChickenMenu(chickenMenuUploadDto, chickenBrand);
 
-            chickenMenuUploadRepository.save(chickenMenu);
+            chickenMenuRepository.save(chickenMenu);
         }
         return "success";
 
@@ -47,9 +47,9 @@ public class ChickenMenuUploadService {
         String img = amazonS3Service.uploadFile(file);
         log.info("dd" + brandName);
 
-        ChickenBrand chickenBrand = chickenBrandUploadRepository.findByBrandName(brandName).orElseThrow(() -> new RuntimeException("브랜드없음"));
+        ChickenBrand chickenBrand = chickenBrandRepository.findByBrandName(brandName).orElseThrow(() -> new RuntimeException("브랜드없음"));
 
-        ChickenMenu chickenMenu = chickenMenuUploadRepository.findByMenuNameAndChickenBrand(menuName, chickenBrand).orElseThrow(() -> new RuntimeException("img"));
+        ChickenMenu chickenMenu = chickenMenuRepository.findByMenuNameAndChickenBrand(menuName, chickenBrand).orElseThrow(() -> new RuntimeException("img"));
 
 //        log.info(chickenMenu.getMenuName());
         chickenMenu.updateImg(img); // 더티 체킹

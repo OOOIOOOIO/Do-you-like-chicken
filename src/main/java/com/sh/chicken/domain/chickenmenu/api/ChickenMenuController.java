@@ -19,12 +19,8 @@ public class ChickenMenuController {
 
     private final ChickenMenuService chickenMenuService;
 
-    /**
-     * 치킨 메뉴 상세
-     */
     @GetMapping("/info/{menuId}")
-    public ResponseEntity<ChickenMenuAndLikesResInterface> brandMenuInfo(@PathVariable("menuId") long menuId, Model model){
-
+    public ResponseEntity<ChickenMenuAndLikesResInterface> brandMenuInfo(@PathVariable("menuId") long menuId){
         ChickenMenuAndLikesResInterface menuInfo = chickenMenuService.getMenuInfo(menuId);
 
         return new ResponseEntity<>(menuInfo, HttpStatus.OK);

@@ -1,6 +1,6 @@
 package com.sh.chicken.admin.chickenBrand.repository;
 
-import com.sh.chicken.admin.repository.ChickenBrandUploadRepository;
+import com.sh.chicken.domain.chickenbrand.domain.repository.ChickenBrandRepository;
 import com.sh.chicken.domain.chickenbrand.domain.ChickenBrand;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -12,7 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 public class ChickenBrandUpladRepositoryTest {
 
     @Autowired
-    ChickenBrandUploadRepository chickenBrandUploadRepository;
+    ChickenBrandRepository chickenBrandUploadRepository;
 
     @Test
     public void findChickenByBrandName(){

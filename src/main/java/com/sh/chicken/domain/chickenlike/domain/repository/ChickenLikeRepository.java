@@ -25,13 +25,3 @@ public interface ChickenLikeRepository extends JpaRepository<ChickenLike, Long> 
     List<ChickenMenuAndLikesResInterface> getChickenMenusInfo(@Param("userId") long userId);
 
 }
-
-
-/**
- *
- SELECT cl.*, cm.*, (SELECT COUNT(*) FROM chicken_like WHERE menu_id = cm.menu_id) AS like_count
- FROM chicken_like cl
- INNER JOIN chicken_menu cm ON cl.menu_id = cm.menu_id
- WHERE cl.user_id = 7;
- *
- */

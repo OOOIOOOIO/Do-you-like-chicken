@@ -18,34 +18,14 @@ import org.springframework.web.server.ServerErrorException;
 @SpringBootTest
 @Transactional
 public class ChickenLikeRepositoryTest {
-
     @Autowired
     ChickenLikeRepository chickenLikeRepository;
     @Autowired
     UsersRepository usersRepository;
-
     @Autowired
     ChickenMenuRepository chickenMenuRepository;
-
     @Autowired
     ChickenLikeRepositoryCustom chickenLikeRepositorySupport;
-
-
-
-    @Test
-    public void removeByFKTest(){
-        // given
-        ChickenLike chickenLike = chickenLikeRepository.findByUsers_UserIdAndChickenMenu_MenuId(3L, 2L).orElseThrow(() -> new ServerErrorException("메뉴 없음"));
-
-//        log.info("=="+chickenLike.getLikeId());
-//        log.info("=="+chickenLike.getChickenMenu());
-//        log.info("=="+chickenLike.getUsers().getUserId());
-//        log.info("=="+chickenLike.getUsers().getUsername());
-        // when
-
-        // then
-
-    }
 
     @Test
     public void removeByEntity(){
@@ -55,9 +35,8 @@ public class ChickenLikeRepositoryTest {
 
         ChickenLike chickenLike = ChickenLike.createChickenLike(users, chickenMenu);
 
-        chickenLikeRepository.delete(chickenLike);
-
         // when
+        chickenLikeRepository.delete(chickenLike);
 
         // then
 
@@ -68,9 +47,9 @@ public class ChickenLikeRepositoryTest {
         // given
         ChickenLike chickenLike = chickenLikeRepositorySupport.findByUserIdAndMenuId(3L, 2L).orElseThrow();
         // when
-
         log.info("===========" + chickenLike.getLikeId());
         // then
 
     }
+
 }

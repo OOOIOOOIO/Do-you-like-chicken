@@ -16,21 +16,11 @@ public class ChickenLikeRepositoryCustom {
 
     private final JPAQueryFactory queryFactory;
 
-    /**
-     * menuId, userId로 like 하나 조회
-     */
     public Optional<ChickenLike> findByUserIdAndMenuId(Long userId, Long menuId){
-
-
-
         return Optional.ofNullable(queryFactory
                 .selectFrom(chickenLike)
                 .where(chickenLike.users.userId.eq(userId),
                         chickenLike.chickenMenu.menuId.eq(menuId))
-
                 .fetchOne());
-
-
-
     }
 }
