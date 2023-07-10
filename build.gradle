@@ -99,3 +99,8 @@ compileQuerydsl {
 }
 
 //querydsl 추가 끝
+
+// gradle build시 xx-plain.jar 나오는거 막기(gradle 2.5부터 생김)
+jar{
+    enabled = false
+}
