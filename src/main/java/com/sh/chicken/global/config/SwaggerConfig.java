@@ -28,9 +28,9 @@ public class SwaggerConfig {
     // swagger-ui/index.html 페이지 커스텀
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("GDSC - wero")
+                .title("Do you like chicken")
                 .version("1.0.0")
-                .description("wero api spec")
+                .description("Do you like chicken api spec")
                 .build();
     }
 
