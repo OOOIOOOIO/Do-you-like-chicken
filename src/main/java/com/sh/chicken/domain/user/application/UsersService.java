@@ -1,5 +1,7 @@
 package com.sh.chicken.domain.user.application;
 
+import com.sh.chicken.domain.chickenlike.domain.repository.ChickenLikeRepository;
+import com.sh.chicken.domain.common.dto.ChickenMenuAndLikesResInterface;
 import com.sh.chicken.domain.user.api.dto.request.UsersSignInReqDto;
 import com.sh.chicken.domain.user.api.dto.request.UsersSignUpReqDto;
 import com.sh.chicken.domain.user.api.dto.response.UsersSingInResDto;
@@ -11,6 +13,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Slf4j
 @Service
 @Transactional
@@ -18,6 +22,8 @@ import org.springframework.transaction.annotation.Transactional;
 public class UsersService {
 
     private final UsersRepository usersRepository;
+
+    private final ChickenLikeRepository chickenLikeRepository;
 
     /**
      * 회원가입 - 저장
@@ -49,4 +55,12 @@ public class UsersService {
 
         return usersRepository.findByUsername(username).isPresent();
     }
+
+    public void updateNickname(long userId, String nickname){
+        Users users = usersRepository.findById(userId).orElseThrow(() -> new RuntimeException("유저 없음"));
+
+        users.changeNickname(nickname);
+    }
+
+
 }

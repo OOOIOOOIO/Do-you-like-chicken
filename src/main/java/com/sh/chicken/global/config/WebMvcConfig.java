@@ -25,7 +25,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
         registry.addInterceptor(new UserSessionCheckInterceptor())
                 .order(1)
                 .addPathPatterns("/api/**")
-                .excludePathPatterns("/api/users/**", "/api/menu/**");
+                .excludePathPatterns("/api/users/**", "/api/menu/**", "/api/main/**");
     }
 
     @Override

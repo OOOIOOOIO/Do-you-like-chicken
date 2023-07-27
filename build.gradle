@@ -37,7 +37,7 @@ dependencies {
 //    implementation "com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.8.1" // log의 sql (? ?) 에 어떤 값이 들어가는지 로그로 찍어준다.
     implementation 'com.fasterxml.jackson.datatype:jackson-datatype-hibernate5' // 하이버네이트 proxy 문제 해결
 
-//    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 //    implementation 'org.springframework.boot:spring-boot-s,tarter-oauth2-client'
 //    implementation 'org.springframework.boot:spring-boot-starter-security'
 //    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
@@ -99,6 +99,7 @@ compileQuerydsl {
 }
 
 //querydsl 추가 끝
+
 
 // gradle build시 xx-plain.jar 나오는거 막기(gradle 2.5부터 생김)
 jar{

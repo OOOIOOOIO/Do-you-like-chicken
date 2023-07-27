@@ -1,9 +1,11 @@
 package com.sh.chicken.api.common.dto;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.sh.chicken.domain.common.dto.ChickenMenuAndLikesResInterface;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Getter

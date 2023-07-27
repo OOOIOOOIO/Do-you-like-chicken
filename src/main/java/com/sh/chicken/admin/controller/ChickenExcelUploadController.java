@@ -4,7 +4,9 @@ import com.sh.chicken.admin.controller.dto.ChickenBrandUploadDto;
 import com.sh.chicken.admin.controller.dto.ChickenMenuUploadDto;
 import com.sh.chicken.admin.application.ChickenBrandUploadService;
 import com.sh.chicken.admin.application.ChickenMenuUploadService;
+import com.sh.chicken.global.aop.log.LogTrace;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -33,11 +35,13 @@ public class ChickenExcelUploadController {
     private final ChickenBrandUploadService chickenBrandUploadService;
     private final ChickenMenuUploadService chickenMenuUploadService;
 
+    @LogTrace
     @GetMapping("/excel/upload")
     public String uploadExcel(){
         return "/admin/excel-upload";
     }
 
+    @LogTrace
     @PostMapping("/excel/brand/upload")
     public String brandUploadExcel(@RequestParam("file") MultipartFile file, Model model) throws IOException {
 

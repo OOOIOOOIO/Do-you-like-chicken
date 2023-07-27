@@ -2,7 +2,6 @@ package com.sh.chicken.domain.user.api;
 
 import com.sh.chicken.domain.user.api.dto.request.UsersSignInReqDto;
 import com.sh.chicken.domain.user.api.dto.request.UsersSignUpReqDto;
-import com.sh.chicken.domain.user.api.dto.response.UsersSingInResDto;
 import com.sh.chicken.domain.user.application.UsersService;
 import com.sh.chicken.global.common.SessionConst;
 import com.sh.chicken.global.aop.log.LogTrace;
@@ -53,6 +52,7 @@ public class UsersController {
 
     }
 
+    @LogTrace
     // 로그아웃
     public ResponseEntity<String> signOut(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
@@ -64,6 +64,7 @@ public class UsersController {
 
         return new ResponseEntity<>("success", HttpStatus.OK);
     }
+
 
 
 }

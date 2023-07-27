@@ -1,6 +1,7 @@
 package com.sh.chicken.admin.controller;
 
 import com.sh.chicken.admin.application.ChickenMenuUploadService;
+import com.sh.chicken.global.aop.log.LogTrace;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -16,7 +17,7 @@ public class ChickenFileUploadController {
 
     private final ChickenMenuUploadService chickenMenuUploadService;
 
-
+    @LogTrace
     @PostMapping
     public ResponseEntity<String> uploadFile(@RequestParam("menuName") String menuName,
                                              @RequestParam("brandName") String brandName,

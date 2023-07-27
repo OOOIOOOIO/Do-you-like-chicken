@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.transaction.annotation.Transactional;
 
 @ActiveProfiles("test")
 @Slf4j
@@ -20,7 +21,7 @@ public class UsersRepositoryTest {
     UsersRepository usersRepository;
 
     @Test
-//    @Disabled
+    @Transactional
     public void userBulkInsertTest(){
 
         for(int i = 5001; i <= 10000; i++){

@@ -27,37 +27,11 @@ import java.util.List;
 public class ChickenMenuRepositoryTest {
 
     @Autowired
-    ChickenLikeRepository chickenLikeRepository;
-
-    @Autowired
-    UsersRepository usersRepository;
-
-    @Autowired
     ChickenMenuRepository chickenMenuRepository;
 
 
     @Test
-//    @Disabled
-    @DisplayName("insert like")
-    public void likeBulkInsertTest(){
-//        for(int i = 1; i <= 6; i++){
-        for(int i = 6001; i <= 8000; i++){
-            String username = "test" + i;
-            log.info("=== username ===" + username);
-            Users user = usersRepository.findByUsername(username).get();
-
-            for(long j = 1; j <= 67; j+=2){
-                ChickenMenu chickenMenu = chickenMenuRepository.findById(j).get();
-                ChickenLike chickenLike = ChickenLike.createChickenLike(user, chickenMenu);
-                chickenLikeRepository.save(chickenLike);
-            }
-        }
-
-
-    }
-
-    @Test
-    @DisplayName("jpal fetch join & memory에서 like count 계산")
+    @DisplayName("jpql fetch join & memory에서 like count 계산")
     @Transactional
     public void menuAndLikeFetchJoinTest(){
         // given
@@ -84,7 +58,8 @@ public class ChickenMenuRepositoryTest {
         long totalTimeMillis = stopWatch.getTotalTimeMillis();
 
         // liked row 개수 약 500개 : 실행시간 = 281ms
-        // liked row 개수 약 263169개, 유저 5000명 : 실행 메서드: menuAndLikeFetchJoinTest, 실행시간 = 6821ms
+        // liked row 개수 263169개, 유저 5000명 : 실행 메서드: menuAndLikeFetchJoinTest, 실행시간 = 6821ms
+        // liked row 개수 565169개, 유저 10000명 | 실행 메서드: selectSubQueryTest, 실행시간 = time over(12sec 901ms)
         log.info("실행 메서드: {}, 실행시간 = {}ms", "menuAndLikeFetchJoinTest", totalTimeMillis);
 
     }
@@ -100,16 +75,22 @@ public class ChickenMenuRepositoryTest {
         List<ChickenMenuAndLikesResInterface> chickenMenuBySelectSubQuery = chickenMenuRepository.findChickenMenuBySelectSubQuery();
         stopWatch.stop();
 
+        long sum = 0;
+
+        for (ChickenMenuAndLikesResInterface chickenMenuAndLikesResInterface : chickenMenuBySelectSubQuery) {
+            sum += chickenMenuAndLikesResInterface.getLikes().intValue();
+        }
 
         // then
         long totalTimeMillis = stopWatch.getTotalTimeMillis();
 
         // liked row 개수 약 500개 | 실행시간 = 139ms
-        // liked row 개수 약 263169개, 유저 5000명 | 실행 메서드: selectSubQueryTest, 실행시간 = 253ms
-        // liked row 개수 약 565169, 유저 10000명 | 실행 메서드: selectSubQueryTest, 실행시간 = 467ms
+        // liked row 개수 263169개, 유저 5000명 | 실행 메서드: selectSubQueryTest, 실행시간 = 253ms
+        // liked row 개수 565169개, 유저 10000명 | 실행 메서드: selectSubQueryTest, 실행시간 = 161 ~198ms
         log.info("실행 메서드: {}, 실행시간 = {}ms", "selectSubQueryTest", totalTimeMillis);
-
-//        printDto(chickenMenuBySelectSubQuery);
+        log.info("메뉴 개수 : " + chickenMenuBySelectSubQuery.size());
+        log.info("좋아요 총개수 : " + sum);
+        printDto(chickenMenuBySelectSubQuery);
 
     }
 
@@ -123,14 +104,21 @@ public class ChickenMenuRepositoryTest {
         stopWatch.start();
         List<ChickenMenuAndLikesResInterface> chickenMenuByFromSubQuery = chickenMenuRepository.findChickenMenuByFromSubQuery();
         stopWatch.stop();
+        long sum = 0;
+
+        for (ChickenMenuAndLikesResInterface chickenMenuAndLikesResInterface : chickenMenuByFromSubQuery) {
+            sum += chickenMenuAndLikesResInterface.getLikes().intValue();
+        }
 
         // then
         long totalTimeMillis = stopWatch.getTotalTimeMillis();
 
         // liked row 개수 약 500개 | 실행시간 = 173ms
         // liked row 개수 약 263169개, 유저 5000명 | 실행 메서드: joinGroupByQueryTest, 실행시간 = 206ms
-        // liked row 개수 약 565169, 유저 10000명 |
+        // liked row 개수 약 565169개, 유저 10000명 | 실행 메서드: joinGroupByQueryTest, 실행시간 = 178 ~ 220ms
         log.info("실행 메서드: {}, 실행시간 = {}ms", "joinGroupByQueryTest", totalTimeMillis);
+        log.info("메뉴 개수 : " + chickenMenuByFromSubQuery.size());
+        log.info("좋아요 총개수 : " + sum);
 
 //        printDto(chickenMenuByFromSubQuery);
     }
