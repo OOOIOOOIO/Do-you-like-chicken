@@ -14,21 +14,6 @@ public class RedisUtil {
 
     private final RedisTemplate<String, Object> redisTemplate;
 
-    public <T> T get(String key){
-        Object obj = redisTemplate.opsForValue().get(key);
-        if(obj != null) {
-            return (T) obj;
-        }
-        return null;
-    }
-
-    public void put(String key, Object value, Long expirationTime){
-        if(expirationTime != null){
-            redisTemplate.opsForValue().set(key, value, expirationTime, TimeUnit.SECONDS);
-        }else{
-            redisTemplate.opsForValue().set(key, value);
-        }
-    }
     public <T> T getByClassType(String key, Class<T> valueType) {
         String str = (String)redisTemplate.opsForValue().get(key);
         if(str != null) {
