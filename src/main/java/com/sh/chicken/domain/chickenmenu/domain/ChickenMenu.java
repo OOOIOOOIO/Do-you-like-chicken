@@ -1,5 +1,6 @@
 package com.sh.chicken.domain.chickenmenu.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.sh.chicken.admin.controller.dto.ChickenMenuUploadDto;
 import com.sh.chicken.domain.chickenbrand.domain.ChickenBrand;
 import com.sh.chicken.domain.chickenlike.domain.ChickenLike;
@@ -30,6 +31,7 @@ public class ChickenMenu extends BaseTimeEntity {
     @JoinColumn(name = "brandName")
     private ChickenBrand chickenBrand;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "chickenMenu", cascade = {CascadeType.REMOVE, CascadeType.PERSIST})
     private List<ChickenLike> chickenLikeList = new ArrayList<>();
 

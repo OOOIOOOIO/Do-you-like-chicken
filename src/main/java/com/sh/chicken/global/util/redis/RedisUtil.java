@@ -3,13 +3,16 @@ package com.sh.chicken.global.util.redis;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.SetOperations;
 import org.springframework.stereotype.Component;
 
 import java.util.concurrent.TimeUnit;
 
 @Component
 @RequiredArgsConstructor
+@Slf4j
 public class RedisUtil {
 
     private final RedisTemplate<String, Object> redisTemplate;
@@ -33,8 +36,31 @@ public class RedisUtil {
         }
     }
 
-    public void remove(String key){
-        redisTemplate.delete(key);
+    public Long putSet(String key, Object value, Long expirationTime) {
+        SetOperations<String, Object> set = redisTemplate.opsForSet();
+        if(expirationTime != null){
+            Object obj = parseObjectToString(value);
+            return redisTemplate.opsForSet().add(key, obj, expirationTime, TimeUnit.SECONDS);
+
+        }else{
+            Object obj = parseObjectToString(value);
+            return  redisTemplate.opsForSet().add(key, obj);
+        }
+    }
+
+    public boolean deleteKey(String key){
+        return redisTemplate.delete(key);
+    }
+    public Long removeSetValue(String key, Object value){
+        SetOperations<String, Object> set = redisTemplate.opsForSet();
+
+        return set.remove(key, value);
+    }
+
+    public Long totalLike(String key) {
+        SetOperations<String, Object> set = redisTemplate.opsForSet();
+
+        return set.size(key);
     }
 
     public boolean isExists(String key){

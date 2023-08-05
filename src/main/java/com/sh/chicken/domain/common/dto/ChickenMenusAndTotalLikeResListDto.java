@@ -1,4 +1,4 @@
-package com.sh.chicken.api.common.dto;
+package com.sh.chicken.domain.common.dto;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.sh.chicken.domain.common.dto.ChickenMenuAndLikesResInterface;

@@ -1,5 +1,7 @@
 package com.sh.chicken.domain.user.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.sh.chicken.domain.chickenlike.domain.ChickenLike;
 import com.sh.chicken.domain.common.BaseTimeEntity;
 import com.sh.chicken.domain.user.api.dto.request.UsersSignUpReqDto;
 import lombok.AccessLevel;
@@ -7,10 +9,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -18,12 +19,16 @@ import javax.persistence.Id;
 public class Users extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long userId;
+    private Long userId;
 
     private String username;
     private String pw;
     private String nickname;
     private int sex;
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "users", cascade = {CascadeType.REMOVE, CascadeType.PERSIST})
+    private List<ChickenLike> chickenLikeList = new ArrayList<>();
 
     @Builder
     private Users(String username, String pw, String nickname, int sex) {

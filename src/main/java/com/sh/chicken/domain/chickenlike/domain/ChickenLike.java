@@ -1,5 +1,6 @@
 package com.sh.chicken.domain.chickenlike.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.sh.chicken.domain.chickenmenu.domain.ChickenMenu;
 import com.sh.chicken.domain.user.domain.Users;
 import lombok.AccessLevel;
@@ -18,10 +19,12 @@ public class ChickenLike {
     @Column(name = "like_id")
     private long likeId;
 
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private Users users;
 
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "menu_id")
     private ChickenMenu chickenMenu;

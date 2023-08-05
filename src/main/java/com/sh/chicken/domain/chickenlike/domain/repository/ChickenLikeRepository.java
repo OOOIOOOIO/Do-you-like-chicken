@@ -17,6 +17,11 @@ public interface ChickenLikeRepository extends JpaRepository<ChickenLike, Long> 
     Optional<ChickenLike> findByUsersAndChickenMenu(Users users, ChickenMenu chickenMenu);
 
 
+    /**
+     * 마이페이지인데..흠 유저에 들어가야 하나 아님 menu에 들어가야하나 고민해보기
+     * @param userId
+     * @return
+     */
     @Query(value = " SELECT cm.menu_id as menuId, cm.menu_name as menuName, cm.brand_name as brandName, cm.img, cm.price, cm.contents," +
             " (SELECT COUNT(*) FROM chicken_like WHERE cl.menu_id = cm.menu_id) AS likes" +
             " FROM chicken_like cl" +

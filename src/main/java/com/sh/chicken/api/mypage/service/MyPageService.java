@@ -30,15 +30,12 @@ public class MyPageService {
         users.changeNickname(nickname);
     }
 
-    // 일 대 다 해보자
 
     public MyPageResDto getMyChickenMenuLikes(long userId){
-
         Users users = usersRepository.findById(userId).orElseThrow(() -> new RuntimeException("유저 없음"));
 
         UsersInfoResDto usersInfoResDto = new UsersInfoResDto(users);
         List<ChickenMenuAndLikesResInterface> chickenMenusInfo = chickenLikeRepository.getChickenMenusInfo(userId);
-
 
         return new MyPageResDto(usersInfoResDto, chickenMenusInfo);
     }
