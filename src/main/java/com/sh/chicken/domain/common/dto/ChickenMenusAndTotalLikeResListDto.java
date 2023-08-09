@@ -1,6 +1,7 @@
 package com.sh.chicken.domain.common.dto;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.sh.chicken.domain.chickenmenu.api.dto.res.ChickenMenuInfoResDto;
 import com.sh.chicken.domain.common.dto.ChickenMenuAndLikesResInterface;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,7 +15,10 @@ public class ChickenMenusAndTotalLikeResListDto {
 
     private List<ChickenMenuAndLikesResInterface> chicknMenuList;
 
+
     public ChickenMenusAndTotalLikeResListDto(List<ChickenMenuAndLikesResInterface> chicknMenuList) {
         this.chicknMenuList = chicknMenuList;
     }
+
+
 }

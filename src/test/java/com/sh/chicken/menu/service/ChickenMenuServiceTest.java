@@ -1,5 +1,6 @@
 package com.sh.chicken.menu.service;
 
+import com.sh.chicken.domain.chickenmenu.api.dto.res.ChickenMenuInfoResListDto;
 import com.sh.chicken.domain.common.dto.ChickenMenusAndTotalLikeResListDto;
 import com.sh.chicken.domain.chickenmenu.application.ChickenMenuService;
 import lombok.extern.slf4j.Slf4j;
@@ -24,9 +25,9 @@ public class ChickenMenuServiceTest {
     @Test
     public void insertRedisAllChickenMenusWithLikeTest() {
         // given
-        ChickenMenusAndTotalLikeResListDto allChickenMenus = chickenMenuService.getAllChickenMenus();
+        ChickenMenuInfoResListDto allChickenMenus = chickenMenuService.getAllChickenMenus();
         //when
-        int size = allChickenMenus.getChicknMenuList().size();
+        int size = allChickenMenus.getChickenMenuInfoResDto().size();
 
         //then
         Assertions.assertThat(size).isEqualTo(67);

@@ -22,5 +22,10 @@
     <input type="file" th:name="file">
     <input th:type="submit" value="제출" />
 </form>
+<h2>여긴 Menu IMG</h2>
+<form th:action="@{/admin/excel/menu/upload/img}" method="POST" enctype="multipart/form-data">
+    <input type="file" th:name="file">
+    <input th:type="submit" value="제출" />
+</form>
 </body>
 </html>

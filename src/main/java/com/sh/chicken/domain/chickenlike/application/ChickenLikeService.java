@@ -2,11 +2,14 @@ package com.sh.chicken.domain.chickenlike.application;
 
 import com.sh.chicken.domain.chickenmenu.domain.ChickenMenu;
 import com.sh.chicken.domain.user.domain.Users;
+import com.sh.chicken.global.common.RedisConst;
 import com.sh.chicken.global.util.redis.RedisUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import static com.sh.chicken.global.common.RedisConst.LIKE;
 
 
 @Slf4j
@@ -16,24 +19,26 @@ import org.springframework.transaction.annotation.Transactional;
 public class ChickenLikeService {
     private final RedisUtil redisUtil;
 
-    private static final String KEY = "MENU:LIKE:";
-
+    /**
+     * 좋아요 추가
+     */
     public Long addLike(Long menuId, Long userId) {
-
-        // redis 잘 쐈다
-        Long result = redisUtil.putSet(KEY + menuId, userId, null);
+        Long result = redisUtil.putSet(LIKE.prefix() + menuId, userId, null);
 
         return result;
     }
 
+    /**
+     * 좋아요 삭제
+     */
     public Long deleteLike(Long menuId, Long userId){
 
-        return redisUtil.removeSetValue(KEY + menuId, String.valueOf(userId));
+        return redisUtil.removeSetValue(LIKE.prefix() + menuId, String.valueOf(userId));
     }
 
     public Long totalLike(Long menuId) {
 
-        return redisUtil.totalLike(KEY + menuId);
+        return redisUtil.getLikeTotalSize(LIKE.prefix() + menuId);
 
     }
 

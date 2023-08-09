@@ -1,7 +1,7 @@
 package com.sh.chicken.domain.chickenmenu.api;
 
-import com.sh.chicken.domain.common.dto.ChickenMenusAndTotalLikeResListDto;
 import com.sh.chicken.domain.chickenmenu.api.dto.res.ChickenMenuInfoResDto;
+import com.sh.chicken.domain.chickenmenu.api.dto.res.ChickenMenuInfoResListDto;
 import com.sh.chicken.domain.chickenmenu.application.ChickenMenuService;
 import com.sh.chicken.global.aop.log.LogTrace;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 
 
 @Slf4j
@@ -27,9 +28,9 @@ public class ChickenMenuController {
      */
     @LogTrace
     @GetMapping(value = {"", "/sort"})
-    public ResponseEntity<ChickenMenusAndTotalLikeResListDto> getChickenInfo() {
+    public ResponseEntity<ChickenMenuInfoResListDto> getChickenInfo() {
 
-        ChickenMenusAndTotalLikeResListDto chickenMenuList = chickenMenuService.getAllChickenMenus();
+        ChickenMenuInfoResListDto chickenMenuList = chickenMenuService.getAllChickenMenus();
 
         log.info("============== Main, Sort ============");
         return new ResponseEntity<>(chickenMenuList, HttpStatus.OK);
@@ -37,18 +38,19 @@ public class ChickenMenuController {
 
     @LogTrace
     @GetMapping("/sort/likes")
-    public ResponseEntity<ChickenMenusAndTotalLikeResListDto> sortByLike(){
-        ChickenMenusAndTotalLikeResListDto chickenMenuList = chickenMenuService.getChickenMenusOrderByLikesDesc();
+    public ResponseEntity<ChickenMenuInfoResListDto> sortByLike(){
+        ChickenMenuInfoResListDto allChickenMenus = chickenMenuService.getChickenMenusOrderByLikesDesc();
 
-        return new ResponseEntity<>(chickenMenuList, HttpStatus.OK);
+        return new ResponseEntity<>(allChickenMenus, HttpStatus.OK);
     }
 
     @LogTrace
     @GetMapping("/info/{menuId}")
     public ResponseEntity<ChickenMenuInfoResDto> brandMenuInfo(@PathVariable("menuId") long menuId){
-        ChickenMenuInfoResDto menuInfo = chickenMenuService.getMenuInfo(menuId);
+        ChickenMenuInfoResDto menuInfoQuerydsl = chickenMenuService.getMenuInfo(menuId);
 
-        return new ResponseEntity<>(menuInfo, HttpStatus.OK);
+
+        return new ResponseEntity<>(menuInfoQuerydsl, HttpStatus.OK);
 
     }
 }

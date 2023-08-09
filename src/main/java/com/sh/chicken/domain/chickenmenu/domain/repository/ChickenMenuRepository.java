@@ -26,13 +26,6 @@ public interface ChickenMenuRepository extends JpaRepository<ChickenMenu, Long> 
 
     @Query(value = "SELECT cm.menu_id as menuId, cm.menu_name as menuName, cm.brand_name as brandName, cm.img, cm.price, cm.contents, " +
             "(select count(*) from chicken_like cl where cl.menu_id = cm.menu_id) as likes" +
-            " from chicken_menu cm", nativeQuery = true)
-    List<ChickenMenuAndLikesResInterface> getAllChickenMenusWithLike();
-
-
-
-    @Query(value = "SELECT cm.menu_id as menuId, cm.menu_name as menuName, cm.brand_name as brandName, cm.img, cm.price, cm.contents, " +
-            "(select count(*) from chicken_like cl where cl.menu_id = cm.menu_id) as likes" +
             " from chicken_menu cm" +
             " order by likes desc", nativeQuery = true)
     List<ChickenMenuAndLikesResInterface> getAllChickenMenusWithLikeOrderByLikesDESC();
@@ -56,10 +49,10 @@ public interface ChickenMenuRepository extends JpaRepository<ChickenMenu, Long> 
     List<ChickenMenuAndLikesResInterface> findChickenMenuBySelectSubQuery();
 
 
-    // from group by
+    // join group by
     @Query(value = "SELECT cm.menu_id as menuId, cm.menu_name as menuName, cm.brand_name as brandName, cm.img, cm.price, cm.contents, cl.likes" +
-            " from chicken_menu as cm left join" +
-            " (select menu_id, count(*) as likes" +
+            " from chicken_menu as cm " +
+            " left join (select menu_id, count(*) as likes" +
             " from chicken_like" +
             " group by menu_id" +
             " ) as cl" +

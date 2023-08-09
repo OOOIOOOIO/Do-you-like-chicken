@@ -1,16 +1,13 @@
 package com.sh.chicken.domain.chickenmenu.api.dto.res;
 
-import com.sh.chicken.domain.chickenmenu.domain.ChickenMenu;
-import com.sh.chicken.domain.common.dto.ChickenMenuAndLikesResInterface;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class ChickenMenuInfoResDto {
+public class  ChickenMenuInfoResDto{
 
     private long menuId;
     private String menuName;
@@ -18,16 +15,29 @@ public class ChickenMenuInfoResDto {
     private String img;
     private int price;
     private String contents;
-    private int likes;
 
-    // projection interface -> dto
-    public ChickenMenuInfoResDto(ChickenMenuAndLikesResInterface chickenMenuAndLikesResInterface) {
-        this.menuId = chickenMenuAndLikesResInterface.getMenuId();
-        this.menuName = chickenMenuAndLikesResInterface.getMenuName();
-        this.brandName = chickenMenuAndLikesResInterface.getBrandName();
-        this.img = chickenMenuAndLikesResInterface.getImg();
-        this.price = chickenMenuAndLikesResInterface.getPrice();
-        this.contents = chickenMenuAndLikesResInterface.getContents();
-        this.likes = chickenMenuAndLikesResInterface.getLikes();
+    private Long likes;
+
+    public ChickenMenuInfoResDto(long menuId, String menuName, String brandName, String img, int price, String contents) {
+        this.menuId = menuId;
+        this.menuName = menuName;
+        this.brandName = brandName;
+        this.img = img;
+        this.price = price;
+        this.contents = contents;
+    }
+
+    public ChickenMenuInfoResDto(long menuId, String menuName, String brandName, String img, int price, String contents, Long likes) {
+        this.menuId = menuId;
+        this.menuName = menuName;
+        this.brandName = brandName;
+        this.img = img;
+        this.price = price;
+        this.contents = contents;
+        this.likes = likes;
+    }
+
+    public void setLikes(Long likes) {
+        this.likes = likes;
     }
 }

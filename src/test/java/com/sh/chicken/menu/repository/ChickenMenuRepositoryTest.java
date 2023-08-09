@@ -1,15 +1,10 @@
 package com.sh.chicken.menu.repository;
 
-import com.sh.chicken.domain.chickenlike.domain.ChickenLike;
-import com.sh.chicken.domain.chickenlike.domain.repository.ChickenLikeRepository;
-import com.sh.chicken.domain.chickenmenu.api.dto.ChickenMenuAndLikesDto;
 import com.sh.chicken.domain.chickenmenu.domain.ChickenMenu;
 import com.sh.chicken.domain.chickenmenu.domain.repository.ChickenMenuRepository;
 import com.sh.chicken.domain.common.dto.ChickenMenuAndLikesResInterface;
-import com.sh.chicken.domain.user.domain.Users;
-import com.sh.chicken.domain.user.domain.repository.UsersRepository;
+import com.sh.chicken.menu.ChickenMenuAndLikesTestDto;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,10 +34,10 @@ public class ChickenMenuRepositoryTest {
 
         stopWatch.start();
         List<ChickenMenu> chickenMenuByFetchJoin = chickenMenuRepository.findChickenMenuByFetchJoin();
-        List<ChickenMenuAndLikesDto> chickenMenuAndLikesDtoList = new ArrayList<>();
+        List<ChickenMenuAndLikesTestDto> chickenMenuAndLikesDtoList = new ArrayList<>();
 
         for (ChickenMenu chickenMenu : chickenMenuByFetchJoin) {
-            ChickenMenuAndLikesDto chickenMenuAndLikesDto = new ChickenMenuAndLikesDto(
+            ChickenMenuAndLikesTestDto chickenMenuAndLikesDto = new ChickenMenuAndLikesTestDto(
                     chickenMenu.getMenuId(),
                     chickenMenu.getMenuName(),
                     chickenMenu.getChickenBrand().getBrandName(),
@@ -95,7 +90,7 @@ public class ChickenMenuRepositoryTest {
     }
 
     @Test
-    @DisplayName("from절 group by")
+    @DisplayName("join절 group by")
     public void joinGroupByQueryTest(){
         // given
         StopWatch stopWatch = new StopWatch();

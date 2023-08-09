@@ -57,7 +57,7 @@ public class RedisUtil {
         return set.remove(key, value);
     }
 
-    public Long totalLike(String key) {
+    public Long getLikeTotalSize(String key) {
         SetOperations<String, Object> set = redisTemplate.opsForSet();
 
         return set.size(key);

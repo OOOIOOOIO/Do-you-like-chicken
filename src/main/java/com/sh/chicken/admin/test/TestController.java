@@ -30,11 +30,10 @@ public class TestController {
     private final TestService testService;
 
     @GetMapping("")
-    public ResponseEntity<UserLikeDto> updateNickname(){
+    public ResponseEntity<UserLikeDto> updateNickname() {
         UserLikeDto userLikeDto = testService.getThat();
 
         return new ResponseEntity<>(userLikeDto, HttpStatus.OK);
     }
-
 
 }

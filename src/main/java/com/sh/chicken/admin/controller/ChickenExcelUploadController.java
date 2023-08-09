@@ -1,6 +1,7 @@
 package com.sh.chicken.admin.controller;
 
 import com.sh.chicken.admin.controller.dto.ChickenBrandUploadDto;
+import com.sh.chicken.admin.controller.dto.ChickenMenuImgUploadDto;
 import com.sh.chicken.admin.controller.dto.ChickenMenuUploadDto;
 import com.sh.chicken.admin.application.ChickenBrandUploadService;
 import com.sh.chicken.admin.application.ChickenMenuUploadService;
@@ -10,6 +11,7 @@ import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.PictureData;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -128,6 +130,56 @@ public class ChickenExcelUploadController {
         chickenMenuUploadService.saveMenu(dataList);
 
         return "/admin/excel-list2";
+
+    }
+
+
+
+    @PostMapping("/excel/menu/upload/img")
+    public String imgUploadExcel(@RequestParam("file") MultipartFile file, Model model) throws IOException {
+
+        List<ChickenMenuImgUploadDto> dataList = new ArrayList<>();
+
+        String extension = FilenameUtils.getExtension(file.getOriginalFilename());
+
+        if (!extension.equals("xlsx") && !extension.equals("xls")) {
+            throw new IOException("엑셀파일만 업로드 해주세요.");
+        }
+
+        Workbook workbook = null;
+
+        if (extension.equals("xlsx")) {
+            workbook = new XSSFWorkbook(file.getInputStream());
+        } else if (extension.equals("xls")) {
+            workbook = new HSSFWorkbook(file.getInputStream());
+        }
+
+        Sheet worksheet = workbook.getSheetAt(0);
+
+        String originalFilename = file.getOriginalFilename();
+        log.info("[originalFilename] : {}", originalFilename);
+
+        for (int i = 2; i < worksheet.getPhysicalNumberOfRows(); i++) { // 1행부터
+
+            Row row = worksheet.getRow(i);
+
+
+            // 4개임 수정하기
+            String brandName = row.getCell(0).getStringCellValue(); // 브랜드이름
+            String menuName = row.getCell(1).getStringCellValue(); // 치킨메뉴
+            int price = (int) row.getCell(2).getNumericCellValue();// 가격
+            String contents = row.getCell(3).getStringCellValue(); // 설명
+            String img = row.getCell(4).getStringCellValue(); // 이미지
+            ChickenMenuImgUploadDto data = new ChickenMenuImgUploadDto(brandName, menuName, price, contents, img);
+
+            dataList.add(data);
+        }
+
+        model.addAttribute("datas", dataList); // 이제 여기 db에 넣기
+
+//        chickenMenuUploadService.saveMenu(dataList);
+
+        return "/admin/excel-list3";
 
     }
 

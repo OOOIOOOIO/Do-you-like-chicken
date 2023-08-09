@@ -1,10 +1,10 @@
-package com.sh.chicken.domain.chickenmenu.api.dto;
+package com.sh.chicken.menu;
 
 
 import lombok.Getter;
 
 @Getter
-public class ChickenMenuAndLikesDto {
+public class ChickenMenuAndLikesTestDto {
 
     private long menuId;
     private String menuName;
@@ -15,7 +15,7 @@ public class ChickenMenuAndLikesDto {
 
     private int likes;
 
-    public ChickenMenuAndLikesDto(long menuId, String menuName, String brandName, String img, int price, String contents, int likes) {
+    public ChickenMenuAndLikesTestDto(long menuId, String menuName, String brandName, String img, int price, String contents, int likes) {
         this.menuId = menuId;
         this.menuName = menuName;
         this.brandName = brandName;
