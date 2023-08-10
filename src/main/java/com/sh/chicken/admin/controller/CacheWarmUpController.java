@@ -1,7 +1,7 @@
 package com.sh.chicken.admin.controller;
 
 
-import com.sh.chicken.admin.application.CacheWarmUpService;
+import com.sh.chicken.admin.cache.CacheWarmUpService;
 import com.sh.chicken.global.aop.log.LogTrace;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -28,11 +28,14 @@ public class CacheWarmUpController {
     @GetMapping("/likes")
     public void pushLikes(){
 
-        cacheWarmUpService.pushAllChickenMenus();
+//        cacheWarmUpService.pushChickenMenuLike();
+//        cacheWarmUpService.pushChickenMenuInfo(); // 에러
+//        cacheWarmUpService.pushAllChickenMenus();
+//        cacheWarmUpService.pushChickenMenuInfoBulkInsert();
+//        cacheWarmUpService.pushAllChickenMenusBulkInsert();
+        cacheWarmUpService.pushChickenMenuLikeBulkInsert();
 
-        cacheWarmUpService.pushChickenMenuLike();
 
-        cacheWarmUpService.pushChickenMenuInfo();
 
     }
 }

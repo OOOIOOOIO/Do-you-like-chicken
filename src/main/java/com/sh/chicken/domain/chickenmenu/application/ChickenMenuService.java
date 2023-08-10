@@ -51,7 +51,7 @@ public class ChickenMenuService {
 
     /**
      * like순 정렬 main
-     * --> 이거 캐시랑 db랑 한번 해보자
+     * --> 이거 캐시+ sorting이랑 db랑 한번 해보자
      */
     public ChickenMenuInfoResListDto getChickenMenusOrderByLikesDesc(){
 //        List<ChickenMenuInfoResDto> allMenusWithTotalLike = chickenMenuRepositoryCustom.getAllMenusWithTotalLikeLikesDesc();
