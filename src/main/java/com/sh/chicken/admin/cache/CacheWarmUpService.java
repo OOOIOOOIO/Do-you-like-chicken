@@ -1,16 +1,27 @@
 package com.sh.chicken.admin.cache;
 
 
+import com.sh.chicken.domain.chickenlike.domain.ChickenLike;
+import com.sh.chicken.domain.chickenlike.domain.repository.ChickenLikeRepository;
 import com.sh.chicken.domain.chickenlike.domain.repository.ChickenLikeRepositoryCustom;
 import com.sh.chicken.domain.chickenmenu.api.dto.res.ChickenMenuInfoResDto;
+import com.sh.chicken.domain.chickenmenu.domain.ChickenMenu;
+import com.sh.chicken.domain.chickenmenu.domain.repository.ChickenMenuRepository;
 import com.sh.chicken.domain.chickenmenu.domain.repository.ChickenMenuRepositoryCustom;
+import com.sh.chicken.domain.user.domain.Users;
+import com.sh.chicken.domain.user.domain.repository.UsersRepository;
 import com.sh.chicken.global.util.redis.RedisUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static com.sh.chicken.global.common.RedisConst.*;
 
@@ -21,7 +32,10 @@ import static com.sh.chicken.global.common.RedisConst.*;
 public class CacheWarmUpService {
 
     private final ChickenMenuRepositoryCustom chickenMenuRepositoryCustom;
+    private final ChickenMenuRepository chickenMenuRepository;
     private final ChickenLikeRepositoryCustom chickenLikeRepositoryCustom;
+    private final ChickenLikeRepository chickenLikeRepository;
+    private final UsersRepository usersRepository;
     private final RedisUtil redisUtil;
 
     /**
@@ -85,29 +99,32 @@ public class CacheWarmUpService {
 
     /**
      * 각 치킨 별 좋아요한 사람
+     * 매일 자정에 실행
      */
-    public void pushChickenMenuLike(){
+    @Scheduled(cron = "0 0 0 * * *")
+    public void pushChickenMenuLike() {
+        log.info("{}에 scheduler 작동 시작", LocalDateTime.now());
+        // db insert
+
+
+        // redis delete
+
+        // insert
         Long totalMenuCount = getTotalMenuNum();
-
-
         for (Long i = 1L; i <= totalMenuCount; i++) {
             List<Long> likesByMenuId = chickenLikeRepositoryCustom.getLikesByMenuId(i);
             for (Long userId : likesByMenuId) {
                 redisUtil.putSet(LIKE.prefix() + i, userId, null);
 
             }
-
         }
-
         log.info("======= push menu likes to redis =======");
-
     }
     /**
      * 각 치킨 별 좋아요한 사람, bulk insert
      */
     public void pushChickenMenuLikeBulkInsert(){
         Long totalMenuCount = getTotalMenuNum();
-
 
         for (Long i = 1L; i <= totalMenuCount; i++) {
             List<Long> userIdList = chickenLikeRepositoryCustom.getLikesByMenuId(i);
@@ -116,6 +133,57 @@ public class CacheWarmUpService {
         }
 
         log.info("======= push menu likes to redis bulk insert =======");
+
+    }
+
+    /**
+     * flow
+     * redis에서 Set 가져와
+     * db에 있으면 문제가 되지 않아 그냥 있는거니까
+     * 근데
+     * db : 1 2 3 4 5 6
+     * re : 1 3 5 7 8
+     * re에 있지만 db에 없는 것 7, 8
+     * db에 있지만 re에 없는 것 2, 4, 6
+     * db에 NOT IN (redis)해서 나오는 것들 db에서 delete
+     * redis 값들 db에 있는지 확인하고 없으면 insert?
+     *
+     * set이니까
+     * 일단 퍼올려
+     * re에 없으면 db에서 삭제
+     * re에 있으면 re(set)에서 삭제 -> 남은 set들 db에 insert!
+     * 이ㅓㄱ다!!!
+     */
+    public void getSetMembers(){
+        Long totalMenuCount = getTotalMenuNum();
+
+        for (Long menuId = 1L; menuId <= totalMenuCount; menuId++) {
+            Set<Long> fromRedis = redisUtil.getSetMembers(LIKE.prefix() + menuId); // redis에서 가져오기
+            List<Long> userIdList = chickenLikeRepositoryCustom.getLikesByMenuId(menuId); // db에서 가져오기
+            Set<Long> deleteEle = new HashSet<>(); // db, bulk delete
+            List<ChickenLike> saveEle = new ArrayList<>(); // db bulk insert
+            ChickenMenu chickenMenu = chickenMenuRepository.findByMenuId(menuId).get();
+
+
+            for (Long userId : userIdList) {
+                if(fromRedis.contains(userId)) { // 만약 db에 있는 값이 redis에 있다면 -> set에서 삭제 : 유지(좋아요 유지)
+                    fromRedis.remove(userId);
+                }
+                else { // 만약 db에 있는 값는 redis에 없다면 -> db에서 삭제 : 삭제(좋아요 삭제)
+                    deleteEle.add(userId);
+                }
+
+            }
+            chickenLikeRepositoryCustom.deleteLikeByUserId(menuId, fromRedis); // 한번에 db에서 delete
+
+            // fromRedis 남은 값들은 새로 좋아요한 사람들
+            for(Long userId : fromRedis){
+                Users users = usersRepository.findById(userId).get();
+
+                saveEle.add(ChickenLike.createChickenLike(users, chickenMenu)); // 추가
+            }
+            chickenLikeRepository.saveAll(saveEle); // 한번에 db에 insert
+        }
 
     }
 

@@ -11,7 +11,9 @@ import org.springframework.data.redis.core.SetOperations;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.stereotype.Component;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import static com.sh.chicken.global.common.RedisConst.MAIN;
@@ -73,6 +75,20 @@ public class RedisUtil {
             String obj = parseObjectToString(value);
             return  redisTemplate.opsForSet().add(key, obj);
         }
+    }
+
+    public Set<Long> getSetMembers(String key){
+
+        SetOperations<String, Object> set = redisTemplate.opsForSet();
+        Set<Object> members = set.members(key);
+
+        Set<Long> redis = new HashSet<>(); //추가
+        for (Object member : members) {
+            redis.add(Long.parseLong((String)member));
+        }
+
+        return redis;
+
     }
 
     /**

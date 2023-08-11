@@ -1,4 +1,4 @@
-package com.sh.chicken.admin.controller;
+package com.sh.chicken.admin.cache;
 
 
 import com.sh.chicken.admin.cache.CacheWarmUpService;
@@ -33,7 +33,8 @@ public class CacheWarmUpController {
 //        cacheWarmUpService.pushAllChickenMenus();
 //        cacheWarmUpService.pushChickenMenuInfoBulkInsert();
 //        cacheWarmUpService.pushAllChickenMenusBulkInsert();
-        cacheWarmUpService.pushChickenMenuLikeBulkInsert();
+//        cacheWarmUpService.pushChickenMenuLikeBulkInsert();
+        cacheWarmUpService.getSetMembers();
 
 
 

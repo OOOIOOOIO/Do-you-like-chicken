@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import static com.sh.chicken.domain.chickenlike.domain.QChickenLike.chickenLike;
 
@@ -33,6 +34,16 @@ public class ChickenLikeRepositoryCustom {
                 .from(chickenLike)
                 .where(chickenLike.chickenMenu.menuId.eq(menuId))
                 .fetch();
+
+    }
+
+    //벌크 update는 영속성 컨텍스트 비우는게 안전한데
+    //벌크 delete는 db에서 조회한 id만 가져오는거라 db에서 삭제된 id를 가진 entity는 알아서 안불러옴
+    public Long deleteLikeByUserId(Long userId, Set<Long> fromRedis){
+
+        return queryFactory.delete(chickenLike)
+                .where(chickenLike.users.userId.eq(userId), chickenLike.users.userId.in(fromRedis))
+                .execute();
 
     }
 }

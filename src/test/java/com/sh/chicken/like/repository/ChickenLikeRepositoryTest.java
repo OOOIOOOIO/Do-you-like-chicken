@@ -2,6 +2,7 @@ package com.sh.chicken.like.repository;
 
 import com.sh.chicken.domain.chickenlike.domain.ChickenLike;
 import com.sh.chicken.domain.chickenlike.domain.repository.ChickenLikeRepository;
+import com.sh.chicken.domain.chickenlike.domain.repository.ChickenLikeRepositoryCustom;
 import com.sh.chicken.domain.chickenmenu.domain.ChickenMenu;
 import com.sh.chicken.domain.chickenmenu.domain.repository.ChickenMenuRepository;
 import com.sh.chicken.domain.user.domain.Users;
@@ -13,6 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Slf4j
@@ -28,6 +32,8 @@ public class ChickenLikeRepositoryTest {
 
     @Autowired
     ChickenMenuRepository chickenMenuRepository;
+
+
 
 
     @Test
@@ -48,6 +54,8 @@ public class ChickenLikeRepositoryTest {
         }
 
     }
+
+
     
 
 }
