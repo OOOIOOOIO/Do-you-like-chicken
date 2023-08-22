@@ -84,7 +84,9 @@ public class CacheWarmUpService {
         }
         log.info("======= push menu info to redis =======");
 
-    }    /**
+    }
+
+    /**
      * 개별 menu info bulkinsert
      */
     public void pushChickenMenuInfoBulkInsert(){
@@ -98,17 +100,9 @@ public class CacheWarmUpService {
 
 
     /**
-     * 각 치킨 별 좋아요한 사람
-     * 매일 자정에 실행
+     * 각 치킨 별 좋아요한 사람, 아래랑 비교해보기
      */
-    @Scheduled(cron = "0 0 0 * * *")
     public void pushChickenMenuLike() {
-        log.info("{}에 scheduler 작동 시작", LocalDateTime.now());
-        // db insert
-
-
-        // redis delete
-
         // insert
         Long totalMenuCount = getTotalMenuNum();
         for (Long i = 1L; i <= totalMenuCount; i++) {
@@ -120,6 +114,8 @@ public class CacheWarmUpService {
         }
         log.info("======= push menu likes to redis =======");
     }
+
+
     /**
      * 각 치킨 별 좋아요한 사람, bulk insert
      */
@@ -154,9 +150,10 @@ public class CacheWarmUpService {
      * re에 있으면 re(set)에서 삭제 -> 남은 set들 db에 insert!
      * 이ㅓㄱ다!!!
      */
-    public void getSetMembers(){
+    public void matchConsistency(){
         Long totalMenuCount = getTotalMenuNum();
 
+        // cache - db 정합성
         for (Long menuId = 1L; menuId <= totalMenuCount; menuId++) {
             Set<Long> fromRedis = redisUtil.getSetMembers(LIKE.prefix() + menuId); // redis에서 가져오기
             List<Long> userIdList = chickenLikeRepositoryCustom.getLikesByMenuId(menuId); // db에서 가져오기
@@ -184,6 +181,7 @@ public class CacheWarmUpService {
             }
             chickenLikeRepository.saveAll(saveEle); // 한번에 db에 insert
         }
+
 
     }
 

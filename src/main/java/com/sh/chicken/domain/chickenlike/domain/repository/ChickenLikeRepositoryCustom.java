@@ -39,10 +39,10 @@ public class ChickenLikeRepositoryCustom {
 
     //벌크 update는 영속성 컨텍스트 비우는게 안전한데
     //벌크 delete는 db에서 조회한 id만 가져오는거라 db에서 삭제된 id를 가진 entity는 알아서 안불러옴
-    public Long deleteLikeByUserId(Long userId, Set<Long> fromRedis){
+    public Long deleteLikeByUserId(Long menuId, Set<Long> fromRedis){
 
         return queryFactory.delete(chickenLike)
-                .where(chickenLike.users.userId.eq(userId), chickenLike.users.userId.in(fromRedis))
+                .where(chickenLike.chickenMenu.menuId.eq(menuId), chickenLike.users.userId.in(fromRedis))
                 .execute();
 
     }

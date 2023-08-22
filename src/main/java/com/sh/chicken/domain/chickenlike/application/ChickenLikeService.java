@@ -23,9 +23,8 @@ public class ChickenLikeService {
      * 좋아요 추가
      */
     public Long addLike(Long menuId, Long userId) {
-        Long result = redisUtil.putSet(LIKE.prefix() + menuId, userId, null);
 
-        return result;
+        return redisUtil.putSet(LIKE.prefix() + menuId, userId, null);
     }
 
     /**
@@ -39,7 +38,6 @@ public class ChickenLikeService {
     public Long totalLike(Long menuId) {
 
         return redisUtil.getLikeTotalSize(LIKE.prefix() + menuId);
-
     }
 
     private void isPresent(Users users, ChickenMenu chickenMenu) {

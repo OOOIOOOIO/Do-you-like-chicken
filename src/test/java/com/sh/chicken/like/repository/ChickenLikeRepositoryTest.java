@@ -26,14 +26,26 @@ public class ChickenLikeRepositoryTest {
 
     @Autowired
     ChickenLikeRepository chickenLikeRepository;
-
     @Autowired
     UsersRepository usersRepository;
-
     @Autowired
     ChickenMenuRepository chickenMenuRepository;
 
+    @DisplayName("db : userId, 7~16 삽입, redis : userId 3~10 삽입")
+    @Test
+    public void insert(){
+        // given
+        ChickenMenu chickenMenu = chickenMenuRepository.findById(68L).get();
 
+        for(int i = 5; i <= 13; i++){
+            String username = "test" + i;
+            Users user = usersRepository.findByUsername(username).get();
+
+            ChickenLike chickenLike = ChickenLike.createChickenLike(user, chickenMenu);
+            chickenLikeRepository.save(chickenLike);
+        }
+
+    }
 
 
     @Test
@@ -54,6 +66,9 @@ public class ChickenLikeRepositoryTest {
         }
 
     }
+
+
+
 
 
     

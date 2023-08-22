@@ -5,6 +5,7 @@ import com.sh.chicken.admin.cache.CacheWarmUpService;
 import com.sh.chicken.global.aop.log.LogTrace;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,7 +27,7 @@ public class CacheWarmUpController {
 
     @LogTrace
     @GetMapping("/likes")
-    public void pushLikes(){
+    public void pushLikes() {
 
 //        cacheWarmUpService.pushChickenMenuLike();
 //        cacheWarmUpService.pushChickenMenuInfo(); // 에러
@@ -34,9 +35,20 @@ public class CacheWarmUpController {
 //        cacheWarmUpService.pushChickenMenuInfoBulkInsert();
 //        cacheWarmUpService.pushAllChickenMenusBulkInsert();
 //        cacheWarmUpService.pushChickenMenuLikeBulkInsert();
-        cacheWarmUpService.getSetMembers();
+//        cacheWarmUpService.getSetMembers();
 
 
 
+    }
+
+    @LogTrace
+    @GetMapping("/consistency")
+//    @Scheduled(cron = "0 0 0 * * *")
+    public void matchConsistency(){
+        log.info("match consistency cache and db");
+        cacheWarmUpService.matchConsistency(); //정합성 맞추기
+
+        log.info("push likes to cache from db");
+        cacheWarmUpService.pushChickenMenuLikeBulkInsert(); //맞춘 후 redis에 밀어넣기
     }
 }

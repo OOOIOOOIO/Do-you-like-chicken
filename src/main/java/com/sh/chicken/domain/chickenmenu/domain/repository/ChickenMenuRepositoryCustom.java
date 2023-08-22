@@ -106,6 +106,7 @@ public class ChickenMenuRepositoryCustom {
      * 메뉴 상세
      */
     public Optional<ChickenMenuInfoResDto> getMenuInfo(Long menuId){
+        NumberPath<Long> aliasLike = Expressions.numberPath(Long.class, "likes");
 
         ChickenMenuInfoResDto chickenMenuInfoResDto = queryFactory
                 .select(Projections.constructor(ChickenMenuInfoResDto.class,
@@ -114,7 +115,11 @@ public class ChickenMenuRepositoryCustom {
                         chickenMenu.chickenBrand.brandName,
                         chickenMenu.img,
                         chickenMenu.price,
-                        chickenMenu.contents))
+                        chickenMenu.contents,
+                        ExpressionUtils.as(
+                                JPAExpressions.select(chickenLike.count())
+                                        .from(chickenLike)
+                                        .where(chickenLike.chickenMenu.menuId.eq(chickenMenu.menuId)), aliasLike)))
                 .from(chickenMenu)
                 .where(chickenMenu.menuId.eq(menuId))
                 .fetchOne();

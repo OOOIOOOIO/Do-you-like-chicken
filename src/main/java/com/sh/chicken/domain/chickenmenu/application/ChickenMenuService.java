@@ -30,17 +30,18 @@ public class ChickenMenuService {
         if(redisUtil.isExists(MAIN.prefix())){
             List<ChickenMenuInfoResDto> getAllChickenMenuWithLikeFromRedis = redisUtil.getByClassType(MAIN.prefix(), List.class);
 
-            for (ChickenMenuInfoResDto chickenMenuInfoResDto : getAllChickenMenuWithLikeFromRedis) {
+            for (ChickenMenuInfoResDto chickenMenuInfoResDto : getAllChickenMenuWithLikeFromRedis) { // redis에서 좋아요 총 개수
                 setTotalLikeNum(chickenMenuInfoResDto.getMenuId(), chickenMenuInfoResDto);
 
             }
-            Collections.sort(getAllChickenMenuWithLikeFromRedis, (o1, o2) -> (int)(o1.getPrice() - o2.getPrice()));
+
+            Collections.sort(getAllChickenMenuWithLikeFromRedis, (o1, o2) -> (o2.getPrice() - o1.getPrice())); // 정렬(내림차순)
 
             log.info("==== FROM REDIS ====");
             return new ChickenMenuInfoResListDto(getAllChickenMenuWithLikeFromRedis);
         }
         else {
-            List<ChickenMenuInfoResDto> allMenusWithTotalLike = chickenMenuRepositoryCustom.getAllMenusWithTotalLikePriceDesc(); // 일단 db랑 맞춤
+            List<ChickenMenuInfoResDto> allMenusWithTotalLike = chickenMenuRepositoryCustom.getAllMenusWithTotalLikePriceDesc(); // 일단 db에서 가져옴
 
             redisUtil.putString(MAIN.prefix(), allMenusWithTotalLike, null);
 
@@ -58,11 +59,11 @@ public class ChickenMenuService {
 
         List<ChickenMenuInfoResDto> allMenusWithTotalLike = redisUtil.getByClassType(MAIN.prefix(), List.class);
 
-        for (ChickenMenuInfoResDto chickenMenuInfoResDto : allMenusWithTotalLike) {
+        for (ChickenMenuInfoResDto chickenMenuInfoResDto : allMenusWithTotalLike) { // redis에서 좋아요 총 개수
             setTotalLikeNum(chickenMenuInfoResDto.getMenuId(), chickenMenuInfoResDto);
 
         }
-        Collections.sort(allMenusWithTotalLike, (o1, o2) -> (int)(o1.getLikes() - o2.getLikes()));
+        Collections.sort(allMenusWithTotalLike, (o1, o2) -> (int)(o2.getLikes() - o1.getLikes())); // 정렬(내림차순)
 
         return new ChickenMenuInfoResListDto(allMenusWithTotalLike);
     }
@@ -73,15 +74,15 @@ public class ChickenMenuService {
     public ChickenMenuInfoResDto getMenuInfo(Long menuId) {
         if (redisUtil.isExists(MENU.prefix() + menuId)) {
             ChickenMenuInfoResDto chickenMenuFromRedis = redisUtil.getByClassType(MENU.prefix() + menuId, ChickenMenuInfoResDto.class);
-            setTotalLikeNum(menuId, chickenMenuFromRedis);
+            setTotalLikeNum(menuId, chickenMenuFromRedis); // redis에서 총 개수
 
             log.info("==== FROM REDIS ====");
 
             return chickenMenuFromRedis;
         } else {
             ChickenMenuInfoResDto chickenMenuInfoResDto = chickenMenuRepositoryCustom.getMenuInfo(menuId).get();
-            setTotalLikeNum(menuId, chickenMenuInfoResDto);
             redisUtil.putString(MENU.prefix() + menuId, chickenMenuInfoResDto, null);
+
             log.info("==== FROM DB TO REDIS ====");
 
             return chickenMenuInfoResDto;
