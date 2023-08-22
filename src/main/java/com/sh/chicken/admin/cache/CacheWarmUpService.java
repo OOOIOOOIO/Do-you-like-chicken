@@ -171,7 +171,7 @@ public class CacheWarmUpService {
                 }
 
             }
-            chickenLikeRepositoryCustom.deleteLikeByUserId(menuId, fromRedis); // 한번에 db에서 delete
+            chickenLikeRepositoryCustom.deleteLikeByUserId(menuId, deleteEle); // 한번에 db에서 delete
 
             // fromRedis 남은 값들은 새로 좋아요한 사람들
             for(Long userId : fromRedis){

@@ -43,10 +43,10 @@ public class CacheWarmUpController {
 
     @LogTrace
     @GetMapping("/consistency")
-//    @Scheduled(cron = "0 0 0 * * *")
+    @Scheduled(cron = "0 0 0 * * *") // 매일 정각
     public void matchConsistency(){
         log.info("match consistency cache and db");
-        cacheWarmUpService.matchConsistency(); //정합성 맞추기
+        cacheWarmUpService.matchConsistency(); // 정합성 맞추기
 
         log.info("push likes to cache from db");
         cacheWarmUpService.pushChickenMenuLikeBulkInsert(); //맞춘 후 redis에 밀어넣기

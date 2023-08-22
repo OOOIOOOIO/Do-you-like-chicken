@@ -59,6 +59,7 @@ public class CacheTest {
         cacheWarmUpService.matchConsistency();
 
         // when
+        cacheWarmUpService.pushChickenMenuLikeBulkInsert(); //맞춘 후 redis에 밀어넣기
 
         // then
 
