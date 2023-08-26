@@ -29,19 +29,10 @@ script: "./gradlew clean build"
 # deploy 명령어가 실행되기 전에 수행된다.
 # CodeDeploy는 Jar 파일을 인식하지 못하므로 Jar+기타 설정 파일들을 모아 압축한다.
 before_deploy:
-  - zip -r Do-you-like-chicken * # 햔제 위치의 모든 파일을 learning-springboot-webservice-AWS 이름으로 압축한다. 명령어의 마지막 위치는 보닌의 프로젝트 이름이여야 한다.
+  - zip -r chicken * # 햔제 위치의 모든 파일을 learning-springboot-webservice-AWS 이름으로 압축한다. 명령어의 마지막 위치는 보닌의 프로젝트 이름이여야 한다.
   - mkdir -p deploy # deploy 디렉토리를 Travis CI가 실행 중인 위치에 생성
-  - mv chicken.zip deploy/Do-you-like-chicken.zip # learning-springboot-webservice-AWS.zip 파일을 deploy/learning-springboot-webservice-AWS.zip 으로 이동
+  - mv chicken.zip deploy/chicken.zip # learning-springboot-webservice-AWS.zip 파일을 deploy/learning-springboot-webservice-AWS.zip 으로 이동
 
-# deploy.sh가 있을 때
-#before_deploy:
-#  - mkdir -p before-deploy
-#  - cp scripts/*.sh before-deploy/
-#  - cp appspec.yml before-deploy/
-#  - cp build/libs/*.jar before-deploy/
-#  - cd before-deploy && zip -r before-deploy *
-#  - cd ../ && mkdir -p deploy
-#  - mv before-deploy/before-deploy.zip deploy/learning-springboot-webservice-AWS.zip
 
 
 deploy:
@@ -53,18 +44,18 @@ deploy:
     skip_cleanup: true
     acl: private # zip 파일 접근을 private으로
     local_dir: deploy # before_deply에서 생성한 디렉토리, 해당 위치의 파일들만 S3로 전송(IAM 키)
-    wait-until-deployed: true
+    wait_until_deployed: true
 
   - provider: codedeploy
     access_key_id: $AWS_ACCESS_KEY # Travis repo setting에 설정된 값
     secret_access_key: $AWS_SECRET_KEY
     bucket: seongho-s3-bucket # bucket 이름
-    key: Do-you-like-chicken.zip # 빌드 파일을 압축해서 전달
+    key: chicken.zip # 빌드 파일을 압축해서 전달
     bundle_type: zip
     application: learning-springboot-webservice-AWS # 웹 콘솔에 등록한 CodeDeploy 애플리케이션 이름
     deployment_group: chicken-group # CodeDeploy 배포 그룹 이름
     region: ap-northeast-2
-    wait-until-deployed: true
+    wait_until_deployed: true
 
 # CI 실행 완료 시 작성한 이메일로 알람
 notifications:
