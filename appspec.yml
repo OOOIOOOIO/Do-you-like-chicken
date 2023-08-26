@@ -6,13 +6,13 @@ files:
     overwrite: yes # 덮어씌우기
 
 # deploy.sh 있을 경우
-#permissions:
-#  - object: /
-#    pattern: "**"
-#    owner: ubuntu
-#    group: ubuntu
-#hooks:
-#  ApplicationStart:
-#    - location: deploy.sh
-#      timeout: 60
-#      runas: ubuntu
+permissions:
+  - object: /
+    pattern: "**"
+    owner: ubuntu
+    group: ubuntu
+hooks:
+  ApplicationStart:
+    - location: deploy.sh
+      timeout: 60
+      runas: ubuntu
