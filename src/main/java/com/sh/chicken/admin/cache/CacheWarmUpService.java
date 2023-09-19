@@ -133,22 +133,7 @@ public class CacheWarmUpService {
     }
 
     /**
-     * flow
-     * redis에서 Set 가져와
-     * db에 있으면 문제가 되지 않아 그냥 있는거니까
-     * 근데
-     * db : 1 2 3 4 5 6
-     * re : 1 3 5 7 8
-     * re에 있지만 db에 없는 것 7, 8
-     * db에 있지만 re에 없는 것 2, 4, 6
-     * db에 NOT IN (redis)해서 나오는 것들 db에서 delete
-     * redis 값들 db에 있는지 확인하고 없으면 insert?
-     *
-     * set이니까
-     * 일단 퍼올려
-     * re에 없으면 db에서 삭제
-     * re에 있으면 re(set)에서 삭제 -> 남은 set들 db에 insert!
-     * 이ㅓㄱ다!!!
+     * redis - db 정합성 맞추기
      */
     public void matchConsistency(){
         Long totalMenuCount = getTotalMenuNum();

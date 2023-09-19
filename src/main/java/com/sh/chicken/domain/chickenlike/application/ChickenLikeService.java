@@ -40,38 +40,5 @@ public class ChickenLikeService {
         return redisUtil.getLikeTotalSize(LIKE.prefix() + menuId);
     }
 
-    private void isPresent(Users users, ChickenMenu chickenMenu) {
-
-//        Optional<ChickenLike> byUsersAndChickenMenu = chickenLikeRepository.findByUsersAndChickenMenu(users, chickenMenu);
-//
-//        if(byUsersAndChickenMenu.isPresent()) return true;
-//
-//        return false;
-    }
-
-
-
-    public void insertToDB(){
-        //        Users users = usersRepository.findById(userId).orElseThrow(() -> new ServerErrorException("유저 없음"));
-//        ChickenMenu chickenMenu = chickenMenuRepository.findByMenuId(menuId).orElseThrow(() -> new ServerErrorException("메뉴 없음"));
-//
-//        ChickenLike chickenLike = ChickenLike.createChickenLike(users, chickenMenu);
-//
-//        if(!isPresent(users, chickenMenu)){
-//            chickenLikeRepository.save(chickenLike);
-//
-//        }else{
-//            throw new RuntimeException("이미 좋아요 누름");
-//        }
-    }
-
-    public void deleteFromDB(){
-        //        Users users = usersRepository.findById(userId).orElseThrow(() -> new ServerErrorException("유저 없음"));
-//        ChickenMenu chickenMenu = chickenMenuRepository.findByMenuId(menuId).orElseThrow(() -> new ServerErrorException("메뉴 없음"));
-//
-//        ChickenLike chickenLike = chickenLikeRepository.findByUsersAndChickenMenu(users, chickenMenu).orElseThrow(() -> new ServerErrorException("유저 없음"));
-//
-//        chickenLikeRepository.delete(chickenLike);
-    }
 
 }

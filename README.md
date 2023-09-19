@@ -29,6 +29,13 @@
 
 ## Code
 
+#### parsing 메서드
+
+![img_3.png](img_3.png)
+
+#### redis - db 정합성 맞추기
+![img_2.png](img_2.png)
+
 
 ## 느낀점
 -
