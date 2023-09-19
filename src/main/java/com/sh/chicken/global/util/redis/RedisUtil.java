@@ -1,6 +1,7 @@
 package com.sh.chicken.global.util.redis;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sh.chicken.domain.chickenmenu.api.dto.res.ChickenMenuInfoResDto;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +16,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 import static com.sh.chicken.global.common.RedisConst.MAIN;
 import static com.sh.chicken.global.common.RedisConst.MENU;
@@ -25,6 +27,7 @@ import static com.sh.chicken.global.common.RedisConst.MENU;
 public class RedisUtil {
 
     private final RedisTemplate<String, Object> redisTemplate;
+    private final ObjectMapper objectMapper;
 
     /**
      * Get value from redis
@@ -41,6 +44,8 @@ public class RedisUtil {
         }
         return null;
     }
+
+
 
     /**
      * Push String type to redis
@@ -195,7 +200,7 @@ public class RedisUtil {
      * @return
      */
     private String parseObjectToString(Object data)  {
-        ObjectMapper objectMapper = new ObjectMapper();
+//        ObjectMapper objectMapper = new ObjectMapper();
         String result = null;
         try {
             result = objectMapper.writeValueAsString(data);
@@ -214,13 +219,15 @@ public class RedisUtil {
      * @param <T>
      */
     private <T> Object parseStringToObject(String data, Class<T> valueType)  {
-        ObjectMapper objectMapper = new ObjectMapper();
+//        ObjectMapper objectMapper = new ObjectMapper();
         T obj = null;
+
         try {
             obj = objectMapper.readValue(data, valueType);
         } catch (JsonProcessingException e) {
             throw new RuntimeException("==== parseStringToObject Error ====");
         }
+
 
         return obj;
     }

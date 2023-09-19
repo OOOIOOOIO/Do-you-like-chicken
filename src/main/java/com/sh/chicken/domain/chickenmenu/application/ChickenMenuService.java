@@ -1,5 +1,7 @@
 package com.sh.chicken.domain.chickenmenu.application;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sh.chicken.domain.chickenmenu.api.dto.res.ChickenMenuInfoResDto;
 import com.sh.chicken.domain.chickenmenu.api.dto.res.ChickenMenuInfoResListDto;
 import com.sh.chicken.domain.chickenmenu.domain.repository.ChickenMenuRepositoryCustom;
@@ -22,23 +24,26 @@ public class ChickenMenuService {
 
     private final ChickenMenuRepositoryCustom chickenMenuRepositoryCustom;
     private final RedisUtil redisUtil;
+    private final ObjectMapper objectMapper;
 
     /**
-     * main, sort 가격순으로 정렬
+     * 가격순으로 정렬
      */
     public ChickenMenuInfoResListDto getAllChickenMenus() {
         if(redisUtil.isExists(MAIN.prefix())){
             List<ChickenMenuInfoResDto> getAllChickenMenuWithLikeFromRedis = redisUtil.getByClassType(MAIN.prefix(), List.class);
 
-            for (ChickenMenuInfoResDto chickenMenuInfoResDto : getAllChickenMenuWithLikeFromRedis) { // redis에서 좋아요 총 개수
+            List<ChickenMenuInfoResDto> chickenMenuInfoResDtos = getChickenMenuInfoResDtoList(getAllChickenMenuWithLikeFromRedis);
+
+            for (ChickenMenuInfoResDto chickenMenuInfoResDto : chickenMenuInfoResDtos) { // redis에서 좋아요 총 개수
                 setTotalLikeNum(chickenMenuInfoResDto.getMenuId(), chickenMenuInfoResDto);
 
             }
 
-            Collections.sort(getAllChickenMenuWithLikeFromRedis, (o1, o2) -> (o2.getPrice() - o1.getPrice())); // 정렬(내림차순)
+            Collections.sort(chickenMenuInfoResDtos, (o1, o2) -> (o2.getPrice() - o1.getPrice())); // 정렬(내림차순)
 
             log.info("==== FROM REDIS ====");
-            return new ChickenMenuInfoResListDto(getAllChickenMenuWithLikeFromRedis);
+            return new ChickenMenuInfoResListDto(chickenMenuInfoResDtos);
         }
         else {
             List<ChickenMenuInfoResDto> allMenusWithTotalLike = chickenMenuRepositoryCustom.getAllMenusWithTotalLikePriceDesc(); // 일단 db에서 가져옴
@@ -51,21 +56,45 @@ public class ChickenMenuService {
     }
 
     /**
+     * LinkedHashMap cannot be cast to object Error 해결
+     *
+     * @param getAllChickenMenuWithLikeFromRedis
+     * @return
+     */
+    private List<ChickenMenuInfoResDto> getChickenMenuInfoResDtoList(List<ChickenMenuInfoResDto> getAllChickenMenuWithLikeFromRedis) {
+        List<ChickenMenuInfoResDto> chickenMenuInfoResDtos = objectMapper.convertValue(getAllChickenMenuWithLikeFromRedis, new TypeReference<List<ChickenMenuInfoResDto>>() {
+        });
+        return chickenMenuInfoResDtos;
+    }
+
+    /**
      * like순 정렬 main
      * --> 이거 캐시+ sorting이랑 db랑 한번 해보자
      */
     public ChickenMenuInfoResListDto getChickenMenusOrderByLikesDesc(){
-//        List<ChickenMenuInfoResDto> allMenusWithTotalLike = chickenMenuRepositoryCustom.getAllMenusWithTotalLikeLikesDesc();
 
-        List<ChickenMenuInfoResDto> allMenusWithTotalLike = redisUtil.getByClassType(MAIN.prefix(), List.class);
+        if(redisUtil.isExists(MAIN.prefix())){
+            List<ChickenMenuInfoResDto> allMenusWithTotalLike = redisUtil.getByClassType(MAIN.prefix(), List.class);
 
-        for (ChickenMenuInfoResDto chickenMenuInfoResDto : allMenusWithTotalLike) { // redis에서 좋아요 총 개수
-            setTotalLikeNum(chickenMenuInfoResDto.getMenuId(), chickenMenuInfoResDto);
+            List<ChickenMenuInfoResDto> chickenMenuInfoResDtos = getChickenMenuInfoResDtoList(allMenusWithTotalLike);
 
+            for (ChickenMenuInfoResDto chickenMenuInfoResDto : chickenMenuInfoResDtos) { // redis에서 좋아요 총 개수
+                setTotalLikeNum(chickenMenuInfoResDto.getMenuId(), chickenMenuInfoResDto);
+
+            }
+            Collections.sort(chickenMenuInfoResDtos, (o1, o2) -> (int)(o2.getLikes() - o1.getLikes())); // 정렬(내림차순)
+
+            log.info("==== FROM REDIS ====");
+            return new ChickenMenuInfoResListDto(chickenMenuInfoResDtos);
         }
-        Collections.sort(allMenusWithTotalLike, (o1, o2) -> (int)(o2.getLikes() - o1.getLikes())); // 정렬(내림차순)
+        else {
+            List<ChickenMenuInfoResDto> allMenusWithTotalLike = chickenMenuRepositoryCustom.getAllMenusWithTotalLikePriceDesc(); // 일단 db에서 가져옴
 
-        return new ChickenMenuInfoResListDto(allMenusWithTotalLike);
+            redisUtil.putString(MAIN.prefix(), allMenusWithTotalLike, null);
+
+            log.info("==== FROM DB TO REDIS ====");
+            return new ChickenMenuInfoResListDto(allMenusWithTotalLike);
+        }
     }
 
     /**
@@ -93,23 +122,6 @@ public class ChickenMenuService {
     private void setTotalLikeNum(Long menuId, ChickenMenuInfoResDto chickenMenuInfoResDto) {
         Long likeTotalSize = redisUtil.getLikeTotalSize(LIKE.prefix() + menuId);
         chickenMenuInfoResDto.setLikes(likeTotalSize);
-    }
-
-
-
-    // =======================================================================
-
-    public void getAllMenusFromRedis(){
-        //main redis에서 가져오고
-        //for문 돌면서 like total 가져오기
-    }
-
-    public void getAllMenusFromRedisOrderByDesc(){
-        //main
-        //for문 돌고 likes 기준으로 메모리에서 sorting
-    }
-
-    public void menuInfoFromRedis(){
 
     }
 

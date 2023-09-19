@@ -26,25 +26,27 @@ public class CacheWarmUpController {
      */
 
     @LogTrace
-    @GetMapping("/likes")
-    public void pushLikes() {
+    @GetMapping("/main")
+    public void pushMenusWithString() {
 
-//        cacheWarmUpService.pushChickenMenuLike();
-//        cacheWarmUpService.pushChickenMenuInfo(); // 에러
-//        cacheWarmUpService.pushAllChickenMenus();
-//        cacheWarmUpService.pushChickenMenuInfoBulkInsert();
-//        cacheWarmUpService.pushAllChickenMenusBulkInsert();
-//        cacheWarmUpService.pushChickenMenuLikeBulkInsert();
-//        cacheWarmUpService.getSetMembers();
+        log.info("push main to redis");
+        cacheWarmUpService.pushAllChickenMenusBulkInsert();
 
+    }
 
+    @LogTrace
+    @GetMapping("/menus")
+    public void pushMenusWithBulk() {
+
+        log.info("push menus to redis");
+        cacheWarmUpService.pushChickenMenuInfo();
 
     }
 
     @LogTrace
     @GetMapping("/consistency")
     @Scheduled(cron = "0 0 0 * * *") // 매일 정각
-    public void matchConsistency(){
+    public void matchConsistencyAndPushLikes(){
         log.info("match consistency cache and db");
         cacheWarmUpService.matchConsistency(); // 정합성 맞추기
 
