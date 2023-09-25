@@ -200,7 +200,6 @@ public class RedisUtil {
      * @return
      */
     private String parseObjectToString(Object data)  {
-//        ObjectMapper objectMapper = new ObjectMapper();
         String result = null;
         try {
             result = objectMapper.writeValueAsString(data);
@@ -219,7 +218,6 @@ public class RedisUtil {
      * @param <T>
      */
     private <T> Object parseStringToObject(String data, Class<T> valueType)  {
-//        ObjectMapper objectMapper = new ObjectMapper();
         T obj = null;
 
         try {
