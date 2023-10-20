@@ -50,7 +50,7 @@ public class CacheWarmUpService {
         List<ChickenMenuInfoResDto> allMenusWithTotalLikePriceDesc = chickenMenuRepositoryCustom.getAllMenusWithTotalLikePriceDesc();
 
         //redis에 넣기
-        redisUtil.putString(MAIN.prefix(), allMenusWithTotalLikePriceDesc, null);
+        redisUtil.putString(MAIN_BY_PRICE.prefix(), allMenusWithTotalLikePriceDesc, null);
         log.info("======== push menu list to redis ========");
 
     }
@@ -67,7 +67,7 @@ public class CacheWarmUpService {
         List<ChickenMenuInfoResDto> allMenusWithTotalLikePriceDesc = chickenMenuRepositoryCustom.getAllMenusWithTotalLikePriceDesc();
 
         //redis에 넣기
-        redisUtil.bulkInsertForMenuList(MAIN.prefix(), allMenusWithTotalLikePriceDesc);
+        redisUtil.bulkInsertForMenuList(MAIN_BY_PRICE.prefix(), allMenusWithTotalLikePriceDesc);
         log.info("======== push menu list to redis bulk insert========");
 
     }

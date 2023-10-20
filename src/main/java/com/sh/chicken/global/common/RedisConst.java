@@ -2,7 +2,8 @@ package com.sh.chicken.global.common;
 
 public enum RedisConst {
 
-    MAIN("main"),
+    MAIN_BY_PRICE("main:price"),
+    MAIN_BY_LIKE("main:like"),
     MENU("menu:"),
     LIKE("menu:like:");
     private final String prefix;

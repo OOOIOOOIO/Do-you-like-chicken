@@ -1,6 +1,7 @@
 package com.sh.chicken.domain.user.domain;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.sh.chicken.domain.Coupon.domain.Coupon;
 import com.sh.chicken.domain.chickenlike.domain.ChickenLike;
 import com.sh.chicken.domain.common.BaseTimeEntity;
 import com.sh.chicken.domain.user.api.dto.request.UsersSignUpReqDto;
@@ -29,6 +30,9 @@ public class Users extends BaseTimeEntity {
     @JsonManagedReference
     @OneToMany(mappedBy = "users", cascade = {CascadeType.REMOVE, CascadeType.PERSIST})
     private List<ChickenLike> chickenLikeList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "users")
+    private List<Coupon> couponList = new ArrayList<>();
 
     @Builder
     private Users(String username, String pw, String nickname, int sex) {

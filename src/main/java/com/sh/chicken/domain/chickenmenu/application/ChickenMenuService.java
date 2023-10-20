@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sh.chicken.domain.chickenmenu.api.dto.res.ChickenMenuInfoResDto;
 import com.sh.chicken.domain.chickenmenu.api.dto.res.ChickenMenuInfoResListDto;
 import com.sh.chicken.domain.chickenmenu.domain.repository.ChickenMenuRepositoryCustom;
+import com.sh.chicken.global.exception.CustomException;
+import com.sh.chicken.global.exception.ErrorCode;
 import com.sh.chicken.global.util.redis.RedisUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -30,8 +32,8 @@ public class ChickenMenuService {
      * 가격순으로 정렬
      */
     public ChickenMenuInfoResListDto getAllChickenMenus() {
-        if(redisUtil.isExists(MAIN.prefix())){
-            List<ChickenMenuInfoResDto> getAllChickenMenuWithLikeFromRedis = redisUtil.getByClassType(MAIN.prefix(), List.class);
+        if(redisUtil.isExists(MAIN_BY_PRICE.prefix())){
+            List<ChickenMenuInfoResDto> getAllChickenMenuWithLikeFromRedis = redisUtil.getByClassType(MAIN_BY_PRICE.prefix(), List.class);
 
             List<ChickenMenuInfoResDto> chickenMenuInfoResDtos = getChickenMenuInfoResDtoList(getAllChickenMenuWithLikeFromRedis);
 
@@ -48,7 +50,9 @@ public class ChickenMenuService {
         else {
             List<ChickenMenuInfoResDto> allMenusWithTotalLike = chickenMenuRepositoryCustom.getAllMenusWithTotalLikePriceDesc(); // 일단 db에서 가져옴
 
-            redisUtil.putString(MAIN.prefix(), allMenusWithTotalLike, null);
+            if(allMenusWithTotalLike.isEmpty()) throw new CustomException(ErrorCode.NOT_FOUND_MENU_LIST);
+
+            redisUtil.putString(MAIN_BY_PRICE.prefix(), allMenusWithTotalLike, null);
 
             log.info("==== FROM DB TO REDIS ====");
             return new ChickenMenuInfoResListDto(allMenusWithTotalLike);
@@ -62,8 +66,8 @@ public class ChickenMenuService {
      * @return
      */
     private List<ChickenMenuInfoResDto> getChickenMenuInfoResDtoList(List<ChickenMenuInfoResDto> getAllChickenMenuWithLikeFromRedis) {
-        List<ChickenMenuInfoResDto> chickenMenuInfoResDtos = objectMapper.convertValue(getAllChickenMenuWithLikeFromRedis, new TypeReference<List<ChickenMenuInfoResDto>>() {
-        });
+        List<ChickenMenuInfoResDto> chickenMenuInfoResDtos = objectMapper.convertValue(getAllChickenMenuWithLikeFromRedis, new TypeReference<List<ChickenMenuInfoResDto>>() {});
+
         return chickenMenuInfoResDtos;
     }
 
@@ -73,8 +77,8 @@ public class ChickenMenuService {
      */
     public ChickenMenuInfoResListDto getChickenMenusOrderByLikesDesc(){
 
-        if(redisUtil.isExists(MAIN.prefix())){
-            List<ChickenMenuInfoResDto> allMenusWithTotalLike = redisUtil.getByClassType(MAIN.prefix(), List.class);
+        if(redisUtil.isExists(MAIN_BY_LIKE.prefix())){
+            List<ChickenMenuInfoResDto> allMenusWithTotalLike = redisUtil.getByClassType(MAIN_BY_LIKE.prefix(), List.class);
 
             List<ChickenMenuInfoResDto> chickenMenuInfoResDtos = getChickenMenuInfoResDtoList(allMenusWithTotalLike);
 
@@ -90,7 +94,9 @@ public class ChickenMenuService {
         else {
             List<ChickenMenuInfoResDto> allMenusWithTotalLike = chickenMenuRepositoryCustom.getAllMenusWithTotalLikePriceDesc(); // 일단 db에서 가져옴
 
-            redisUtil.putString(MAIN.prefix(), allMenusWithTotalLike, null);
+            if(allMenusWithTotalLike.isEmpty()) throw new CustomException(ErrorCode.NOT_FOUND_MENU_LIST);
+
+            redisUtil.putString(MAIN_BY_LIKE.prefix(), allMenusWithTotalLike, null);
 
             log.info("==== FROM DB TO REDIS ====");
             return new ChickenMenuInfoResListDto(allMenusWithTotalLike);
@@ -109,7 +115,7 @@ public class ChickenMenuService {
 
             return chickenMenuFromRedis;
         } else {
-            ChickenMenuInfoResDto chickenMenuInfoResDto = chickenMenuRepositoryCustom.getMenuInfo(menuId).get();
+            ChickenMenuInfoResDto chickenMenuInfoResDto = chickenMenuRepositoryCustom.getMenuInfo(menuId).orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_MENU));
             redisUtil.putString(MENU.prefix() + menuId, chickenMenuInfoResDto, null);
 
             log.info("==== FROM DB TO REDIS ====");
