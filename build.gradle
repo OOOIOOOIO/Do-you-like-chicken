@@ -37,19 +37,22 @@ dependencies {
 //    implementation "com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.8.1" // log의 sql (? ?) 에 어떤 값이 들어가는지 로그로 찍어준다.
     implementation 'com.fasterxml.jackson.datatype:jackson-datatype-hibernate5' // 하이버네이트 proxy 문제 해결
 
-    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+
 //    implementation 'org.springframework.boot:spring-boot-s,tarter-oauth2-client'
 //    implementation 'org.springframework.boot:spring-boot-starter-security'
 //    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
 
+    // redis
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+
     // RabbitMQ
-    implementation 'org.springframework.boot:spring-boot-starter-amqp'
+//    implementation 'org.springframework.boot:spring-boot-starter-amqp'
 
     // Spring Cloud Starter AWS
     implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
 
     // Redis session
-    implementation 'org.springframework.session:spring-session-data-redis:2.6.1'
+//    implementation 'org.springframework.session:spring-session-data-redis:2.6.1'
 
     // Excel
     implementation group: 'org.apache.poi', name: 'poi', version: '5.0.0'
