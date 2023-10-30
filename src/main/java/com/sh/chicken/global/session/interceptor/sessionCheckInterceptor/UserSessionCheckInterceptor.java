@@ -1,8 +1,7 @@
-package com.sh.chicken.global.interceptor.sessionCheckInterceptor;
+package com.sh.chicken.global.session.interceptor.sessionCheckInterceptor;
 
-import com.sh.chicken.domain.user.api.dto.response.UsersSingInResDto;
 import com.sh.chicken.global.common.SessionConst;
-import com.sh.chicken.global.resolver.usersession.UserInfoFromSessionDto;
+import com.sh.chicken.global.session.resolver.usersession.UserInfoFromSessionDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.servlet.HandlerInterceptor;
 import javax.servlet.http.HttpServletRequest;

@@ -1,4 +1,4 @@
-package com.sh.chicken.global.resolver.usersession;
+package com.sh.chicken.global.session.resolver.usersession;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

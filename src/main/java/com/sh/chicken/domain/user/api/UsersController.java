@@ -5,7 +5,7 @@ import com.sh.chicken.domain.user.api.dto.request.UsersSignUpReqDto;
 import com.sh.chicken.domain.user.application.UsersService;
 import com.sh.chicken.global.common.SessionConst;
 import com.sh.chicken.global.aop.log.LogTrace;
-import com.sh.chicken.global.resolver.usersession.UserInfoFromSessionDto;
+import com.sh.chicken.global.session.resolver.usersession.UserInfoFromSessionDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;

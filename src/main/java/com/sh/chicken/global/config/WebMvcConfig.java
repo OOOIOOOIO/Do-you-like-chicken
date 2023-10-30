@@ -1,7 +1,7 @@
 package com.sh.chicken.global.config;
 
-import com.sh.chicken.global.interceptor.sessionCheckInterceptor.UserSessionCheckInterceptor;
-import com.sh.chicken.global.resolver.usersession.UserInfoFromSessionResolver;
+import com.sh.chicken.global.session.interceptor.sessionCheckInterceptor.UserSessionCheckInterceptor;
+import com.sh.chicken.global.session.resolver.usersession.UserInfoFromSessionResolver;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;

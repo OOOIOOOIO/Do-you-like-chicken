@@ -1,4 +1,4 @@
-package com.sh.chicken.global.resolver.usersession;
+package com.sh.chicken.global.session.resolver.usersession;
 
 import com.sh.chicken.domain.user.api.dto.response.UsersSingInResDto;
 import com.sh.chicken.domain.user.domain.Users;

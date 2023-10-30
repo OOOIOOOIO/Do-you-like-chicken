@@ -1,7 +1,5 @@
 package com.sh.chicken.domain.user.application;
 
-import com.sh.chicken.domain.chickenlike.domain.repository.ChickenLikeRepository;
-import com.sh.chicken.domain.common.dto.ChickenMenuAndLikesResInterface;
 import com.sh.chicken.domain.user.api.dto.request.UsersSignInReqDto;
 import com.sh.chicken.domain.user.api.dto.request.UsersSignUpReqDto;
 import com.sh.chicken.domain.user.api.dto.response.UsersSingInResDto;
@@ -9,13 +7,11 @@ import com.sh.chicken.domain.user.domain.Users;
 import com.sh.chicken.domain.user.domain.repository.UsersRepository;
 import com.sh.chicken.global.exception.CustomException;
 import com.sh.chicken.global.exception.ErrorCode;
-import com.sh.chicken.global.resolver.usersession.UserInfoFromSessionDto;
+import com.sh.chicken.global.session.resolver.usersession.UserInfoFromSessionDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Slf4j
 @Service

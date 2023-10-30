@@ -45,20 +45,16 @@ dependencies {
     // redis
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 
-    // RabbitMQ
-//    implementation 'org.springframework.boot:spring-boot-starter-amqp'
+    // Redis session
+    implementation 'org.springframework.session:spring-session-data-redis:2.6.1'
 
     // Spring Cloud Starter AWS
     implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
-
-    // Redis session
-//    implementation 'org.springframework.session:spring-session-data-redis:2.6.1'
 
     // Excel
     implementation group: 'org.apache.poi', name: 'poi', version: '5.0.0'
     implementation group: 'org.apache.poi', name: 'poi-ooxml', version: '5.0.0'
     implementation group: 'org.apache.tika', name: 'tika-core', version: '2.3.0'
-
 
     // Swagger
     implementation 'io.springfox:springfox-boot-starter:3.0.0'
