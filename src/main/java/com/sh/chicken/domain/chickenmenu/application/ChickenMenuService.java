@@ -4,9 +4,9 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sh.chicken.domain.chickenmenu.api.dto.res.ChickenMenuInfoResDto;
 import com.sh.chicken.domain.chickenmenu.api.dto.res.ChickenMenuInfoResListDto;
-import com.sh.chicken.domain.chickenmenu.domain.repository.ChickenMenuRepositoryCustom;
+import com.sh.chicken.domain.chickenmenu.domain.repository.ChickenMenuQueryRepositoryImpl;
 import com.sh.chicken.global.exception.CustomException;
-import com.sh.chicken.global.exception.ErrorCode;
+import com.sh.chicken.global.exception.CustomErrorCode;
 import com.sh.chicken.global.util.redis.RedisUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,7 +24,7 @@ import static com.sh.chicken.global.common.RedisConst.*;
 @RequiredArgsConstructor
 public class ChickenMenuService {
 
-    private final ChickenMenuRepositoryCustom chickenMenuRepositoryCustom;
+    private final ChickenMenuQueryRepositoryImpl chickenMenuQueryRepositoryImpl;
     private final RedisUtil redisUtil;
     private final ObjectMapper objectMapper;
 
@@ -48,9 +48,9 @@ public class ChickenMenuService {
             return new ChickenMenuInfoResListDto(chickenMenuInfoResDtos);
         }
         else {
-            List<ChickenMenuInfoResDto> allMenusWithTotalLike = chickenMenuRepositoryCustom.getAllMenusWithTotalLikePriceDesc(); // 일단 db에서 가져옴
+            List<ChickenMenuInfoResDto> allMenusWithTotalLike = chickenMenuQueryRepositoryImpl.getAllMenusWithTotalLikePriceDesc(); // 일단 db에서 가져옴
 
-            if(allMenusWithTotalLike.isEmpty()) throw new CustomException(ErrorCode.NOT_FOUND_MENU_LIST);
+            if(allMenusWithTotalLike.isEmpty()) throw new CustomException(CustomErrorCode.NotFoundChickenMenuListException);
 
             redisUtil.putString(MAIN_BY_PRICE.prefix(), allMenusWithTotalLike, null);
 
@@ -92,9 +92,9 @@ public class ChickenMenuService {
             return new ChickenMenuInfoResListDto(chickenMenuInfoResDtos);
         }
         else {
-            List<ChickenMenuInfoResDto> allMenusWithTotalLike = chickenMenuRepositoryCustom.getAllMenusWithTotalLikePriceDesc(); // 일단 db에서 가져옴
+            List<ChickenMenuInfoResDto> allMenusWithTotalLike = chickenMenuQueryRepositoryImpl.getAllMenusWithTotalLikePriceDesc(); // 일단 db에서 가져옴
 
-            if(allMenusWithTotalLike.isEmpty()) throw new CustomException(ErrorCode.NOT_FOUND_MENU_LIST);
+            if(allMenusWithTotalLike.isEmpty()) throw new CustomException(CustomErrorCode.NotFoundChickenMenuListException);
 
             redisUtil.putString(MAIN_BY_LIKE.prefix(), allMenusWithTotalLike, null);
 
@@ -115,7 +115,7 @@ public class ChickenMenuService {
 
             return chickenMenuFromRedis;
         } else {
-            ChickenMenuInfoResDto chickenMenuInfoResDto = chickenMenuRepositoryCustom.getMenuInfo(menuId).orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_MENU));
+            ChickenMenuInfoResDto chickenMenuInfoResDto = chickenMenuQueryRepositoryImpl.getMenuInfo(menuId).orElseThrow(() -> new CustomException(CustomErrorCode.NotFoundChickenMenuException));
             redisUtil.putString(MENU.prefix() + menuId, chickenMenuInfoResDto, null);
 
             log.info("==== FROM DB TO REDIS ====");

@@ -5,7 +5,7 @@ import com.sh.chicken.domain.chickenlike.domain.repository.ChickenLikeRepository
 import com.sh.chicken.domain.chickenmenu.domain.ChickenMenu;
 import com.sh.chicken.domain.chickenmenu.domain.repository.ChickenMenuRepository;
 import com.sh.chicken.domain.user.domain.Users;
-import com.sh.chicken.domain.user.domain.repository.UsersRepository;
+import com.sh.chicken.domain.user.domain.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -25,7 +25,7 @@ public class ChickenLikeRepositoryTest {
     @Autowired
     ChickenLikeRepository chickenLikeRepository;
     @Autowired
-    UsersRepository usersRepository;
+    UserRepository usersRepository;
     @Autowired
     ChickenMenuRepository chickenMenuRepository;
 

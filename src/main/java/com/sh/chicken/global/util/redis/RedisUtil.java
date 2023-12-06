@@ -169,7 +169,7 @@ public class RedisUtil {
     }
 
     /**
-     * Bulk insert userId separately from list to redis
+     * Bulk insert userId separately to redis
      * @param key
      * @param userIdList
      */

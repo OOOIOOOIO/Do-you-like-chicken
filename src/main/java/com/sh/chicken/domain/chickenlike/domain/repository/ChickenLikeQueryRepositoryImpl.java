@@ -24,6 +24,7 @@ public class ChickenLikeQueryRepositoryImpl implements ChickenLikeQueryRepositor
 
     private final JPAQueryFactory queryFactory;
 
+    @Override
     public Optional<ChickenLike> findByUserIdAndMenuId(Long userId, Long menuId){
         return Optional.ofNullable(queryFactory
                 .selectFrom(chickenLike)
@@ -32,6 +33,7 @@ public class ChickenLikeQueryRepositoryImpl implements ChickenLikeQueryRepositor
                 .fetchOne());
     }
 
+    @Override
     public List<Long> getLikesByMenuId(Long menuId){
 
         return queryFactory
@@ -44,6 +46,7 @@ public class ChickenLikeQueryRepositoryImpl implements ChickenLikeQueryRepositor
 
     //벌크 update는 영속성 컨텍스트 비우는게 안전한데
     //벌크 delete는 db에서 조회한 id만 가져오는거라 db에서 삭제된 id를 가진 entity는 알아서 안불러옴
+    @Override
     public Long deleteLikeByUserId(Long menuId, Set<Long> fromRedis){
 
         return queryFactory.delete(chickenLike)

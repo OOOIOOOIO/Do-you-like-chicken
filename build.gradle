@@ -39,14 +39,22 @@ dependencies {
 
 
 //    implementation 'org.springframework.boot:spring-boot-s,tarter-oauth2-client'
-//    implementation 'org.springframework.boot:spring-boot-starter-security'
-//    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
+
+    // @Value 빈등록을 위해
+    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+
+    // jwt
+    implementation 'io.jsonwebtoken:jjwt-api:0.11.2'
+    runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.2'
+    runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.2'
 
     // redis
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 
     // Redis session
-    implementation 'org.springframework.session:spring-session-data-redis:2.6.1'
+//    implementation 'org.springframework.session:spring-session-data-redis:2.6.1'
 
     // Spring Cloud Starter AWS
     implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
@@ -65,12 +73,12 @@ dependencies {
     implementation "com.querydsl:querydsl-core:${queryDslVersion}" // 한개 더 추가!
 
     compileOnly 'org.projectlombok:lombok'
-//    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
     runtimeOnly 'com.h2database:h2'
     runtimeOnly 'com.mysql:mysql-connector-j'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-//    testImplementation 'org.springframework.security:spring-security-test'
+    testImplementation 'org.springframework.security:spring-security-test'
 
     //테스트에서 lombok 사용
     testCompileOnly 'org.projectlombok:lombok'

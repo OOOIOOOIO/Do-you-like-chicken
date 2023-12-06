@@ -18,14 +18,26 @@ public class ErrorResponse {
     private final String code;
     private final String message;
 
-    public static ResponseEntity<ErrorResponse> toResponseEntity(ErrorCode errorCode) {
+    public static ResponseEntity<ErrorResponse> toResponseEntity(CustomErrorCode customErrorCode) {
         return ResponseEntity
-                .status(errorCode.getHttpStatus())
+                .status(customErrorCode.getHttpStatus())
                 .body(ErrorResponse.builder()
-                        .status(errorCode.getHttpStatus().value())
-                        .error(errorCode.getHttpStatus().name())
-                        .code(errorCode.name())
-                        .message(errorCode.getMessage())
+                        .status(customErrorCode.getHttpStatus().value())
+                        .error(customErrorCode.getHttpStatus().name())
+                        .code(customErrorCode.name())
+                        .message(customErrorCode.getMessage())
+                        .build()
+                );
+    }
+
+    public static ResponseEntity<ErrorResponse> toResponseEntity(JwtCustomErrorCode customErrorCode) {
+        return ResponseEntity
+                .status(customErrorCode.getHttpStatus())
+                .body(ErrorResponse.builder()
+                        .status(customErrorCode.getHttpStatus().value())
+                        .error(customErrorCode.getHttpStatus().name())
+                        .code(customErrorCode.name())
+                        .message(customErrorCode.getMessage())
                         .build()
                 );
     }

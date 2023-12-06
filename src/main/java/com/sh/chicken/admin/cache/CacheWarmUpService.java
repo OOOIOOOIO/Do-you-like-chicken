@@ -7,9 +7,9 @@ import com.sh.chicken.domain.chickenlike.domain.repository.ChickenLikeQueryRepos
 import com.sh.chicken.domain.chickenmenu.api.dto.res.ChickenMenuInfoResDto;
 import com.sh.chicken.domain.chickenmenu.domain.ChickenMenu;
 import com.sh.chicken.domain.chickenmenu.domain.repository.ChickenMenuRepository;
-import com.sh.chicken.domain.chickenmenu.domain.repository.ChickenMenuRepositoryCustom;
+import com.sh.chicken.domain.chickenmenu.domain.repository.ChickenMenuQueryRepositoryImpl;
 import com.sh.chicken.domain.user.domain.Users;
-import com.sh.chicken.domain.user.domain.repository.UsersRepository;
+import com.sh.chicken.domain.user.domain.repository.UserRepository;
 import com.sh.chicken.global.util.redis.RedisUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -29,11 +29,11 @@ import static com.sh.chicken.global.common.RedisConst.*;
 @RequiredArgsConstructor
 public class CacheWarmUpService {
 
-    private final ChickenMenuRepositoryCustom chickenMenuRepositoryCustom;
+    private final ChickenMenuQueryRepositoryImpl chickenMenuQueryRepositoryImpl;
     private final ChickenMenuRepository chickenMenuRepository;
     private final ChickenLikeQueryRepositoryImpl chickenLikeRepositoryCustom;
     private final ChickenLikeRepository chickenLikeRepository;
-    private final UsersRepository usersRepository;
+    private final UserRepository usersRepository;
     private final RedisUtil redisUtil;
 
 
@@ -46,7 +46,7 @@ public class CacheWarmUpService {
         //redis에서 삭제
 
         //가져오기
-        List<ChickenMenuInfoResDto> allMenusWithTotalLikePriceDesc = chickenMenuRepositoryCustom.getAllMenusWithTotalLikePriceDesc();
+        List<ChickenMenuInfoResDto> allMenusWithTotalLikePriceDesc = chickenMenuQueryRepositoryImpl.getAllMenusWithTotalLikePriceDesc();
 
         //redis에 넣기
         redisUtil.bulkInsertForMenuList(MAIN_BY_PRICE.prefix(), allMenusWithTotalLikePriceDesc);
@@ -58,7 +58,7 @@ public class CacheWarmUpService {
      * 개별 menu info
      */
     public void pushChickenMenuInfo(){
-        List<ChickenMenuInfoResDto> allMenus = chickenMenuRepositoryCustom.getAllMenus();
+        List<ChickenMenuInfoResDto> allMenus = chickenMenuQueryRepositoryImpl.getAllMenus();
 
         redisUtil.putString(MENU.prefix(), allMenus, null);
         for (Long i = 1L; i <= allMenus.size(); i++) {
@@ -129,7 +129,7 @@ public class CacheWarmUpService {
     }
 
     private Long getTotalMenuNum() {
-        Long totalMenuCount = chickenMenuRepositoryCustom.getTotalMenuCount();
+        Long totalMenuCount = chickenMenuQueryRepositoryImpl.getTotalMenuCount();
         return totalMenuCount;
     }
 

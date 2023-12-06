@@ -3,7 +3,7 @@ package com.sh.chicken.domain.chickenlike.api;
 import com.sh.chicken.domain.chickenlike.application.ChickenLikeService;
 import com.sh.chicken.global.aop.log.LogTrace;
 import com.sh.chicken.global.exception.CustomException;
-import com.sh.chicken.global.exception.ErrorCode;
+import com.sh.chicken.global.exception.CustomErrorCode;
 import com.sh.chicken.global.session.resolver.usersession.UserInfoFromSession;
 import com.sh.chicken.global.session.resolver.usersession.UserInfoFromSessionDto;
 import io.swagger.annotations.ApiOperation;
@@ -40,10 +40,10 @@ public class ChickenLikeController {
         if (result == 1) {
             return new ResponseEntity<>("success", HttpStatus.OK);
         } else if (result == 0) {
-            throw new CustomException(ErrorCode.ALREADY_SAVE);
+            throw new CustomException(CustomErrorCode.DuplicateSaveAttemptedException);
         }
 
-        throw new CustomException(ErrorCode.FAIL_SAVE_IN_REDIS);
+        throw new CustomException(CustomErrorCode.FailToSaveFileInRedisException);
     }
 
 
@@ -63,9 +63,9 @@ public class ChickenLikeController {
             return new ResponseEntity<>("success", HttpStatus.OK);
         }
         else if(result == 0){
-            throw new CustomException(ErrorCode.ALREADY_DELETE);
+            throw new CustomException(CustomErrorCode.AlreadyDeletedException);
         }
-        throw new CustomException(ErrorCode.FAIL_DELETE_FROM_REDIS);
+        throw new CustomException(CustomErrorCode.FailToDeleteFIleInRedisException);
     }
 
 }

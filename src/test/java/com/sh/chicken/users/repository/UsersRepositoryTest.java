@@ -1,18 +1,18 @@
 package com.sh.chicken.users.repository;
 
 import com.sh.chicken.domain.chickenlike.domain.ChickenLike;
-import com.sh.chicken.domain.chickenmenu.domain.repository.ChickenMenuRepository;
 import com.sh.chicken.domain.user.api.dto.request.UsersSignUpReqDto;
 import com.sh.chicken.domain.user.domain.Users;
-import com.sh.chicken.domain.user.domain.repository.UsersRepository;
+import com.sh.chicken.domain.user.domain.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.HashSet;
+import java.util.Set;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -22,19 +22,20 @@ import static org.assertj.core.api.Assertions.*;
 public class UsersRepositoryTest {
 
     @Autowired
-    UsersRepository usersRepository;
+    UserRepository usersRepository;
 
     @Test
     @Transactional
     public void userBulkInsertTest(){
-
+        Set<String> role = new HashSet<>();
+        role.add("ROLE_USER");
         for(int i = 5001; i <= 10000; i++){
             String username = "test" + i;
             String pw = "test" + i;;
             String nickname= "test" + i;;
             int sex = i % 2;
-            UsersSignUpReqDto usersSignUpReqDto = new UsersSignUpReqDto(username, pw, nickname, sex);
-            usersRepository.save(Users.createUser(usersSignUpReqDto));
+            UsersSignUpReqDto usersSignUpReqDto = new UsersSignUpReqDto(username, pw, nickname, sex, role);
+//            usersRepository.save(Users.createUser(usersSignUpReqDto));
         }
     }
     

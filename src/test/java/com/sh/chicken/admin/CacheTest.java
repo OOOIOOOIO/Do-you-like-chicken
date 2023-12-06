@@ -4,7 +4,7 @@ import com.sh.chicken.admin.cache.CacheWarmUpService;
 import com.sh.chicken.domain.chickenlike.domain.repository.ChickenLikeRepository;
 import com.sh.chicken.domain.chickenlike.domain.repository.ChickenLikeQueryRepositoryImpl;
 import com.sh.chicken.domain.chickenmenu.domain.repository.ChickenMenuRepository;
-import com.sh.chicken.domain.user.domain.repository.UsersRepository;
+import com.sh.chicken.domain.user.domain.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -23,7 +23,7 @@ public class CacheTest {
     @Autowired
     ChickenLikeQueryRepositoryImpl chickenLikeRepositoryCustom;
     @Autowired
-    UsersRepository usersRepository;
+    UserRepository usersRepository;
     @Autowired
     ChickenMenuRepository chickenMenuRepository;
     @Autowired
