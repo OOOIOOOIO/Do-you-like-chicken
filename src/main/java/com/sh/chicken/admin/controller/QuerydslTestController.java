@@ -2,7 +2,7 @@ package com.sh.chicken.admin.controller;
 
 
 import com.sh.chicken.domain.chickenlike.domain.ChickenLike;
-import com.sh.chicken.domain.chickenlike.domain.repository.ChickenLikeRepositoryCustom;
+import com.sh.chicken.domain.chickenlike.domain.repository.ChickenLikeQueryRepositoryImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,15 +11,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Optional;
-
 @Slf4j
 @RestController
 @RequestMapping("/admin/test")
 @RequiredArgsConstructor
 public class QuerydslTestController {
 
-    private final ChickenLikeRepositoryCustom chickenLikeRepositoryCustom;
+    private final ChickenLikeQueryRepositoryImpl chickenLikeRepositoryCustom;
 
     @Transactional
     @GetMapping("/querydsl")

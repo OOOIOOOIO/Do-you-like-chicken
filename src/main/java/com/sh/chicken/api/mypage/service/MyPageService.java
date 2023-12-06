@@ -3,10 +3,10 @@ package com.sh.chicken.api.mypage.service;
 
 import com.sh.chicken.api.mypage.controller.dto.res.MyPageResDto;
 import com.sh.chicken.api.mypage.controller.dto.res.UsersInfoResDto;
-import com.sh.chicken.domain.chickenlike.domain.repository.ChickenLikeRepository;
-import com.sh.chicken.domain.common.dto.ChickenMenuAndLikesResInterface;
+import com.sh.chicken.domain.chickenlike.domain.repository.ChickenLikeQueryRepository;
+import com.sh.chicken.domain.common.dto.ChickenMenuAndLikesResDto;
 import com.sh.chicken.domain.user.domain.Users;
-import com.sh.chicken.domain.user.domain.repository.UsersRepository;
+import com.sh.chicken.domain.user.domain.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -20,8 +20,9 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MyPageService {
 
-    private final UsersRepository usersRepository;
-    private final ChickenLikeRepository chickenLikeRepository;
+    private final UserRepository usersRepository;
+    private final ChickenLikeQueryRepository chickenLikeQueryRepository;
+
 
 
     public void updateNickname(long userId, String nickname){
@@ -35,9 +36,10 @@ public class MyPageService {
         Users users = usersRepository.findById(userId).orElseThrow(() -> new RuntimeException("유저 없음"));
 
         UsersInfoResDto usersInfoResDto = new UsersInfoResDto(users);
-        List<ChickenMenuAndLikesResInterface> chickenMenusInfo = chickenLikeRepository.getChickenMenusInfo(userId);
+        List<ChickenMenuAndLikesResDto> chickenMenusInfoList = chickenLikeQueryRepository.getChickenMenusInfoList(userId);
 
-        return new MyPageResDto(usersInfoResDto, chickenMenusInfo);
+        return new MyPageResDto(usersInfoResDto, chickenMenusInfoList);
     }
 
 }
+

@@ -1,7 +1,7 @@
 package com.sh.chicken.menu.repository;
 
 import com.sh.chicken.domain.chickenmenu.api.dto.res.ChickenMenuInfoResDto;
-import com.sh.chicken.domain.chickenmenu.domain.repository.ChickenMenuRepositoryCustom;
+import com.sh.chicken.domain.chickenmenu.domain.repository.ChickenMenuQueryRepositoryImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -19,14 +19,14 @@ import static org.assertj.core.api.Assertions.*;
 public class ChickenMenuRepositoryCustomTest {
 
     @Autowired
-    ChickenMenuRepositoryCustom chickenMenuRepositoryCustom;
+    ChickenMenuQueryRepositoryImpl chickenMenuQueryRepositoryImpl;
 
 
     @DisplayName("get all chicken menus with total like")
     @Test
     public void getAllMenusWithTotalLike(){
         // given
-        List<ChickenMenuInfoResDto> allMenus = chickenMenuRepositoryCustom.getAllMenusWithTotalLikeLikesDesc();
+        List<ChickenMenuInfoResDto> allMenus = chickenMenuQueryRepositoryImpl.getAllMenusWithTotalLikeLikesDesc();
 
         // when-then
         assertThat(allMenus.size()).isEqualTo(67);
@@ -41,7 +41,7 @@ public class ChickenMenuRepositoryCustomTest {
     @Test
     public void getAllMenus(){
         // given
-        List<ChickenMenuInfoResDto> allMenus = chickenMenuRepositoryCustom.getAllMenus();
+        List<ChickenMenuInfoResDto> allMenus = chickenMenuQueryRepositoryImpl.getAllMenus();
 
         // when-then
         assertThat(allMenus.size()).isEqualTo(67);
@@ -60,7 +60,7 @@ public class ChickenMenuRepositoryCustomTest {
         Long menuId = 1L;
 
         // when
-        ChickenMenuInfoResDto chickenMenuInfoResDto = chickenMenuRepositoryCustom.getMenuInfo(menuId).get();
+        ChickenMenuInfoResDto chickenMenuInfoResDto = chickenMenuQueryRepositoryImpl.getMenuInfo(menuId).get();
 
         // then
         assertThat(chickenMenuInfoResDto.getMenuId()).isEqualTo(1);

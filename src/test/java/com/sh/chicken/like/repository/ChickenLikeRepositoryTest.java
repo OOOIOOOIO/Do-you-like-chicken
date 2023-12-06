@@ -2,11 +2,10 @@ package com.sh.chicken.like.repository;
 
 import com.sh.chicken.domain.chickenlike.domain.ChickenLike;
 import com.sh.chicken.domain.chickenlike.domain.repository.ChickenLikeRepository;
-import com.sh.chicken.domain.chickenlike.domain.repository.ChickenLikeRepositoryCustom;
 import com.sh.chicken.domain.chickenmenu.domain.ChickenMenu;
 import com.sh.chicken.domain.chickenmenu.domain.repository.ChickenMenuRepository;
 import com.sh.chicken.domain.user.domain.Users;
-import com.sh.chicken.domain.user.domain.repository.UsersRepository;
+import com.sh.chicken.domain.user.domain.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -15,8 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.Random;
 
 
 @Slf4j
@@ -27,42 +25,28 @@ public class ChickenLikeRepositoryTest {
     @Autowired
     ChickenLikeRepository chickenLikeRepository;
     @Autowired
-    UsersRepository usersRepository;
+    UserRepository usersRepository;
     @Autowired
     ChickenMenuRepository chickenMenuRepository;
 
-    @DisplayName("db : userId, 7~16 삽입, redis : userId 3~10 삽입")
-    @Test
-    public void insert(){
-        // given
-        ChickenMenu chickenMenu = chickenMenuRepository.findById(68L).get();
-
-        for(int i = 5; i <= 13; i++){
-            String username = "test" + i;
-            Users user = usersRepository.findByUsername(username).get();
-
-            ChickenLike chickenLike = ChickenLike.createChickenLike(user, chickenMenu);
-            chickenLikeRepository.save(chickenLike);
-        }
-
-    }
 
 
     @Test
     @Transactional
     @DisplayName("chickenLike insert test")
     public void likeBulkInsertTest(){
-//        for(int i = 1; i <= 6; i++){
-        for(int i = 6001; i <= 8000; i++){
+        Random random = new Random();
+        for(int i = 1; i <= 2000; i++){
             String username = "test" + i;
+            long menuId = (long)(random.nextInt(66) + 1);
             log.info("=== username ===" + username);
-            Users user = usersRepository.findByUsername(username).get();
 
-            for(long j = 1; j <= 67; j+=2){
-                ChickenMenu chickenMenu = chickenMenuRepository.findById(j).get();
-                ChickenLike chickenLike = ChickenLike.createChickenLike(user, chickenMenu);
-                chickenLikeRepository.save(chickenLike);
-            }
+            Users user = usersRepository.findByUsername(username).get();
+            ChickenMenu chickenMenu = chickenMenuRepository.findById(menuId).get();
+            ChickenLike chickenLike = ChickenLike.createChickenLike(user, chickenMenu);
+
+            chickenLikeRepository.save(chickenLike);
+
         }
 
     }

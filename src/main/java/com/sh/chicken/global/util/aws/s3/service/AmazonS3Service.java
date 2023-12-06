@@ -3,7 +3,7 @@ package com.sh.chicken.global.util.aws.s3.service;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.sh.chicken.global.exception.CustomException;
-import com.sh.chicken.global.exception.ErrorCode;
+import com.sh.chicken.global.exception.CustomErrorCode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -42,7 +42,7 @@ public class AmazonS3Service {
         } catch (IOException e) {
 
             log.info("[error] : " + e.getMessage());
-            throw new CustomException(ErrorCode.S3_FILE_UPLOAD); // 만들기
+            throw new CustomException(CustomErrorCode.FailToUploadFileToS3Exception); // 만들기
         }
 
     }

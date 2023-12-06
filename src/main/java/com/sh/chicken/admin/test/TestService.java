@@ -1,17 +1,11 @@
 package com.sh.chicken.admin.test;
 
-import com.sh.chicken.domain.chickenlike.domain.ChickenLike;
-import com.sh.chicken.domain.chickenmenu.domain.ChickenMenu;
 import com.sh.chicken.domain.user.domain.Users;
-import com.sh.chicken.domain.user.domain.repository.UsersRepository;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import com.sh.chicken.domain.user.domain.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Slf4j
 @Service
@@ -19,7 +13,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class TestService {
 
-    private final UsersRepository usersRepository;
+    private final UserRepository usersRepository;
 
     @Transactional
     public UserLikeDto getThat(){

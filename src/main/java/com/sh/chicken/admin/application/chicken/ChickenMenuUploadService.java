@@ -1,4 +1,4 @@
-package com.sh.chicken.admin.application;
+package com.sh.chicken.admin.application.chicken;
 
 import com.sh.chicken.admin.controller.dto.ChickenMenuUploadDto;
 import com.sh.chicken.domain.chickenbrand.domain.repository.ChickenBrandRepository;

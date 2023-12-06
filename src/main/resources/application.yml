@@ -5,4 +5,5 @@ spring:
   thymeleaf:
     cache: false
   profiles:
-    include: real
+#    include: real
+    include: local

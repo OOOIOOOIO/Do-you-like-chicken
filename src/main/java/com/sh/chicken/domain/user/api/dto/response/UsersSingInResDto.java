@@ -10,10 +10,14 @@ import lombok.NoArgsConstructor;
 public class UsersSingInResDto {
     private Long userId;
     private String nickname;
+    private String accessToken;
+    private String refreshToken;
 
-    public UsersSingInResDto(Users users) {
+    public UsersSingInResDto(Users users, String accessToken, String refreshToken) {
         this.userId = users.getUserId();
         this.nickname = users.getNickname();
+        this.accessToken = accessToken;
+        this.refreshToken = refreshToken;
     }
 
 

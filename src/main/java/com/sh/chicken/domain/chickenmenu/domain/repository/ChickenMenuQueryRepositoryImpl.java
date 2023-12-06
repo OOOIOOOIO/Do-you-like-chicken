@@ -19,13 +19,14 @@ import static com.sh.chicken.domain.chickenmenu.domain.QChickenMenu.*;
 
 @Repository
 @RequiredArgsConstructor
-public class ChickenMenuRepositoryCustom {
+public class ChickenMenuQueryRepositoryImpl implements ChickenMenuQueryRepository{
 
     private final JPAQueryFactory queryFactory;
 
     /**
      * 모든 메뉴 정보 + 총 좋아요 개수, 좋아요개수 순으로 정렬
      */
+    @Override
     public List<ChickenMenuInfoResDto> getAllMenusWithTotalLikeLikesDesc(){
         NumberPath<Long> aliasLike = Expressions.numberPath(Long.class, "likes");
 
@@ -54,6 +55,7 @@ public class ChickenMenuRepositoryCustom {
     /**
      * 모든 메뉴 정보 + 총 좋아요 개수, 가격 순으로 정렬
      */
+    @Override
     public List<ChickenMenuInfoResDto> getAllMenusWithTotalLikePriceDesc(){
         NumberPath<Long> aliasLike = Expressions.numberPath(Long.class, "likes");
 
@@ -83,6 +85,7 @@ public class ChickenMenuRepositoryCustom {
     /**
      * 모든 메뉴 정보, 가격순으로 정렬(좋아요 제외)
      */
+    @Override
     public List<ChickenMenuInfoResDto> getAllMenus(){
 
         List<ChickenMenuInfoResDto> result = queryFactory
@@ -105,6 +108,7 @@ public class ChickenMenuRepositoryCustom {
     /**
      * 메뉴 상세
      */
+    @Override
     public Optional<ChickenMenuInfoResDto> getMenuInfo(Long menuId){
         NumberPath<Long> aliasLike = Expressions.numberPath(Long.class, "likes");
 
@@ -127,6 +131,7 @@ public class ChickenMenuRepositoryCustom {
         return Optional.ofNullable(chickenMenuInfoResDto);
     }
 
+    @Override
     public Long getTotalMenuCount(){
         return queryFactory
                 .select(chickenMenu.count())

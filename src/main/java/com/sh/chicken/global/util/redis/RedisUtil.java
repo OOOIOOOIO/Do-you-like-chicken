@@ -1,7 +1,6 @@
 package com.sh.chicken.global.util.redis;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sh.chicken.domain.chickenmenu.api.dto.res.ChickenMenuInfoResDto;
 import lombok.RequiredArgsConstructor;
@@ -16,10 +15,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
-
-import static com.sh.chicken.global.common.RedisConst.MAIN;
-import static com.sh.chicken.global.common.RedisConst.MENU;
 
 @Component
 @RequiredArgsConstructor
@@ -174,7 +169,7 @@ public class RedisUtil {
     }
 
     /**
-     * Bulk insert userId separately from list to redis
+     * Bulk insert userId separately to redis
      * @param key
      * @param userIdList
      */
@@ -200,7 +195,6 @@ public class RedisUtil {
      * @return
      */
     private String parseObjectToString(Object data)  {
-//        ObjectMapper objectMapper = new ObjectMapper();
         String result = null;
         try {
             result = objectMapper.writeValueAsString(data);
@@ -219,7 +213,6 @@ public class RedisUtil {
      * @param <T>
      */
     private <T> Object parseStringToObject(String data, Class<T> valueType)  {
-//        ObjectMapper objectMapper = new ObjectMapper();
         T obj = null;
 
         try {

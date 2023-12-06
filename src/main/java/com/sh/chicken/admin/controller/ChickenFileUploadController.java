@@ -1,6 +1,6 @@
 package com.sh.chicken.admin.controller;
 
-import com.sh.chicken.admin.application.ChickenMenuUploadService;
+import com.sh.chicken.admin.application.chicken.ChickenMenuUploadService;
 import com.sh.chicken.global.aop.log.LogTrace;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
