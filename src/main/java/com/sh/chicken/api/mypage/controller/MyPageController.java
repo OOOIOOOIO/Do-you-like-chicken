@@ -5,8 +5,8 @@ import com.sh.chicken.api.mypage.controller.dto.req.MyPageUpdateReqDto;
 import com.sh.chicken.api.mypage.controller.dto.res.MyPageResDto;
 import com.sh.chicken.api.mypage.service.MyPageService;
 import com.sh.chicken.global.aop.log.LogTrace;
-import com.sh.chicken.global.session.resolver.usersession.UserInfoFromSession;
-import com.sh.chicken.global.session.resolver.usersession.UserInfoFromSessionDto;
+import com.sh.chicken.global.resolver.UserInfoFromHeader;
+import com.sh.chicken.global.resolver.UserInfoFromHeaderDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -25,8 +25,8 @@ public class MyPageController {
 
     @LogTrace
     @PatchMapping("/info/update")
-    public ResponseEntity<String> updateNickname(@RequestBody MyPageUpdateReqDto myPageUpdateReqDto, @UserInfoFromSession UserInfoFromSessionDto userInfoFromSessionDto){
-        myPageService.updateNickname(userInfoFromSessionDto.getUserId(), myPageUpdateReqDto.getNickname());
+    public ResponseEntity<String> updateNickname(@RequestBody MyPageUpdateReqDto myPageUpdateReqDto, @UserInfoFromHeader UserInfoFromHeaderDto userInfoFromHeaderDto){
+        myPageService.updateNickname(userInfoFromHeaderDto.getUserId(), myPageUpdateReqDto.getNickname());
 
         return new ResponseEntity<>("success", HttpStatus.OK);
     }
@@ -35,8 +35,8 @@ public class MyPageController {
 
     @LogTrace
     @GetMapping("/like")
-    public ResponseEntity<MyPageResDto> getMyChickenLikes(@UserInfoFromSession UserInfoFromSessionDto userInfoFromSessionDto){
-        MyPageResDto myChickenMenuLikes = myPageService.getMyChickenMenuLikes(userInfoFromSessionDto.getUserId());
+    public ResponseEntity<MyPageResDto> getMyChickenLikes(@UserInfoFromHeader UserInfoFromHeaderDto userInfoFromHeaderDto){
+        MyPageResDto myChickenMenuLikes = myPageService.getMyChickenMenuLikes(userInfoFromHeaderDto.getUserId());
 
         return new ResponseEntity<>(myChickenMenuLikes, HttpStatus.OK);
     }

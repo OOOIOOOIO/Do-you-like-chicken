@@ -221,8 +221,8 @@ public class RedisUtil {
             throw new RuntimeException("==== parseStringToObject Error ====");
         }
 
-
         return obj;
     }
+
 
 }

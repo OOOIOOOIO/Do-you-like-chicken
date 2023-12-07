@@ -4,8 +4,8 @@ import com.sh.chicken.domain.chickenlike.application.ChickenLikeService;
 import com.sh.chicken.global.aop.log.LogTrace;
 import com.sh.chicken.global.exception.CustomException;
 import com.sh.chicken.global.exception.CustomErrorCode;
-import com.sh.chicken.global.session.resolver.usersession.UserInfoFromSession;
-import com.sh.chicken.global.session.resolver.usersession.UserInfoFromSessionDto;
+import com.sh.chicken.global.resolver.UserInfoFromHeader;
+import com.sh.chicken.global.resolver.UserInfoFromHeaderDto;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -34,8 +34,8 @@ public class ChickenLikeController {
     })
     @LogTrace
     @PostMapping("/{menuId}")
-    public ResponseEntity<String> addLike(@PathVariable("menuId") Long menuId, @UserInfoFromSession UserInfoFromSessionDto userInfoFromSessionDto){
-        Long result = chickenLikeService.addLike(menuId, userInfoFromSessionDto.getUserId());
+    public ResponseEntity<String> addLike(@PathVariable("menuId") Long menuId, @UserInfoFromHeader UserInfoFromHeaderDto userInfoFromHeaderDto){
+        Long result = chickenLikeService.addLike(menuId, userInfoFromHeaderDto.getUserId());
 
         if (result == 1) {
             return new ResponseEntity<>("success", HttpStatus.OK);
@@ -56,8 +56,8 @@ public class ChickenLikeController {
     })
     @LogTrace
     @DeleteMapping("/{menuId}")
-    public ResponseEntity<String> deleteLike(@PathVariable("menuId") Long menuId, @UserInfoFromSession UserInfoFromSessionDto userInfoFromSessionDto){
-        Long result = chickenLikeService.deleteLike(menuId, userInfoFromSessionDto.getUserId());
+    public ResponseEntity<String> deleteLike(@PathVariable("menuId") Long menuId, @UserInfoFromHeader UserInfoFromHeaderDto userInfoFromHeaderDto){
+        Long result = chickenLikeService.deleteLike(menuId, userInfoFromHeaderDto.getUserId());
 
         if (result == 1) {
             return new ResponseEntity<>("success", HttpStatus.OK);

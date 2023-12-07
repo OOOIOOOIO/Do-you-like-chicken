@@ -38,12 +38,12 @@ public class Users extends BaseTimeEntity{
 //    @NotBlank
 //    @Size(max = 50)
 //    private String email;
-
     @NotBlank
     @Size(max = 120)
     private String pw;
-
+    @NotBlank
     private int sex;
+    @NotBlank
     private String nickname;
 
 
