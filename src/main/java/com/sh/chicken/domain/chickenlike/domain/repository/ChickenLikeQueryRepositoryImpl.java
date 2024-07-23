@@ -25,7 +25,7 @@ public class ChickenLikeQueryRepositoryImpl implements ChickenLikeQueryRepositor
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public Optional<ChickenLike> findByUserIdAndMenuId(Long userId, Long menuId){
+    public Optional<ChickenLike> findLikeByUserIdAndMenuId(Long userId, Long menuId){
         return Optional.ofNullable(queryFactory
                 .selectFrom(chickenLike)
                 .where(chickenLike.users.userId.eq(userId),

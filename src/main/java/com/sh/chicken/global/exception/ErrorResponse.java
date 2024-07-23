@@ -1,5 +1,6 @@
 package com.sh.chicken.global.exception;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -9,36 +10,48 @@ import java.time.LocalDateTime;
 
 @Builder
 @Getter
-@RequiredArgsConstructor
 public class ErrorResponse {
 
-    private final LocalDateTime timestamp = LocalDateTime.now();
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
+    private LocalDateTime timestamp;
     private final int status;
     private final String error;
     private final String code;
     private final String message;
 
     public static ResponseEntity<ErrorResponse> toResponseEntity(CustomErrorCode customErrorCode) {
+
         return ResponseEntity
                 .status(customErrorCode.getHttpStatus())
                 .body(ErrorResponse.builder()
+                        .timestamp(LocalDateTime.now())
                         .status(customErrorCode.getHttpStatus().value())
-                        .error(customErrorCode.getHttpStatus().name())
-                        .code(customErrorCode.name())
+                        .error(customErrorCode.name())
+                        .code(customErrorCode.getCode())
                         .message(customErrorCode.getMessage())
                         .build()
                 );
     }
 
-    public static ResponseEntity<ErrorResponse> toResponseEntity(JwtCustomErrorCode customErrorCode) {
-        return ResponseEntity
-                .status(customErrorCode.getHttpStatus())
-                .body(ErrorResponse.builder()
-                        .status(customErrorCode.getHttpStatus().value())
-                        .error(customErrorCode.getHttpStatus().name())
-                        .code(customErrorCode.name())
-                        .message(customErrorCode.getMessage())
-                        .build()
-                );
+    public static ErrorResponse createJwtErrorResponse(JwtCustomErrorCode customErrorCode) {
+
+        return ErrorResponse.builder()
+                .timestamp(LocalDateTime.now())
+                .status(customErrorCode.getHttpStatus().value())
+                .error(customErrorCode.name())
+                .code(customErrorCode.getCode())
+                .message(customErrorCode.getMessage())
+                .build();
+    }
+
+    public static ErrorResponse createCustomErrorResponse(CustomErrorCode customErrorCode) {
+
+        return ErrorResponse.builder()
+                .timestamp(LocalDateTime.now())
+                .status(customErrorCode.getHttpStatus().value())
+                .error(customErrorCode.name())
+                .code(customErrorCode.getCode())
+                .message(customErrorCode.getMessage())
+                .build();
     }
 }

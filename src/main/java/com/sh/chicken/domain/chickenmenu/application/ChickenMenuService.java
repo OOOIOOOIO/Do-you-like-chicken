@@ -29,7 +29,7 @@ public class ChickenMenuService {
     private final ObjectMapper objectMapper;
 
     /**
-     * 가격순으로 정렬
+     * 가격순으로 치킨 리스트 정렬
      */
     public ChickenMenuInfoResListDto getAllChickenMenus() {
         if(redisUtil.isExists(MAIN_BY_PRICE.prefix())){
@@ -102,6 +102,8 @@ public class ChickenMenuService {
             return new ChickenMenuInfoResListDto(allMenusWithTotalLike);
         }
     }
+
+
 
     /**
      * menu 상세

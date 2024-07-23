@@ -1,7 +1,7 @@
 package com.sh.chicken.global.resolver;
 
-import com.sh.chicken.global.config.jwt.JwtClaimDto;
-import com.sh.chicken.global.config.jwt.JwtUtils;
+import com.sh.chicken.global.jwt.JwtClaimDto;
+import com.sh.chicken.global.jwt.JwtUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.MethodParameter;

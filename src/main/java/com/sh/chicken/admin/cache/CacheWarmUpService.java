@@ -10,6 +10,7 @@ import com.sh.chicken.domain.chickenmenu.domain.repository.ChickenMenuRepository
 import com.sh.chicken.domain.chickenmenu.domain.repository.ChickenMenuQueryRepositoryImpl;
 import com.sh.chicken.domain.user.domain.Users;
 import com.sh.chicken.domain.user.domain.repository.UserRepository;
+import com.sh.chicken.global.aop.log.LogTrace;
 import com.sh.chicken.global.util.redis.RedisUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -40,10 +41,9 @@ public class CacheWarmUpService {
     /**
      * 전체 menu List bulk insert
      */
+    @LogTrace
     public void pushAllChickenMenusBulkInsert(){
-        //redis에서 가져와서 db에 저장
 
-        //redis에서 삭제
 
         //가져오기
         List<ChickenMenuInfoResDto> allMenusWithTotalLikePriceDesc = chickenMenuQueryRepositoryImpl.getAllMenusWithTotalLikePriceDesc();
@@ -57,6 +57,7 @@ public class CacheWarmUpService {
     /**
      * 개별 menu info
      */
+    @LogTrace
     public void pushChickenMenuInfo(){
         List<ChickenMenuInfoResDto> allMenus = chickenMenuQueryRepositoryImpl.getAllMenus();
 
@@ -72,6 +73,7 @@ public class CacheWarmUpService {
     /**
      * 각 치킨 별 좋아요한 사람, bulk insert
      */
+    @LogTrace
     public void pushChickenMenuLikeBulkInsert(){
         Long totalMenuCount = getTotalMenuNum();
 

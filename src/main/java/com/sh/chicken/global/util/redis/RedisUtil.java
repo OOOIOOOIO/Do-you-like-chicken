@@ -151,8 +151,6 @@ public class RedisUtil {
 
     /**
      * Bulk insert menu list to redis
-     * @param key
-     * @param menuList
      */
     public void bulkInsertForMenuList(String key, List<ChickenMenuInfoResDto> menuList){
         RedisSerializer<String> stringSerializer = redisTemplate.getStringSerializer();
@@ -169,9 +167,7 @@ public class RedisUtil {
     }
 
     /**
-     * Bulk insert userId separately to redis
-     * @param key
-     * @param userIdList
+     * Bulk insert Likes to redis
      */
     public void bulkInsertForLikes(String key, List<Long> userIdList){
         RedisSerializer<String> stringSerializer = redisTemplate.getStringSerializer();

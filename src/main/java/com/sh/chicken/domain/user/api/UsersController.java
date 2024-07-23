@@ -1,6 +1,9 @@
 package com.sh.chicken.domain.user.api;
 
 import com.sh.chicken.api.jwt.controller.dto.AccessTokenResponseDto;
+import com.sh.chicken.api.mypage.controller.dto.req.MyPageUpdateReqDto;
+import com.sh.chicken.api.mypage.controller.dto.res.MyPageResDto;
+import com.sh.chicken.api.mypage.service.MyPageService;
 import com.sh.chicken.domain.chickenlike.application.ChickenLikeService;
 import com.sh.chicken.domain.common.dto.ChickenMenuAndLikesResDto;
 import com.sh.chicken.domain.user.api.dto.request.UsersSignInReqDto;
@@ -28,6 +31,7 @@ public class UsersController {
 
     private final UserService userService;
     private final ChickenLikeService chickenLikeService;
+    private final MyPageService myPageService;
     /**
      * 회원가입
      */
@@ -56,18 +60,35 @@ public class UsersController {
 
     }
 
+    /**
+     * 마이페이지
+     *
+     * 메인
+     */
+    @LogTrace
+    @GetMapping("/main")
+    public ResponseEntity<MyPageResDto> getMyChickenLikes(@UserInfoFromHeader UserInfoFromHeaderDto userInfoFromHeaderDto){
+        MyPageResDto myChickenMenuLikes = myPageService.getMyChickenMenuLikes(userInfoFromHeaderDto.getUserId());
+
+        return new ResponseEntity<>(myChickenMenuLikes, HttpStatus.OK);
+    }
+
 
     /**
      * 마이페이지
-     * <p>
-     * 좋아요한 치킨들 가져오기
+     *
+     * 닉네임 변경
      */
-    public ResponseEntity<List<ChickenMenuAndLikesResDto>> getChickenLikesInfos(@UserInfoFromHeader UserInfoFromHeaderDto userInfoFromHeaderDto) {
+    @LogTrace
+    @PatchMapping("/nickname")
+    public ResponseEntity<String> updateNickname(@RequestBody MyPageUpdateReqDto myPageUpdateReqDto, @UserInfoFromHeader UserInfoFromHeaderDto userInfoFromHeaderDto){
+        myPageService.updateNickname(userInfoFromHeaderDto.getUserId(), myPageUpdateReqDto.getNickname());
 
-        List<ChickenMenuAndLikesResDto> chickenMenusInfoList = chickenLikeService.getChickenMenusInfoList(userInfoFromHeaderDto.getUserId());
-
-        return new ResponseEntity<>(chickenMenusInfoList, HttpStatus.OK);
+        return new ResponseEntity<>("success", HttpStatus.OK);
     }
+
+
+
 
 
 }

@@ -24,7 +24,7 @@ public class MyPageController {
     private final MyPageService myPageService;
 
     @LogTrace
-    @PatchMapping("/info/update")
+    @PatchMapping("/info")
     public ResponseEntity<String> updateNickname(@RequestBody MyPageUpdateReqDto myPageUpdateReqDto, @UserInfoFromHeader UserInfoFromHeaderDto userInfoFromHeaderDto){
         myPageService.updateNickname(userInfoFromHeaderDto.getUserId(), myPageUpdateReqDto.getNickname());
 

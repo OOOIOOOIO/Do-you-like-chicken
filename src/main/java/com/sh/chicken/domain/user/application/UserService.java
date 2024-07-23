@@ -10,9 +10,9 @@ import com.sh.chicken.domain.user.domain.Role;
 import com.sh.chicken.domain.user.domain.Users;
 import com.sh.chicken.domain.user.domain.repository.RoleRepository;
 import com.sh.chicken.domain.user.domain.repository.UserRepository;
-import com.sh.chicken.global.config.jwt.JwtClaimDto;
-import com.sh.chicken.global.config.jwt.JwtInfoProperties;
-import com.sh.chicken.global.config.jwt.JwtUtils;
+import com.sh.chicken.global.jwt.JwtClaimDto;
+import com.sh.chicken.global.jwt.JwtInfoProperties;
+import com.sh.chicken.global.jwt.JwtUtils;
 import com.sh.chicken.global.exception.CustomException;
 import com.sh.chicken.global.exception.CustomErrorCode;
 import com.sh.chicken.global.util.redis.RedisUtil;
@@ -48,7 +48,6 @@ public class UserService {
     private final JwtUtils jwtUtils;
     private final RedisUtil redisUtil;
     private final JwtInfoProperties jwtInfoProperties;
-    private final ChickenLikeService chickenLikeService;
 
 
     /**

@@ -5,6 +5,7 @@ import com.sh.chicken.admin.cache.CacheWarmUpService;
 import com.sh.chicken.global.aop.log.LogTrace;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
 @RestController
+@EnableScheduling // 추가
 @RequiredArgsConstructor
 @RequestMapping("/admin/warmup")
 public class CacheWarmUpController {
@@ -22,7 +24,7 @@ public class CacheWarmUpController {
      * warm up 항목
      * - 전체 menu list
      * - 개별 menu info
-     * - 각 치킨 별 좋아요한 사람
+     * - 각 치킨 별 좋아요한 사람₩
      */
 
     @LogTrace
@@ -53,4 +55,7 @@ public class CacheWarmUpController {
         log.info("push likes to cache from db");
         cacheWarmUpService.pushChickenMenuLikeBulkInsert(); //맞춘 후 redis에 밀어넣기
     }
+
+
 }
+

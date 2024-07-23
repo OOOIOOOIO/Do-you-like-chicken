@@ -1,4 +1,4 @@
-package com.sh.chicken.global.config.jwt;
+package com.sh.chicken.global.jwt;
 
 import lombok.AccessLevel;
 import lombok.Getter;

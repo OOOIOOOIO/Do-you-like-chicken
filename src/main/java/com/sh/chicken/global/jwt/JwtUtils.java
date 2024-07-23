@@ -1,4 +1,4 @@
-package com.sh.chicken.global.config.jwt;
+package com.sh.chicken.global.jwt;
 
 import com.sh.chicken.global.exception.CustomException;
 import com.sh.chicken.global.exception.CustomErrorCode;
