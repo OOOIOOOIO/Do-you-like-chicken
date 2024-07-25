@@ -33,23 +33,29 @@ public interface ChickenMenuRepository extends JpaRepository<ChickenMenu, Long> 
 
 
 
-    // =========================
+    // =============================================================================================
+//asdf
 
-
-    // fetch join
+    /**
+     * JPA fetch join 사용
+     */
     @Query("select distinct cm from ChickenMenu cm " +
             "join fetch cm.chickenBrand " +
             "join fetch cm.chickenLikeList")
     List<ChickenMenu> findChickenMenuByFetchJoin();
 
-    // select subquery
+    /**
+     * native Select절 subquery 사용
+     */
     @Query(value = "SELECT cm.menu_id as menuId, cm.menu_name as menuName, cm.brand_name as brandName, cm.img, cm.price, cm.contents, " +
             "(select count(*) from chicken_like cl where cl.menu_id = cm.menu_id) as likes" +
             " from chicken_menu cm;", nativeQuery = true)
     List<ChickenMenuAndLikesResInterface> findChickenMenuBySelectSubQuery();
 
 
-    // join group by
+    /**
+     * native join절 group by 사용
+     */
     @Query(value = "SELECT cm.menu_id as menuId, cm.menu_name as menuName, cm.brand_name as brandName, cm.img, cm.price, cm.contents, cl.likes" +
             " from chicken_menu as cm " +
             " left join (select menu_id, count(*) as likes" +

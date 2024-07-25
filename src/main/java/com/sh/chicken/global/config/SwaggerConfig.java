@@ -21,7 +21,8 @@ public class SwaggerConfig {
                 .useDefaultResponseMessages(false)
                 .select()
                 .apis(RequestHandlerSelectors.any()) // 현재 RequestMapping으로 할당된 모든 URL 리스트 추출
-                .paths(PathSelectors.ant("/api/**")) // 그 중 /api로 시작하는 URL들만 필터릉
+                .paths(PathSelectors.ant("/**"))
+                // 그 중 /api로 시작하는 URL들만 필터릉
                 .build();
     }
 
