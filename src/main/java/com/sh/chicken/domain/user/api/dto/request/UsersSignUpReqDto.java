@@ -14,8 +14,6 @@ public class UsersSignUpReqDto {
     private String pw;
     private String nickname;
     private int sex;
-
-    @NotNull
     private Set<String> role;
 
     public UsersSignUpReqDto(String username, String pw, String nickname, int sex, Set<String> role) {

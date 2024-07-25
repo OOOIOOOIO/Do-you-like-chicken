@@ -171,7 +171,7 @@ public class UserService {
      */
     private boolean isDuplicateUsername(String username){
 
-        return !usersRepository.findByUsername(username).isPresent();
+        return usersRepository.findByUsername(username).isPresent();
     }
 
     public void updateNickname(long userId, String nickname){

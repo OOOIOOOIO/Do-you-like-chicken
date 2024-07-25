@@ -31,19 +31,12 @@ public class Users extends BaseTimeEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
 
-    @NotBlank
     @Size(max = 50)
     private String username;
 
-//    @NotBlank
-//    @Size(max = 50)
-//    private String email;
-    @NotBlank
     @Size(max = 120)
     private String pw;
-    @NotBlank
     private int sex;
-    @NotBlank
     private String nickname;
 
 

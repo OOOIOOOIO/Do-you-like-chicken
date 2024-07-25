@@ -20,6 +20,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Arrays;
 
 
 @Slf4j
@@ -37,10 +38,52 @@ public class AuthTokenFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
+        log.info("======= Request Path =========");
+        String requestURI = request.getRequestURI();
+        log.info("======= " + requestURI+" =======");
         checkToken(request);
 
 
         filterChain.doFilter(request, response);
+    }
+
+    @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+
+//        String[] excludePath = {"/api/token/**"};
+        String[] excludePath = {
+                "/api/users/signup",
+                "/api/users/signin",
+                "/api/issue/access-token",
+                "/admin/warmup/main",
+                "/admin/warmup/menus",
+                "/admin/warmup/consistency",
+                "/admin/excel/upload",
+                "/admin/excel/brand/upload",
+                "/admin/excel/menu/upload",
+                "/admin/excel/menu/upload/img",
+                "/favicon.ico",
+                "/swagger-ui/",
+                "/swagger-resources",
+                "/swagger-ui/index.html",
+                "/swagger-ui/favicon-16x16.png",
+                "/swagger-ui/favicon-32x32.png",
+                "/swagger-ui/swagger-initializer.js",
+                "/swagger-ui/swagger-ui-standalone-preset.js",
+                "/swagger-ui/swagger-ui-bundle.js",
+                "/swagger-ui/index.css",
+                "/swagger-ui/swagger-ui.css",
+                "/api-docs/swagger-config",
+                "/v3/api-docs",
+                "/api-docs/CHICKEN%20API",
+                "/error"
+
+
+        };
+        String path = request.getRequestURI();
+
+        return Arrays.stream(excludePath).anyMatch(path::startsWith);
+
     }
 
     private void checkToken(HttpServletRequest request) {

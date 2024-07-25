@@ -17,6 +17,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 
 @Configuration
@@ -26,7 +27,7 @@ public class WebSecurityConfig {  // extends WebSecurityConfigurerAdapte, Spring
 
     private final UserDetailsServiceImpl userDetailsService;
     private final AuthEntryPointJwt unauthorizedHandler;
-    private final AuthTokenFilter authenticationJwtTokenFilter;
+    private final AuthTokenFilter authTokenFilter;
     private final JwtExceptionHandlerFilter jwtExceptionHandlerFilter;
 
 
@@ -59,16 +60,21 @@ public class WebSecurityConfig {  // extends WebSecurityConfigurerAdapte, Spring
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-//                .antMatchers("/", "/css/**", "/images/**", "/js/**", "/h2-console/**", "/profile",).permitAll() //정적리소스 물어보기
-                .antMatchers("/api/users/**").permitAll()
-                .antMatchers("/api/issue").permitAll()
-//                .antMatchers("/api/**").permitAll()
+                .antMatchers("/**").permitAll()
+//                .antMatchers("/api/users/**").permitAll()
+//                .antMatchers("/api/issue").permitAll()
+//                .antMatchers("/admin/**").permitAll()
+//                .antMatchers("/favicon.ico").permitAll()
+//                .antMatchers("/swagger-ui/**").permitAll()
+//                .antMatchers("/api-docs/**").permitAll()
+//                .antMatchers("/error/**").permitAll()
+
                 .anyRequest().authenticated();
 
         http.authenticationProvider(authenticationProvider());
 
-        http.addFilterBefore(authenticationJwtTokenFilter, UsernamePasswordAuthenticationFilter.class); // 여기서 jwt 인증
-        http.addFilterBefore(jwtExceptionHandlerFilter, authenticationJwtTokenFilter.getClass()); // jwt 예외처리 필터
+        http.addFilterBefore(authTokenFilter, UsernamePasswordAuthenticationFilter.class); // 여기서 jwt 인증
+        http.addFilterBefore(jwtExceptionHandlerFilter, authTokenFilter.getClass()); // jwt 예외처리 필터
 
         return http.build();
 
